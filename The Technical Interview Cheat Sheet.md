@@ -218,15 +218,34 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
   - It repeats this process on the left side until it is comparing only two elements at which point the left side is sorted.
   - When the left side is finished sorting it performs the same operation on the right side.
 - Computer architecture favors the quicksort process.
+- good pivot value: median(arr[0], arr[-1], arr[n//2])
+- quick_sort(arr, h, t):
+    if len(arr) < 2:
+      return;
+    mid = partition(arr, h, t)
+    quick_sort(arr, h, mid-1)
+    quick_sort(arr, mid+1, t)
+  
+  partition(arr, h, t):
+    pivot = h
+    later = t
+    while pivot < later:
+      if arr[pivot+1] < arr[pivot]:
+        swap(arr, pivot+1, pivot)
+        pivot += 1
+      else:
+        swap(arr, pivot+1, later)
+        later -= 1
+
 
 #### What you need to know:
 - While it has the same Big O as (or worse in some cases) many other sorting algorithms it is often faster in practice than many other sorting algorithms, such as merge sort.
 - Know that it halves the data set by the average continuously until all the information is sorted.
 
 #### Time Complexity:
-- Best Case Sort: Merge Sort: O(n)
-- Average Case Sort: Merge Sort: O(n log n)
-- Worst Case Sort: Merge Sort: O(n^2)
+- Best Case Sort: O(n log n), pivot always middle value, max depth O(log n)
+- Average Case Sort: O(n log n)
+- Worst Case Sort:  O(n^2), pivot always min/max value
 
 ### **Bubble Sort**
 #### Definition:
