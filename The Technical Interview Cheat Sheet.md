@@ -154,19 +154,66 @@
 		the constructed tree always connected
 		```
 	- if edge weights all different, the Kruskal and Prim find the same MST
+
+
 ### **Hash Table or Hash Map**
 #### Definition:
 - Stores data with key value pairs.
-- **Hash functions** accept a key and return an output unique only to that specific key.
-  - This is known as **hashing**, which is the concept that an input and an output have a one-to-one correspondence to map information.
-  - Hash functions return a unique address in memory for that data.
+- **Hash functions** accept a key and return an output unique only to that specific key / given a value **hashcode** to be put in the table, returns an index of where to put it
+	- This is known as **hashing**, which is the concept that an input and an output have a one-to-one correspondence to map information.
+  	- Hash functions return a unique address in memory for that data.
+	- knows nothing about the table size, thus need to mod table_size
+	- perfct hash function: map each input to a different index in the table
+		- impossible
+		- don't know size(table)
+		- #possible values >> table size
+
 
 #### What you need to know:
 - Designed to optimize searching, insertion, and deletion.
 - **Hash collisions** are when a hash function returns the same output for two distinct inputs.
-  - All hash functions have this problem.
-  - This is often accommodated for by having the hash tables be very large.
+	- multiple inputs are hashed to the same bucket
+  	- All hash functions have this problem.
+  	- This is often accommodated for by having the hash tables be very large.
+	- solution: 
+		- **chaining**: each bucket contains a linkedlist of items hashed to it
+			- uses more memory
+			- worst case: O(n), all elements hashed to one bucket
+		- **open addressing**: each buckect contains one element, look in successive array element to find a place for new item
+			- when removing an element, mark it as NP (not present), so when searching for an element, could keep looking
+			- stop searching until it finds a null or the element you're searching for
+			- clustering: nearby hashes have similar probe sequences, so more collision
+			- linear probing: i, i+1, i+2, i+3, ..., problem: clustering
+			- quadratic probing: i, i+1, i+4, i+9, ..., requires the len(table) to be a prime so have access to every bucket
+- another problem: not all buckets get to used
 - Hashes are important for associative arrays and database indexing.
+- java.lang.Objects hashCode()
+	- returns memory address of the object by default
+	- if override equals, must override hashCode()
+	- a.equals(b) returns true iff a and b points to the same object
+	- if equal, then should have the same hashcode and hashed to the same bucket
+- **load factor** \lambda = # of entries / lenth of array
+	- if \lambda = 1/2, expected # of probes = 2
+	- if \lambda > 1/2, no longer expected constant operation
+- expected time of add, contains, remove:
+	- chaining
+		- worst case: O(n), all elements hashed to the first buckect, and clustering at the front
+		- if load factor small: O(1), most cases search length = 0, one case search length = n, 
+		```
+			((n-1)*0 + 1 * n) / len(table) = n/len(table) = load factor
+		````
+		- average chain length = load factor
+	- linear probing
+		- # of probes = 1/(1-\lambda)
+- **resizing**
+	- when load factor too big, create a new array twice the size
+	- move values into the new array
+	- ArrayList does the same
+	- dynanmic resizing: double the array, rehash all elements
+	- amortize the cost of resizing over the time for adding elements
+- HashMap in Java
+	- computes key.hashCode(), so no duplicate key
+	- default load factor = 0.75
 
 #### Time Complexity:
 - Indexing:         Hash Tables: O(1)
@@ -187,13 +234,13 @@
 - Designed to optimize searching and sorting.
 - A **degenerate tree** is an unbalanced tree, which if entirely one-sided is a essentially a linked list.
 - Used to make **binary search trees**.
-  - A binary tree that uses comparable keys to assign which direction a child is.
-  - all nodes in the left tree are smaller
-  - all nodes in the right tree are greater
-  - There can be no duplicate node.
-  - Because of the above it is more likely to be used as a data structure than a binary tree.
+	- A binary tree that uses comparable keys to assign which direction a child is.
+	- all nodes in the left tree are smaller
+	- all nodes in the right tree are greater
+	- There can be no duplicate node.
+	- Because of the above it is more likely to be used as a data structure than a binary tree.
 - **balanced BST**
-  - subtrees of any node are about the same height
+  	- subtrees of any node are about the same height
 - preorder traversal: root, left, right
 - inorder: left, root, right
 - postorder: left, right, root
@@ -211,10 +258,10 @@
 ### **Breadth First Search**
 #### Definition:
 - An algorithm that searches a tree (or graph) by searching levels of the tree first, starting at the root.
-  - It finds every node on the same level, most often moving left to right.
-  - While doing this it tracks the children nodes of the nodes on the current level.
-  - When finished examining a level it moves to the left most node on the next level.
-  - The bottom-right most node is evaluated last (the node that is deepest and is farthest right of it's level).
+	- It finds every node on the same level, most often moving left to right.
+	- While doing this it tracks the children nodes of the nodes on the current level.
+	- When finished examining a level it moves to the left most node on the next level.
+	- The bottom-right most node is evaluated last (the node that is deepest and is farthest right of it's level).
 ```
 def bfs(v):
 	q = [v]
@@ -230,8 +277,8 @@ def bfs(v):
 #### What you need to know:
 - Optimal for searching a tree that is wider than it is deep.
 - Uses a queue to store information about the tree while it traverses a tree.
-  - Because it uses a queue it is more memory intensive than **depth first search**.
-  - The queue uses more memory because it needs to stores pointers
+	- Because it uses a queue it is more memory intensive than **depth first search**.
+	- The queue uses more memory because it needs to stores pointers
 
 #### Time Complexity:
 - Search: Breadth First Search: O(V + E)
@@ -241,10 +288,10 @@ def bfs(v):
 ### **Depth First Search**
 #### Definition:
 - An algorithm that searches a tree (or graph) by searching depth of the tree first, starting at the root.
-  - It traverses left down a tree until it cannot go further.
-  - Once it reaches the end of a branch it traverses back up trying the right child of nodes on that branch, and if possible left from the right children.
-  - When finished examining a branch it moves to the node right of the root then tries to go left on all it's children until it reaches the bottom.
-  - The right most node is evaluated last (the node that is right of all it's ancestors).
+	- It traverses left down a tree until it cannot go further.
+	- Once it reaches the end of a branch it traverses back up trying the right child of nodes on that branch, and if possible left from the right children.
+	- When finished examining a branch it moves to the node right of the root then tries to go left on all it's children until it reaches the bottom.
+	- The right most node is evaluated last (the node that is right of all it's ancestors).
 ```
 def dfs(v):
 	s = [v]
@@ -260,8 +307,8 @@ def dfs(v):
 #### What you need to know:
 - Optimal for searching a tree that is deeper than it is wide.
 - Uses a stack to push nodes onto.
-  - Because a stack is LIFO it does not need to keep track of the nodes pointers and is therefore less memory intensive than breadth first search.
-  - Once it cannot go further left it begins evaluating the stack.
+	- Because a stack is LIFO it does not need to keep track of the nodes pointers and is therefore less memory intensive than breadth first search.
+	- Once it cannot go further left it begins evaluating the stack.
 
 #### Time Complexity:
 - Search: Depth First Search: O(|E| + |V|)
@@ -278,10 +325,10 @@ def dfs(v):
 	- adjacency matrix: O(|V|^2)
 
 #### Nuances:
-  - Because BFS uses queues to store information about the nodes and its children, it could use more memory than is available on your computer. (But you probably won't have to worry about this.)
-  - If using a DFS on a tree that is very deep you might go unnecessarily deep in the search. See [xkcd](http://xkcd.com/761/) for more information.
-  - Breadth First Search tends to be a looping algorithm.
-  - Depth First Search tends to be a recursive algorithm.
+- Because BFS uses queues to store information about the nodes and its children, it could use more memory than is available on your computer. (But you probably won't have to worry about this.)
+- If using a DFS on a tree that is very deep you might go unnecessarily deep in the search. See [xkcd](http://xkcd.com/761/) for more information.
+- Breadth First Search tends to be a looping algorithm.
+- Depth First Search tends to be a recursive algorithm.
 
 
 ## Efficient Sorting Basics
@@ -399,8 +446,8 @@ def partition(arr, h, t):
 ### **Bubble Sort**
 #### Definition:
 - A comparison based sorting algorithm
-  - It iterates left to right comparing every couplet, moving the smaller element to the left.
-  - It repeats this process until it no longer moves an element to the left.
+	- It iterates left to right comparing every couplet, moving the smaller element to the left.
+	- It repeats this process until it no longer moves an element to the left.
 
 #### What you need to know:
 - While it is very simple to implement, it is the least efficient of these three sorting methods.
@@ -453,21 +500,21 @@ def find_color(vs):
 ### **Recursive Algorithms**
 #### Definition:
 - An algorithm that calls itself in its definition.
-  - **Recursive case** a conditional statement that is used to trigger the recursion.
-  - **Base case** a conditional statement that is used to break the recursion.
+	- **Recursive case** a conditional statement that is used to trigger the recursion.
+	- **Base case** a conditional statement that is used to break the recursion.
 
 #### What you need to know:
 - **Stack level too deep** and **stack overflow**.
-  - If you've seen either of these from a recursive algorithm, you messed up.
-  - It means that your base case was never triggered because it was faulty or the problem was so massive you ran out of alloted memory.
-  - Knowing whether or not you will reach a base case is integral to correctly using recursion.
-  - Often used in Depth First Search
+	- If you've seen either of these from a recursive algorithm, you messed up.
+	- It means that your base case was never triggered because it was faulty or the problem was so massive you ran out of alloted memory.
+	- Knowing whether or not you will reach a base case is integral to correctly using recursion.
+	- Often used in Depth First Search
 
 
 ### **Iterative Algorithms**
 #### Definition:
 - An algorithm that is called repeatedly but for a finite number of times, each time being a single iteration.
-  - Often used to move incrementally through a data set.
+  	- Often used to move incrementally through a data set.
 
 #### What you need to know:
 - Generally you will see iteration as loops, for, while, and until statements.
@@ -476,8 +523,8 @@ def find_color(vs):
 
 #### Recursion Vs. Iteration
 - The differences between recursion and iteration can be confusing to distinguish since both can be used to implement the other. But know that,
-  - Recursion is, usually, more expressive and easier to implement.
-  - Iteration uses less memory.
+	- Recursion is, usually, more expressive and easier to implement.
+	- Iteration uses less memory.
 - **Functional languages** tend to use recursion. (i.e. Haskell)
 - **Imperative languages** tend to use iteration. (i.e. Ruby)
 - Check out this [Stack Overflow post](http://stackoverflow.com/questions/19794739/what-is-the-difference-between-iteration-and-recursion) for more info.
@@ -497,11 +544,11 @@ recursive method (array, n)       | iterative method (array)
 #### Definition:
 - An algorithm that, while executing, selects only the information that meets a certain criteria.
 - The general five components, taken from [Wikipedia](http://en.wikipedia.org/wiki/Greedy_algorithm#Specifics):
-  - A candidate set, from which a solution is created.
-  - A selection function, which chooses the best candidate to be added to the solution.
-  - A feasibility function, that is used to determine if a candidate can be used to contribute to a solution.
-  - An objective function, which assigns a value to a solution, or a partial solution.
-  - A solution function, which will indicate when we have discovered a complete solution.
+	- A candidate set, from which a solution is created.
+	- A selection function, which chooses the best candidate to be added to the solution.
+	- A feasibility function, that is used to determine if a candidate can be used to contribute to a solution.
+	- An objective function, which assigns a value to a solution, or a partial solution.
+	- A solution function, which will indicate when we have discovered a complete solution.
 
 #### What you need to know:
 - Used to find the expedient, though non-optimal, solution for a given problem.
@@ -511,11 +558,11 @@ recursive method (array, n)       | iterative method (array)
 #### Pseudo Code of a Greedy Algorithm to Find Largest Difference of any Two Numbers in an Array.
 ```
 greedy algorithm (array)
-  var largest difference = 0
-  var new difference = find next difference (array[n], array[n+1])
-  largest difference = new difference if new difference is > largest difference
-  repeat above two steps until all differences have been found
-  return largest difference
+	var largest difference = 0
+	var new difference = find next difference (array[n], array[n+1])
+	largest difference = new difference if new difference is > largest difference
+	repeat above two steps until all differences have been found
+	return largest difference
 ```
 
 This algorithm never needed to compare all the differences to one another, saving it an entire iteration.
