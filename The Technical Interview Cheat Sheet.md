@@ -26,7 +26,7 @@
 - Indexing:         Linear array: O(1),      Dynamic array: O(1)
 - Search:           Linear array: O(n),      Dynamic array: O(n)
 - Optimized Search: Linear array: O(log n), Dynamic array: O(log n)
-- Insertion:        Linear array: n/a        Dynamic array: O(n)
+- Insertion:        Linear array: n/a        Dynamic array: O(n) 
 
 
 ### **Linked List**
@@ -60,10 +60,10 @@
 
 #### What you need to know:
 - used to implement priority queue
-- add(e)
+- ``add(e)``
 	- put the element at the leftmost empty node
 	- bubble up while greater than its parent
-- poll(e)
+- ``poll(e)``
 	- save root in a local variable
 	- assign last value to root, delete last node
 	- bubble down: while less than a child, swap with the greater child
@@ -111,9 +111,11 @@
 - **spanning tree** of a connected graph (V, E) is a subgraph that is a tree
 	- same set of vertices
 	- maximal set of edges that contains no cycles / minimal set of edges that connect all vertices
-	- find spannning tree: 
-		- start with the whole graph
-		- while there is still 
+	```
+	find spannning tree: 
+		start with the whole graph
+		while there is still 
+	```
 
 ### **Hash Table or Hash Map**
 #### Definition:
@@ -133,6 +135,7 @@
 - Indexing:         Hash Tables: O(1)
 - Search:           Hash Tables: O(1)
 - Insertion:        Hash Tables: O(1)
+
 
 ### **Binary Tree**
 #### Definition:
@@ -158,7 +161,6 @@
 - inorder: left, root, right
 - postorder: left, right, root
 
-
 #### Time Complexity:
 - Indexing:  Binary Search Tree: O(log n)
 - Search:    Binary Search Tree: O(log n)
@@ -176,6 +178,17 @@
   - While doing this it tracks the children nodes of the nodes on the current level.
   - When finished examining a level it moves to the left most node on the next level.
   - The bottom-right most node is evaluated last (the node that is deepest and is farthest right of it's level).
+```
+def bfs(v):
+	q = [v]
+	visited = {v}
+	while q:
+		curr = q.pop(0)
+		if curr not in visited:
+			visited.add(curr)
+			for elem in curr.neighbors:
+				q.append(elem)
+```
 
 #### What you need to know:
 - Optimal for searching a tree that is wider than it is deep.
@@ -195,6 +208,17 @@
   - Once it reaches the end of a branch it traverses back up trying the right child of nodes on that branch, and if possible left from the right children.
   - When finished examining a branch it moves to the node right of the root then tries to go left on all it's children until it reaches the bottom.
   - The right most node is evaluated last (the node that is right of all it's ancestors).
+```
+def dfs(v):
+	s = [v]
+	visited = {v}
+	while s:
+		curr = s.pop()
+		if curr not in visited:
+			visited.add(curr)
+			for elem in curr.neighbors:
+				s.append(elem)
+```
 
 #### What you need to know:
 - Optimal for searching a tree that is deeper than it is wide.
@@ -207,32 +231,10 @@
 - E is number of edges
 - V is number of vertices
 
-
 #### Breadth First Search Vs. Depth First Search
 - The simple answer to this question is that it depends on the size and shape of the tree.
   - For wide, shallow trees use Breadth First Search
   - For deep, narrow trees use Depth First Search
-  
-```
-def dfs(v):
-	s = [v]
-	visited = {v}
-	while s:
-		curr = s.pop()
-		if curr not in visited:
-			visited.add(curr)
-			for elem in curr.neighbors:
-				s.append(elem)
-```
-- def bfs(v):
-	q = [v]
-	visited = {v}
-	while q:
-		curr = q.pop(0)
-		if curr not in visited:
-			visited.add(curr)
-			for elem in curr.neighbors:
-				q.append(elem)
 - space: O(|V|)
 - time: 
 	- adjacency list: O(|V| + |E|)
@@ -249,12 +251,14 @@ def dfs(v):
 ### **Insertion Sort**
 - In each iteration, push arr[i] to its sorted position in arr[0..i], swap arr[i] with arr[i-1] if arr[i] < arr[i-1], then increase i
 - stable: two equal values stay in the same relative position
-- insertionSort(arr):
+```
+def insertionSort(arr):
 	for i in range(len(arr)):
 		k = i
 		while k > 0 and arr[k-1] > arr[k]:
 			swap(arr, k-1, k)
 			k -= 1
+```
 
 #### Time Complexity:
 - Worst case: O(n^2), reverse-sorted input
@@ -265,11 +269,12 @@ def dfs(v):
 ### **Selection Sort**
 - Each iteration, swap min value of the latter section with arr[i]
 - not stable
-- selectionSort(arr):
+```
+def selectionSort(arr):
 	for i in range(len(arr)):
 		m = index of min(arr[i:])
 		swap(arr, i, m)
-
+```
 
 #### Time Complexity:
 - Worst case: O(n^2)
@@ -284,7 +289,8 @@ def dfs(v):
   - Compares each number one at a time, moving the smallest number to left of the pair.
   - Once all pairs sorted it then compares left most elements of the two leftmost pairs creating a sorted group of four with the smallest numbers on the left and the largest ones on the right.
   - This process is repeated until there is only one set.
-- mergeSort(arr, h, t):
+```
+def mergeSort(arr, h, t):
     if len(arr) < 2:
         return
 	mid = (h + t) // 2
@@ -292,7 +298,7 @@ def dfs(v):
 	mergeSort(arr, mid+1, t)
 	merge(arr, h, mid, t)
 
-- merge(arr, h, mid, t):
+def merge(arr, h, mid, t):
 	left = arr[h:mid+1]
 	right = arr[mid+1:t]
 	i = j = 0
@@ -304,7 +310,7 @@ def dfs(v):
 		arr[k] = right[j]
 		j += 1
 	k += 1
-
+```
 #### What you need to know:
 - This is one of the most basic sorting algorithms.
 - Know that it divides all the data into as small possible sets then compares them.
@@ -323,14 +329,15 @@ def dfs(v):
   - When the left side is finished sorting it performs the same operation on the right side.
 - Computer architecture favors the quicksort process.
 - good pivot value: median(arr[0], arr[-1], arr[n//2])
-- quickSort(arr, h, t):
+```
+def quickSort(arr, h, t):
     if len(arr) < 2:
     	return;
     mid = partition(arr, h, t)
     quickSort(arr, h, mid-1)
     quickSort(arr, mid+1, t)
   
-- partition(arr, h, t):
+def partition(arr, h, t):
 	pivot = h
 	later = t
 	while pivot < later:
@@ -340,7 +347,7 @@ def dfs(v):
 		else:
 			swap(arr, pivot+1, later)
 			later -= 1
-
+```
 
 #### What you need to know:
 - While it has the same Big O as (or worse in some cases) many other sorting algorithms it is often faster in practice than many other sorting algorithms, such as merge sort.
@@ -381,14 +388,16 @@ def dfs(v):
 
 ### **Topological Sort**
 - delete a vertex with indegree 0 will not remove any cycle
-- def topological_sort():
+```
+def topological_sort():
 	k = 0
 	while there is a node of indegree 0:
 		label it as k
 		delete it and all edges leaving it
 		k += 1
-
+```
 ### **Graph Coloring**
+```
 def color():
 	for each vertex v in graph:
 		c = find_color(v.neighbors)
@@ -400,7 +409,7 @@ def find_color(vs):
 		if v.color < len(used):
 			used[v.color] += 1
 	return smallest c such that used[c] == 0
-
+```
 
 
 ## Basic Types of Algorithms
