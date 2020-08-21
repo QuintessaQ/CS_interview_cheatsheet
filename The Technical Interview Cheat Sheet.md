@@ -53,7 +53,7 @@
 - Optimized Search: Linked Lists: O(n)
 - Insertion:        Linked Lists: O(1)
 
-### Heap
+### ***Heap***
 #### Definition:
 - completeness: Every level (except last) completely filled. Nodes on bottom level are as far left as possible.
 - heap order: maxHeap: every element <= its parent, but nigger element can be deeper in the tree
@@ -76,7 +76,29 @@
 - contains: O(n)
 - remove: O(n)
 
+### ***Graph***
+- two vertices are adjacent if connected by one edge
+- common graph representation: 
+	- adjacency list: e.g. map from vertice to its neighbors; linkedlist, where each node contains vertex label and linkedlist of neighbors; array where each element is a linkedlist
+	- adjacency matrix: arr[i][j] == 1 iff there is an edge from i to j
+- space: 
+	- adjacency list: O(|V| + |E|)
+	- adjacency matrix: O(|V|^2)
+- time to visit all edges:
+	- adjacency list: O(|V| + |E|)
+	- adjacency matrix: O(|V|^2)
+- time to determine whether an edge from v1 to v2 exists:
+	- adjacency list: O(|V| + outdegree of v1)
+	- adjacency matrix: O(1)
+- in a directed graph: 
+	- outdegree of u: #edges where u is the source
+	- indegree of u: #edges where u is the sink
+- in an undirected graph: 
+	- degree of u: #edges where u is an endpoint
+- sparse: |E| << |V|^2, adjacency list better
+- dense: |E| ~ |V|^2, adjacency matrix better
 
+ 
 
 ### **Hash Table or Hash Map**
 #### Definition:
@@ -128,6 +150,9 @@
 - Insertion: Binary Search Tree: O(log n)
 
 
+
+
+
 ## Search Basics
 ### **Breadth First Search**
 #### Definition:
@@ -172,6 +197,29 @@
 - The simple answer to this question is that it depends on the size and shape of the tree.
   - For wide, shallow trees use Breadth First Search
   - For deep, narrow trees use Depth First Search
+- def dfs(v):
+	s = [v]
+	visited = {v}
+	while s:
+		curr = s.pop()
+		if curr not in visited:
+			visited.add(curr)
+			for elem in curr.neighbors:
+				s.append(elem)
+
+- def bfs(v):
+	q = [v]
+	visited = {v}
+	while q:
+		curr = q.pop(0)
+		if curr not in visited:
+			visited.add(curr)
+			for elem in curr.neighbors:
+				q.append(elem)
+- space: O(|V|)
+- time: 
+	- adjacency list: O(|V| + |E|)
+	- adjacency matrix: O(|V|^2)
 
 #### Nuances:
   - Because BFS uses queues to store information about the nodes and its children, it could use more memory than is available on your computer. (But you probably won't have to worry about this.)
