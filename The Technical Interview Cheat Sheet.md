@@ -1,4 +1,12 @@
 ## Data Structure Basics
+### Abstract Data Types v.s. implementations
+- list: arraylist, linkedlist
+- set: hashset, treeset
+- map: hashmap, treemap
+- stack: linkedlist
+- queue: linkedlist
+- priority queue: heap
+
 
 ### **Array**
 #### Definition:
@@ -26,6 +34,7 @@
 - Stores data with **nodes** that point to other nodes.
   - Nodes, at its most basic it has one datum and one reference (another node).
   - A linked list _chains_ nodes together by pointing one node's reference towards another node.
+- header: contain size and first node of the LinkedList
 
 #### What you need to know:
 - Designed to optimize insertion and deletion, slow at indexing and searching.
@@ -43,6 +52,30 @@
 - Search:           Linked Lists: O(n)
 - Optimized Search: Linked Lists: O(n)
 - Insertion:        Linked Lists: O(1)
+
+### Heap
+#### Definition:
+- completeness: Every level (except last) completely filled. Nodes on bottom level are as far left as possible.
+- heap order: maxHeap: every element <= its parent, but nigger element can be deeper in the tree
+
+#### What you need to know:
+- used to implement priority queue
+- add(e)
+	- put the element at the leftmost empty node
+	- bubble up while greater than its parent
+- poll(e)
+	- save root in a local variable
+	- assign last value to root, delete last node
+	- bubble down: while less than a child, swap with the greater child
+- children of node k: 2k+1, 2k+2
+
+#### Time Complexity: 
+- add: O(log n)
+- poll: O(log n)
+- peek: O(1)
+- contains: O(n)
+- remove: O(n)
+
 
 
 ### **Hash Table or Hash Map**
@@ -64,22 +97,30 @@
 - Search:           Hash Tables: O(1)
 - Insertion:        Hash Tables: O(1)
 
-
 ### **Binary Tree**
 #### Definition:
 - Is a tree like data structure where every node has at most two children.
   - There is one left and right child node.
 
 #### What you need to know:
+- depth: the length of the path to the root
+- height: length of the longest path from the root to a leaf
+- perfect tree: #node = 2^{h+1} - 1
+- complete binary tree: Every level, except last, is completely filled, nodes on bottom level as far left as possible. No holes.
 - Designed to optimize searching and sorting.
 - A **degenerate tree** is an unbalanced tree, which if entirely one-sided is a essentially a linked list.
-- They are comparably simple to implement than other data structures.
 - Used to make **binary search trees**.
   - A binary tree that uses comparable keys to assign which direction a child is.
-  - Left child has a key smaller than it's parent node.
-  - Right child has a key greater than it's parent node.
+  - all nodes in the left tree are smaller
+  - all nodes in the right tree are greater
   - There can be no duplicate node.
   - Because of the above it is more likely to be used as a data structure than a binary tree.
+- **balanced BST**
+  - subtrees of any node are about the same height
+- preorder traversal: root, left, right
+- inorder: left, root, right
+- postorder: left, right, root
+
 
 #### Time Complexity:
 - Indexing:  Binary Search Tree: O(log n)
@@ -268,6 +309,10 @@
 - Java.util.Arrays has a method sort(array)
 	- primitives: quickSort
 	- objects implementing Comparable: timSort (modified mergeSort)
+
+### **Heap Sort**
+- make the array into a max heap
+- pull elements at the top, put it at the end of the array
 
 ## Basic Types of Algorithms
 ### **Recursive Algorithms**
