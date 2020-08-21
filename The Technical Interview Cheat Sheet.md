@@ -1,41 +1,3 @@
-# ANNOUNCEMENT
-I have moved this over to the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-Interview-Cheat-Sheet) and has been expanded and even has code challenges you can run and practice against!
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-The below is just for some preservation for those who stumble across here, but is no longer kept up to date.
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-## Studying for a Tech Interview Sucks, so Here's a Cheat Sheet to Help
-
-This list is meant to be both a quick guide and reference for further research into these topics. It's basically a summary of that comp sci course you never took or forgot about, so there's no way it can cover everything in depth.
-
-## Contributing
-Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-Interview-Cheat-Sheet)
-
 ## Data Structure Basics
 
 ### **Array**
@@ -181,18 +143,33 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
 ### **Insertion Sort**
 - In each iteration, push arr[i] to its sorted position in arr[0..i], swap arr[i] with arr[i-1] if arr[i] < arr[i-1], then increase i
 - stable: two equal values stay in the same relative position
+- insertionSort(arr):
+	for i in range(len(arr)):
+		k = i
+		while k > 0 and arr[k-1] > arr[k]:
+			swap(arr, k-1, k)
+			k -= 1
+
 #### Time Complexity:
 - Worst case: O(n^2), reverse-sorted input
 - Best case: O(n), sorted input
 - Average case: O(n^2)
+- Space: O(1)
 
 ### **Selection Sort**
 - Each iteration, swap min value of the latter section with arr[i]
 - not stable
+- selectionSort(arr):
+	for i in range(len(arr)):
+		m = index of min(arr[i:])
+		swap(arr, i, m)
+
+
 #### Time Complexity:
 - Worst case: O(n^2)
 - Best case: O(n^2)
 - Average case: O(n^2)
+- Space: O(1)
 
 ### **Merge Sort**
 #### Definition:
@@ -201,15 +178,36 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
   - Compares each number one at a time, moving the smallest number to left of the pair.
   - Once all pairs sorted it then compares left most elements of the two leftmost pairs creating a sorted group of four with the smallest numbers on the left and the largest ones on the right.
   - This process is repeated until there is only one set.
+- mergeSort(arr, h, t):
+    if len(arr) < 2:
+        return
+	mid = (h + t) // 2
+	mergeSort(arr, h, mid)
+	mergeSort(arr, mid+1, t)
+	merge(arr, h, mid, t)
+
+- merge(arr, h, mid, t):
+	left = arr[h:mid+1]
+	right = arr[mid+1:t]
+	i = j = 0
+	k = h
+	if left[i] < right[j]:
+		arr[k] = left[i]
+		i += 1
+	else:
+		arr[k] = right[j]
+		j += 1
+	k += 1
 
 #### What you need to know:
 - This is one of the most basic sorting algorithms.
 - Know that it divides all the data into as small possible sets then compares them.
 
 #### Time Complexity:
-- Best Case Sort: Merge Sort: O(n)
-- Average Case Sort: Merge Sort: O(n log n)
-- Worst Case Sort: Merge Sort: O(n log n)
+- Best Case Sort: O(n)
+- Average Case Sort: O(n log n)
+- Worst Case Sort: O(n log n)
+- Space: O(n)
 
 ### **Quicksort**
 #### Definition:
@@ -219,23 +217,23 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
   - When the left side is finished sorting it performs the same operation on the right side.
 - Computer architecture favors the quicksort process.
 - good pivot value: median(arr[0], arr[-1], arr[n//2])
-- quick_sort(arr, h, t):
+- quickSort(arr, h, t):
     if len(arr) < 2:
-      return;
+    	return;
     mid = partition(arr, h, t)
-    quick_sort(arr, h, mid-1)
-    quick_sort(arr, mid+1, t)
+    quickSort(arr, h, mid-1)
+    quickSort(arr, mid+1, t)
   
-  partition(arr, h, t):
-    pivot = h
-    later = t
-    while pivot < later:
-      if arr[pivot+1] < arr[pivot]:
-        swap(arr, pivot+1, pivot)
-        pivot += 1
-      else:
-        swap(arr, pivot+1, later)
-        later -= 1
+- partition(arr, h, t):
+	pivot = h
+	later = t
+	while pivot < later:
+		if arr[pivot+1] < arr[pivot]:
+			swap(arr, pivot+1, pivot)
+			pivot += 1
+		else:
+			swap(arr, pivot+1, later)
+			later -= 1
 
 
 #### What you need to know:
@@ -246,6 +244,7 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
 - Best Case Sort: O(n log n), pivot always middle value, max depth O(log n)
 - Average Case Sort: O(n log n)
 - Worst Case Sort:  O(n^2), pivot always min/max value
+- Space: O(log n)
 
 ### **Bubble Sort**
 #### Definition:
@@ -266,6 +265,9 @@ Please see the [Tech Interview Cheat Sheet Repo](https://github.com/TSiege/Tech-
 - Quicksort is likely faster in practice.
 - Merge Sort divides the set into the smallest possible groups immediately then reconstructs the incrementally as it sorts the groupings.
 - Quicksort continually divides the set by the average, until the set is recursively sorted.
+- Java.util.Arrays has a method sort(array)
+	- primitives: quickSort
+	- objects implementing Comparable: timSort (modified mergeSort)
 
 ## Basic Types of Algorithms
 ### **Recursive Algorithms**
