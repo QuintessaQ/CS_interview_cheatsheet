@@ -1,2 +1,2 @@
 # CS_interview_cheatsheet
-help me
+help me find a job plssss

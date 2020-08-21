@@ -97,8 +97,23 @@
 	- degree of u: #edges where u is an endpoint
 - sparse: |E| << |V|^2, adjacency list better
 - dense: |E| ~ |V|^2, adjacency matrix better
+- topological order: and ordering of verticies as v1, v2, ..., vn, such that for every edge (vi, vj), it holds that i < j.
+	- directed graph can be topologically ordered iff no cycle
+	- acyclic: no cycle
+- planar: can be drawn on the plane w/o any edge crossin
+	- every planer graph is 4-colorable
 
- 
+### **Tree**
+- an undirected graph if there is exactly one simple path between every vertex
+- |E| = |V| - 1
+- connected
+- no cycles
+- **spanning tree** of a connected graph (V, E) is a subgraph that is a tree
+	- same set of vertices
+	- maximal set of edges that contains no cycles / minimal set of edges that connect all vertices
+	- find spannning tree: 
+		- start with the whole graph
+		- while there is still 
 
 ### **Hash Table or Hash Map**
 #### Definition:
@@ -197,7 +212,9 @@
 - The simple answer to this question is that it depends on the size and shape of the tree.
   - For wide, shallow trees use Breadth First Search
   - For deep, narrow trees use Depth First Search
-- def dfs(v):
+  
+```
+def dfs(v):
 	s = [v]
 	visited = {v}
 	while s:
@@ -206,7 +223,7 @@
 			visited.add(curr)
 			for elem in curr.neighbors:
 				s.append(elem)
-
+```
 - def bfs(v):
 	q = [v]
 	visited = {v}
@@ -361,6 +378,30 @@
 ### **Heap Sort**
 - make the array into a max heap
 - pull elements at the top, put it at the end of the array
+
+### **Topological Sort**
+- delete a vertex with indegree 0 will not remove any cycle
+- def topological_sort():
+	k = 0
+	while there is a node of indegree 0:
+		label it as k
+		delete it and all edges leaving it
+		k += 1
+
+### **Graph Coloring**
+def color():
+	for each vertex v in graph:
+		c = find_color(v.neighbors)
+		color v with c
+
+def find_color(vs):
+	used = [0] * (vs.length + 1)
+	for v in vs:
+		if v.color < len(used):
+			used[v.color] += 1
+	return smallest c such that used[c] == 0
+
+
 
 ## Basic Types of Algorithms
 ### **Recursive Algorithms**
