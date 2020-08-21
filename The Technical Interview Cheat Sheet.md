@@ -111,12 +111,49 @@
 - **spanning tree** of a connected graph (V, E) is a subgraph that is a tree
 	- same set of vertices
 	- maximal set of edges that contains no cycles / minimal set of edges that connect all vertices
-	```
-	find spannning tree: 
-		start with the whole graph
-		while there is still 
-	```
+	- ```
+		find spannning tree (subtractive): 
+			start with the whole graph
+			while there is still a cycle:
+				pick an edge from it and delete, graph remains connected
+		```
+	- but will throw out too many edges if graph dense
+	- ```
+		find spannning tree (additive): 
+			while graph not connected:
+				choose an edge that connects two components, and add it
+				graph still has no cycle
+		```
 
+- check if a graph has cycle, similar to dfs:
+	```
+	def has_cycle(v):
+		s = [v]
+		visited = {v}
+		while s:
+			curr = s.pop()
+			if curr in visited:
+				return True
+			for elem in v.neighbors:
+				s.append(elem)
+		return False
+	```
+- **minimum spanning tree (MST)**
+	- suppose edge has weight > 0
+	- sum of weights is minimum
+- find MST
+	- Kruskal's algorithm:
+		```
+		start with all nodes and no edges
+		each step, add an edge that does not form a cycle with minimum weight 
+		```
+	- Prim's algorithm
+		```
+		start with one node
+		each step, add an edge connected to the starting node with minimum weight
+		the constructed tree always connected
+		```
+	- if edge weights all different, the Kruskal and Prim find the same MST
 ### **Hash Table or Hash Map**
 #### Definition:
 - Stores data with key value pairs.
