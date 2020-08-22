@@ -781,6 +781,65 @@ for k, v in pairs:
             del self[oldest]
 	```
 
+### **itertools**
+#### combinations
+- ``combinations(iterable, r)`` return r length subsequences of elements from iterable
+- inputs treated as unique based on their position, not value
+- returns \frac{n!}{r!(n-r)!} items
+- 
+	```
+	letters = 'abcdef'
+	comb = combinations(letters, 3)
+	#select 3 from letters
+	y = [''.join(c) for c in comb]
+	```
+- ``combinations_with_replacement(iterable, r)`` allow individual elements to be repeated more than once
+- returns \frac{(n+r-1)!}{r!(n-1)!} items
+	```
+	list(combinations_with_replacement(range(1, 5), 2))
+	# [(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)]
+	```
+#### permutations
+- ``permutations(iterable[, r])`` return successive r length permutations of elements in the iterable
+-
+	```
+	permutations([1,2,3])
+	# (1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)
+
+	permutations([1,2,3], 2)
+	# 1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)
+	```
+
+#### product
+- ``product(*iterables[, r])`` return the cartesian product of input iterables
+- `product(A, B)` is the same as `[(x, y) for x in A for y in B]`
+- 
+	```
+	arr1 = [1,2,3]
+	arr2 = [5,6,7]
+	product(arr1, arr2)
+	# [(1, 5), (1, 6), (1, 7), (2, 5), (2, 6), (2, 7), (3, 5), (3, 6), (3, 7)]
+	```
+
+
+#### groupby
+- ``groupby(iterable[, key])`` returns consecutive keys and groups from the iterable, key is a function that calculates keys for each elem in the iterable
+- 
+	```
+	L = [("a", 1), ("a", 2), ("b", 3), ("b", 4)] 
+	key_func = lambda x: x[0] 
+	
+	for key, group in groupby(L, key_func): 
+		print(key + " :", list(group)) 
+
+	# a : [('a', 1), ('a', 2)]
+	# b : [('b', 3), ('b', 4)]
+
+	lst = [1,1,2,2,2,3,3,1]
+	groupby(lst)
+	#[(1, 2), (2, 3), (3, 2), (1, 1)]
+	```
+
 ### **built-in functions**
 - ``abs()``
 - ``all(iterable)`` returns True if all elements in the iterable are true, or iterable empty
@@ -824,9 +883,14 @@ for k, v in pairs:
 - random number generation
 
 
-### **itertools**
+
 ### **math**
 ### **Other tricks**
 - conditions can be chained: ``a < b == c``
+
+
+todo:
+add more from algo: dp, greedy
+leetcode tricks
 
 
