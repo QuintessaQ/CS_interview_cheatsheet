@@ -579,7 +579,11 @@ This algorithm never needed to compare all the differences to one another, savin
 - ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
 - ``list.count(x)`` returns # of x in the list
 - ``list.sort(key = None, reverse = False)`` sort
-
+- ``del``
+	```
+	del arr[0]
+	del arr[2:4]
+	```
 #### Miscellaneous
 - could use list as stack or queue
 - use it as queue not efficient, use 	`collections.deque` instead.
@@ -588,10 +592,75 @@ This algorithm never needed to compare all the differences to one another, savin
 
 
 
-
-### **Tuple**
-### **Dictionary**
+### **Tuple & Sequences**
+- tuples are immutable
+- tuple may contain 1 or 0 items
+	```
+	empty_tuple = ()
+	singleton = ('hi', )
+	```
+- tuple unpacking: ``x, y, z = ('hi', 'hello', 'hey')``
 ### **Set**
+```
+d = {} #this creates empty dict
+s = set() 
+
+# put letters in a string to a set
+letters = set('arabica')
+
+# elems in a not in b
+a - b
+
+# elems in a or b
+a | b
+
+# elems in both a and b
+a & b
+a.intersection(b)
+
+# elems in a or b but not in both
+a ^ b
+
+# set comprehension
+a = {x for x in set1 if x not in set2}
+
+# looping
+set = {1,2,3,4}
+for elem in sorted(s):
+	...
+```
+
+### **Dictionary**
+- keys has to be immutable
+```
+d = {'qwE': 20, 'kv': 22}
+
+# could use the del keyword to delete keyLvalue pair
+del d['qwE']
+
+# returns list of all keys
+list(d)
+
+# sort keys in ascending order
+sorted(d)
+
+# use 'in' to check if contains a key
+'s' in d
+
+# constructs dictionary from sequences of key-value pairs
+# could put list of tuples as argument
+dict([('qwe', 20), ('kv', 22)])
+
+# dict comprehension
+{x: x**2 for x in range(4)}
+
+# looping
+for k, v in d.items():
+	...
+
+for elem in d.keys()/d.values():
+```
+
 ### **Collections**
 - starts with ``from collections import xxx``
 #### deque
@@ -639,6 +708,10 @@ q.popleft()
 	```
 	zip('abcd', 'xy') #ax, by
 	```
+- ``object.__dict__``
+- ``instance.__class__`` the class of that instance
+- ``definition.__name__`` the name of the class, function, method, ...
+
 - random number generation
 
 
