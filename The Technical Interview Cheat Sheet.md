@@ -566,3 +566,79 @@ greedy algorithm (array)
 ```
 
 This algorithm never needed to compare all the differences to one another, saving it an entire iteration.
+
+## Data structures in Python
+- ``[]`` denotes optional arguments
+- ``...`` means there are multiple such elements
+### **List**
+#### Methods
+
+- ``list.insert(i, x)``insert `x` at `i`
+- ``list.remove(x)`` remove the first occurrence of x, raise `ValueError` if not found
+- ``list.pop([i])`` remove elem at `i`, remove the last item if argument unspecified
+- ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
+- ``list.count(x)`` returns # of x in the list
+- ``list.sort(key = None, reverse = False)`` sort
+
+#### Miscellaneous
+- could use list as stack or queue
+- use it as queue not efficient, use 	`collections.deque` instead.
+- list comprehensions
+	- ``l = [(i, j) for i in x for j in y if i == j]``
+
+
+
+
+### **Tuple**
+### **Dictionary**
+### **Set**
+### **Collections**
+- starts with ``from collections import xxx``
+#### deque
+```
+q = deque([1,2,3,4])
+q.append(5)
+q.popleft()
+```
+
+### **itertools**
+### **math**
+### **built-in functions**
+- ``abs()``
+- ``all(iterable)`` returns True if all elements in the iterable are true, or iterable empty
+- ``any(iterable)`` returns True if any elem in the iterable true
+- ``ascii(object)`` returns a string containing a printable representation fo an object, escape non-ASCII characters
+- ``enumerate(iterable, start = 0)`` returns a list of tuples of index paired with each item in the iterable
+- ``eval(expression)``
+	```
+	x = 1
+	eval('x+1')
+	eval('1+2+3')
+	```
+- ``isinstance(object, classinfo)`` return True if the object is an instance of the classinfo
+- ``map(function, iterable, ...)`` return an iterator that applies function to every item of iterable
+	```
+	nums = [1,2,3,4]
+	doubled_nums = list(map(lambda x: x + x, nums))
+	```
+- ``pow(base, exp[, mod])`` return base^pow; if mod present, return base^power%mod
+- ``round(number[, ndigits])`` return number rounded to ndigits after the decimal point; if ndigits omitted or is None, return the nearest integer
+- ``set(iterable)``
+- ``sorted(iterable, *, key = None, reverse = False)``
+- ``str(object)``
+- ``var([object])`` return the `__dict__` attribute of object
+	```
+	class Fool:
+		def __init__(self, name='qwE', age='20'):
+			self.name = name
+			self.age = age
+	me = Fool()
+	print(vars(me)) #{'name': 'qwE', 'age': 20}
+	```
+- ``zip(iterables)`` make an iterator that aggregates elements from each of the iterables
+	```
+	zip('abcd', 'xy') #ax, by
+	```
+- random number generation
+
+
