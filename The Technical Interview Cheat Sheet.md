@@ -183,7 +183,9 @@
 			- when removing an element, mark it as NP (not present), so when searching for an element, could keep looking
 			- stop searching until it finds a null or the element you're searching for
 			- clustering: nearby hashes have similar probe sequences, so more collision
-			- linear probing: i, i+1, i+2, i+3, ..., problem: clustering
+			- linear probing: i, i+1, i+2, i+3, ..., 
+				- problem: clustering
+				- Deletion will be a problem. If one key involves a chain of several probes, it will be lost if somewhere along the chain, one of the other keys is removed, leaving an empty slot. Thus, you can't find the value stored after probing.
 			- quadratic probing: i, i+1, i+4, i+9, ..., requires the len(table) to be a prime so have access to every bucket
 - another problem: not all buckets get to used
 - Hashes are important for associative arrays and database indexing.
@@ -205,6 +207,7 @@
 		- average chain length = load factor
 	- linear probing
 		- # of probes = 1/(1-\lambda)
+- need to keep the size in a good range, not too many collision, not too large wasted memory
 - **resizing**
 	- when load factor too big, create a new array twice the size
 	- move values into the new array
@@ -216,9 +219,9 @@
 	- default load factor = 0.75
 
 #### Time Complexity:
-- Indexing:         Hash Tables: O(1)
-- Search:           Hash Tables: O(1)
-- Insertion:        Hash Tables: O(1)
+- Indexing: O(1) amortized
+- Search: O(1), worst: O(n)
+- Insertion: O(1), worst: O(n)
 
 
 ### **Binary Tree**
@@ -465,6 +468,9 @@ def partition(arr, h, t):
 - Java.util.Arrays has a method sort(array)
 	- primitives: quickSort
 	- objects implementing Comparable: timSort (modified mergeSort)
+- Merge Sort requires extra space, and Quick Sort is in place
+- They both deploy the idea of divide-and-conquer. In merge sort, the divide step does hardly anything, and all the real work happens in the combine step. Quick Sort is the opposite: all the real work happens in the divide step. In fact, the combine step in Quick Sort does absolutely nothing.
+- quicksort unstable, mergesort stable
 
 ### **Heap Sort**
 - make the array into a max heap
@@ -882,7 +888,40 @@ for k, v in pairs:
 
 - random number generation
 
-
+## OOP problem
+1. the benefit of objected oriented language
+	- Objects created for Object Oriented Programs can easily be reused in other programs.
+	- Large programs are very difficult to write. Object Oriented Programs force designers to go through an extensive planning phase, which makes for better designs with less flaws. In addition, once a program reaches a certain size, Object Oriented Programs are actually easier to program than non-Object Oriented ones.
+	- Great software maintenance
+	https://www.cs.drexel.edu/~introcs/Fa15/notes/06.1_OOP/Advantages.html?CurrentSlide=3
+2. what is encapsulation and polymorphism and benefits
+	-Encapsulation: Binding the data with the code that manipulates it. It keeps the data and the code safe from external interference.
+	- Benefit of encapsulation :
+	1) It improves maintainability and flexibility and re-usability.
+	2) The fields can be made read-only (If we don’t define setter methods in the class) or write-only (If we don’t define the getter methods in the class).
+	3) User would not be knowing what is going on behind the scene.
+	-polymorphism: Polymorphism is the capability of a method to do different things based on the object that it is acting upon. In other words, polymorphism allows people define one interface and have multiple
+	implementations. There are two different polymorphisms: runtime polymorphism and compile time polymorphism
+	- Benefit of polymorphism:
+	1) The basic reason behind polymorphism is that we can implement different behaviors of the same object depending upon the reference type passed to an object.
+	2) jdbc, servlets, jsp have come through polymorphism, if not there we have to remember all dependent classes related to DB, Servers...to use in our java coding
+	3) Polymorphism enables us to best core java training in Bangalore define one or more methods to have the same name but differs in number of parameters and method types.
+3. the difference between Java function call and Python function call ????
+	-Python and Java call methods similarly: If you have an object x and method foo , you go x.foo()
+	-Python also has a library of global functions that are not methods of objects. One such function is len, which returns the length of its argument.
+4. difference between interface and abstract class
+	- Interface:
+		- cannot provide any code at all, just the signature - A class may implemented several interfaces
+		- cannot haveg instance variables
+		- must be public or none
+		- cannot contains constructor
+		- slow
+	- Abstract class:
+		- can provide complete default code and/or just the details that have to be overriden. - in case of abstract class, a class may only extend only one abstract class.
+		- an abstract can have non-abstract methods
+		- an abstract class can have instance variables
+		- contain constructor
+		- fast
 
 ### **math**
 ### **Other tricks**
@@ -892,5 +931,11 @@ for k, v in pairs:
 todo:
 add more from algo: dp, greedy
 leetcode tricks
+sorting优缺点
+OOP problem
 
+## 3410
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=216941&highlight=two%2Bsigma
+latency vs throughput
+thread vs process
 
