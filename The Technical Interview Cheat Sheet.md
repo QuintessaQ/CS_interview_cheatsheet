@@ -610,6 +610,7 @@ This algorithm never needed to compare all the differences to one another, savin
 	```
 - tuple unpacking: ``x, y, z = ('hi', 'hello', 'hey')``
 
+
 ### **Set**
 ```
 d = {} #this creates empty dict
@@ -639,6 +640,7 @@ set = {1,2,3,4}
 for elem in sorted(s):
 	...
 ```
+
 
 ### **Dictionary**
 - keys has to be immutable
@@ -671,14 +673,76 @@ for k, v in d.items():
 for elem in d.keys()/d.values():
 ```
 
+
 ### **Collections**
 - starts with ``from collections import xxx``
+
 #### deque
 ```
 q = deque([1,2,3,4])
 q.append(5)
 q.popleft()
 ```
+
+#### Counter
+- support convenient tallies
+- differnt fron dict: returns a zero count for missing items, instead of raising a `KeyError`
+- **methods**
+	- ``collections.Counter([iterable/mapping])``
+		```
+		c = Counter('hellohiheyyy')
+		c = Counter(lst)
+		c = Counter(dict)
+
+		#remove elem entirely from coubter
+		del c['qwE']
+		# does not remove, counter entry still has a 0 count
+		c['qwE'] = 0
+		```
+	- ``elements()`` return an iterator over elements repeating as many times as its count
+		````
+		sorted(c.elements())
+		#[1,1,1,2,2,3]
+		````
+	- ``most_common([n])`` return list of n most common elements and their counts; if n omitted then returns all
+	- ``subtract([iterable/mapping])``
+		```
+		# c, d are two counters
+		c.subtract(d)
+		```
+- examples
+	```
+	# sum of all counts
+	sum(c.values())
+
+	# list unique elemenbts
+	list(c)
+
+	# convert to set/dict
+	set(c)
+	dict(c)
+
+	# k least common elements
+	c.most_common()[::-1][k]
+
+	# mathematical operations are provided for combining COunter objects
+	c = Counter(a=3, b=1)
+	d = Counter(a=1, b=2)
+
+	c + d # Counter({'a':4, 'b':3})
+
+	# keep only positive counts
+	c - d # Counter({'a':2})
+
+	# intersection / take min over all elems
+	c & d # Counter({'a':1, 'b':1})
+
+	# union / max over all elems
+	c | d # Counter({'a':3, 'b':2})
+	```
+
+#### OrderedDict
+#### defaultDict
 
 ### **built-in functions**
 - ``abs()``
