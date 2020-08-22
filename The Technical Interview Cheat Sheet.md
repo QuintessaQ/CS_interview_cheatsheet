@@ -671,6 +671,9 @@ for k, v in d.items():
 	...
 
 for elem in d.keys()/d.values():
+
+# print all keys
+''.join(d.keys())
 ```
 
 
@@ -741,8 +744,42 @@ q.popleft()
 	c | d # Counter({'a':3, 'b':2})
 	```
 
-#### OrderedDict
 #### defaultDict
+- if a key encountered for the first time, an entry automatically created
+```
+d = defaultdict(list)
+for k, v in pairs:
+	d[k].append(v)
+```
+
+#### OrderedDict
+- preserves the order in which the keys are inserted
+- but built-in dict class remeber insertion order now (from Python 3.7)
+- could used in LRU cache
+- if value of a certain key changed, position of that key remains unchanged
+- deleting and re-inserting push the key to the end
+- ``popitem(last=True)`` returns and removes a key:value pair, popped in LIFO order if last=True, FIFO otherwise
+- ``move_to_end(key, last=True)`` move an existing key to either end of the dict, moved to the right end if last=True, raise `KeyError` if key not in dict
+- LRU cache
+	```
+	class LRU(OrderedDict):
+    'Limit size, evicting the least recently looked-up key when full'
+
+    def __init__(self, maxsize=128, *args, **kwds):
+        self.maxsize = maxsize
+        super().__init__(*args, **kwds)
+
+    def __getitem__(self, key):
+        value = super().__getitem__(key)
+        self.move_to_end(key)
+        return value
+
+    def __setitem__(self, key, value):
+        super().__setitem__(key, value)
+        if len(self) > self.maxsize:
+            oldest = next(iter(self)) #the left-most item?
+            del self[oldest]
+	```
 
 ### **built-in functions**
 - ``abs()``
