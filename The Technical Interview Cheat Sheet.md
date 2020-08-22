@@ -570,9 +570,11 @@ This algorithm never needed to compare all the differences to one another, savin
 ## Data structures in Python
 - ``[]`` denotes optional arguments
 - ``...`` means there are multiple such elements
-### **List**
-#### Methods
 
+
+### **List**
+
+#### Methods
 - ``list.insert(i, x)``insert `x` at `i`
 - ``list.remove(x)`` remove the first occurrence of x, raise `ValueError` if not found
 - ``list.pop([i])`` remove elem at `i`, remove the last item if argument unspecified
@@ -584,12 +586,19 @@ This algorithm never needed to compare all the differences to one another, savin
 	del arr[0]
 	del arr[2:4]
 	```
+
 #### Miscellaneous
 - could use list as stack or queue
 - use it as queue not efficient, use 	`collections.deque` instead.
 - list comprehensions
 	- ``l = [(i, j) for i in x for j in y if i == j]``
-
+- comparing sequences and other types: uses lexicographical ordering
+- if one sequence is an initial sub-sequence of another, the shorter one is smaller
+	```
+	[1,2,3] < [1,2,4]
+	[1,2,3,4] < [1,2,4]
+	[1,2] < [1,2,3]
+	```
 
 
 ### **Tuple & Sequences**
@@ -600,6 +609,7 @@ This algorithm never needed to compare all the differences to one another, savin
 	singleton = ('hi', )
 	```
 - tuple unpacking: ``x, y, z = ('hi', 'hello', 'hey')``
+
 ### **Set**
 ```
 d = {} #this creates empty dict
@@ -670,8 +680,6 @@ q.append(5)
 q.popleft()
 ```
 
-### **itertools**
-### **math**
 ### **built-in functions**
 - ``abs()``
 - ``all(iterable)`` returns True if all elements in the iterable are true, or iterable empty
@@ -713,5 +721,11 @@ q.popleft()
 - ``definition.__name__`` the name of the class, function, method, ...
 
 - random number generation
+
+
+### **itertools**
+### **math**
+### **Other tricks**
+- conditions can be chained: ``a < b == c``
 
 
