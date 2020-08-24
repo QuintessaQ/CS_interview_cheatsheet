@@ -926,13 +926,26 @@ for k, v in pairs:
 ### **math**
 ### **Other tricks**
 - conditions can be chained: ``a < b == c``
+- String.isdigit()
+- initialize 2d array: dp = [[0 for i in range(n+1)] for j in range(n)]
+- dp: if have multiple inputs (e.g. 2+ strings matching), use 2d array
+- `math.ceil()` round to the next greatest int
+- binary search: do iterative instead of recursive version
+	```
+	l, r = 1, ...
+	while l < r:
+		...
 
+	return l
+	```
 
 todo:
 add more from algo: dp, greedy
 leetcode tricks
 sorting优缺点
 OOP problem
+memoization
+python constructor
 
 ## 3410
 https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=216941&highlight=two%2Bsigma
