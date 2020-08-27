@@ -940,6 +940,8 @@ for k, v in pairs:
 	```
 - `div, mod = divmod(num, divisor)`
 - valid parenthesis: if encounter ')' and if stack and stack[-1] == '(', pop the last '('
+- `string.lower()` convert to lower case
+- `string.isupper()`, `string.islower()`, `string,upper()`
 
 todo:
 add more from algo: dp, greedy
