@@ -1,3 +1,6 @@
+## Helpful Links
+- [technical interviews](https://www.cs.cmu.edu/~07131/f19/topics/extratations/interviews/interviews.pdf)
+
 ## Data Structure Basics
 ### Abstract Data Types v.s. implementations
 - list: arraylist, linkedlist
@@ -942,6 +945,7 @@ for k, v in pairs:
 - valid parenthesis: if encounter ')' and if stack and stack[-1] == '(', pop the last '('
 - `string.lower()` convert to lower case
 - `string.isupper()`, `string.islower()`, `string,upper()`
+- when using zip(a, b) and a b have different lengths, could not iterate through all possible combinations
 
 todo:
 add more from algo: dp, greedy
