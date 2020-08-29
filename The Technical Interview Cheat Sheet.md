@@ -946,6 +946,17 @@ for k, v in pairs:
 - `string.lower()` convert to lower case
 - `string.isupper()`, `string.islower()`, `string,upper()`
 - when using zip(a, b) and a b have different lengths, could not iterate through all possible combinations
+- common data structure to use: hashmap, 1/2 queue, stack, 
+- 2 deque for keeping max and min
+	```
+	for num in nums:
+		while maxd and maxd[-1] < num:
+			maxd.pop()
+		while mind and mind[-1] > num:
+			mind.pop()
+		maxd.append(num)
+		mind.append(num)
+	```
 
 todo:
 add more from algo: dp, greedy
