@@ -891,6 +891,32 @@ for k, v in pairs:
 
 - random number generation
 
+### **Trie node**
+- 
+	```
+	class Trie:
+		def __init__(self, val=None):
+			self.val = val
+			self.char_map = {}
+			
+		def insert(self, word, move):
+			if len(word) == 0:
+				self.char_map['<END>'] = Trie(move)
+			else:
+				if word[0] not in self.char_map:
+					self.char_map[word[0]] = Trie()
+				self.char_map[word[0]].insert(word[1:], move)
+				
+		def is_str(self, node):
+			if '<END>' in node.char_map:
+				return node.char_map['<END>'].val
+			return None
+		
+		def traverse(self, node, char):
+			if char in node.char_map:
+				return node.char_map[char]
+			return None
+	```
 ## OOP problem
 1. the benefit of objected oriented language
 	- Objects created for Object Oriented Programs can easily be reused in other programs.
@@ -925,6 +951,7 @@ for k, v in pairs:
 		- an abstract class can have instance variables
 		- contain constructor
 		- fast
+
 
 ### **math**
 ### **Other tricks**
