@@ -6,8 +6,8 @@
 - list: arraylist, linkedlist
 - set: hashset, treeset
 - map: hashmap, treemap
-- stack: linkedlist
-- queue: linkedlist
+- stack: linkedlist, list
+- queue: linkedlist, list
 - priority queue: heap
 
 
@@ -30,6 +30,7 @@
 - Search:           Linear array: O(n),      Dynamic array: O(n)
 - Optimized Search: Linear array: O(log n), Dynamic array: O(log n)
 - Insertion:        Linear array: n/a        Dynamic array: O(n) 
+- Popping: O(1) to pop the last element of a Python list, and O(N) to pop an arbitrary element (since the whole rest of the list has to be shifted)
 
 
 ### **Linked List**
@@ -59,7 +60,7 @@
 ### ***Heap***
 #### Definition:
 - completeness: Every level (except last) completely filled. Nodes on bottom level are as far left as possible.
-- heap order: maxHeap: every element <= its parent, but nigger element can be deeper in the tree
+- heap order: maxHeap: every element <= its parent, but bigger element can be deeper in the tree
 
 #### What you need to know:
 - used to implement priority queue
@@ -209,7 +210,7 @@
 		````
 		- average chain length = load factor
 	- linear probing
-		- # of probes = 1/(1-\lambda)
+		- num of probes = 1/(1-\lambda)
 - need to keep the size in a good range, not too many collision, not too large wasted memory
 - **resizing**
 	- when load factor too big, create a new array twice the size
@@ -287,9 +288,8 @@ def bfs(v):
 	- The queue uses more memory because it needs to stores pointers
 
 #### Time Complexity:
-- Search: Breadth First Search: O(V + E)
-- E is number of edges
-- V is number of vertices
+- Search: Breadth First Search: O(|V| + |E|)
+
 
 ### **Depth First Search**
 #### Definition:
@@ -318,8 +318,6 @@ def dfs(v):
 
 #### Time Complexity:
 - Search: Depth First Search: O(|E| + |V|)
-- E is number of edges
-- V is number of vertices
 
 #### Breadth First Search Vs. Depth First Search
 - The simple answer to this question is that it depends on the size and shape of the tree.
@@ -590,6 +588,7 @@ This algorithm never needed to compare all the differences to one another, savin
 - ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
 - ``list.count(x)`` returns # of x in the list
 - ``list.sort(key = None, reverse = False)`` sort
+- ``a = sorted(list, key=None, reverse=False)``
 - ``del``
 	```
 	del arr[0]
@@ -645,7 +644,7 @@ a ^ b
 a = {x for x in set1 if x not in set2}
 
 # looping
-set = {1,2,3,4}
+s = {1,2,3,4}
 for elem in sorted(s):
 	...
 ```
@@ -656,7 +655,7 @@ for elem in sorted(s):
 ```
 d = {'qwE': 20, 'kv': 22}
 
-# could use the del keyword to delete keyLvalue pair
+# could use the del keyword to delete key:value pair
 del d['qwE']
 
 # returns list of all keys
@@ -698,7 +697,7 @@ q.popleft()
 
 #### Counter
 - support convenient tallies
-- differnt fron dict: returns a zero count for missing items, instead of raising a `KeyError`
+- different fron dict: returns a zero count for missing items, instead of raising a `KeyError`
 - **methods**
 	- ``collections.Counter([iterable/mapping])``
 		```
@@ -706,7 +705,7 @@ q.popleft()
 		c = Counter(lst)
 		c = Counter(dict)
 
-		#remove elem entirely from coubter
+		#remove elem entirely from counter
 		del c['qwE']
 		# does not remove, counter entry still has a 0 count
 		c['qwE'] = 0
@@ -727,7 +726,7 @@ q.popleft()
 	# sum of all counts
 	sum(c.values())
 
-	# list unique elemenbts
+	# list unique elements
 	list(c)
 
 	# convert to set/dict
@@ -737,7 +736,7 @@ q.popleft()
 	# k least common elements
 	c.most_common()[::-1][k]
 
-	# mathematical operations are provided for combining COunter objects
+	# mathematical operations are provided for combining Counter objects
 	c = Counter(a=3, b=1)
 	d = Counter(a=1, b=2)
 
@@ -771,23 +770,37 @@ for k, v in pairs:
 - ``move_to_end(key, last=True)`` move an existing key to either end of the dict, moved to the right end if last=True, raise `KeyError` if key not in dict
 - LRU cache
 	```
-	class LRU(OrderedDict):
-    'Limit size, evicting the least recently looked-up key when full'
+	from collections import OrderedDict 
 
-    def __init__(self, maxsize=128, *args, **kwds):
-        self.maxsize = maxsize
-        super().__init__(*args, **kwds)
-
-    def __getitem__(self, key):
-        value = super().__getitem__(key)
-        self.move_to_end(key)
-        return value
-
-    def __setitem__(self, key, value):
-        super().__setitem__(key, value)
-        if len(self) > self.maxsize:
-            oldest = next(iter(self)) #the left-most item?
-            del self[oldest]
+	class LRUCache: 
+		# initialising capacity 
+		def __init__(self, capacity: int): 
+			self.cache = OrderedDict() 
+			self.capacity = capacity 
+	
+		# we return the value of the key 
+		# that is queried in O(1) and return -1 if we 
+		# don't find the key in out dict / cache. 
+		# And also move the key to the end 
+		# to show that it was recently used. 
+		def get(self, key: int) -> int: 
+			if key not in self.cache: 
+				return -1
+			else: 
+				self.cache.move_to_end(key) 
+				return self.cache[key] 
+	
+		# first, we add / update the key by conventional methods. 
+		# And also move the key to the end to show that it was recently used. 
+		# But here we will also check whether the length of our 
+		# ordered dictionary has exceeded our capacity, 
+		# If so we remove the first key (least recently used) 
+		def put(self, key: int, value: int) -> None: 
+			self.cache[key] = value 
+			self.cache.move_to_end(key) 
+			if len(self.cache) > self.capacity: 
+				self.cache.popitem(last = False) 
+	
 	```
 
 ### **itertools**
@@ -816,12 +829,12 @@ for k, v in pairs:
 	# (1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)
 
 	permutations([1,2,3], 2)
-	# 1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)
+	# (1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)
 	```
 
 #### product
 - ``product(*iterables[, r])`` return the cartesian product of input iterables
-- `product(A, B)` is the same as `[(x, y) for x in A for y in B]`
+- `product(A, B)` is the same as `[(x, y) for x in A for y in B]`, but not ``for x, y in zip(A, B)``
 - 
 	```
 	arr1 = [1,2,3]
@@ -888,6 +901,8 @@ for k, v in pairs:
 - ``object.__dict__``
 - ``instance.__class__`` the class of that instance
 - ``definition.__name__`` the name of the class, function, method, ...
+- ``chr(int)`` convert int to char
+- ``ord(char)`` convert char to int
 
 - random number generation
 
@@ -917,6 +932,28 @@ for k, v in pairs:
 				return node.char_map[char]
 			return None
 	```
+
+### **heapq (minheap)**
+- every parent node has a value less than or equal to any of its children
+- `heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2]`
+- methods
+	- `heapq.heappush(heap, item)`
+	- `heappop(heap)` pop and return the smallest item from the heap. Raise `IndexError` if heap empty
+	- `heap[0]` access the smallest element without popping it
+	- `heapify(x)` transform list x into a heap, in-place, O(n)
+	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
+	- `nsmallest(n, iterable, key=None)` return smallest n elements
+- Examples
+	```
+	h = []
+	heappush(h, 5)
+	heappush(h, 4)
+	a = heappop(h)
+	
+	```
+
+### **functools**
+
 ## OOP problem
 1. the benefit of objected oriented language
 	- Objects created for Object Oriented Programs can easily be reused in other programs.
@@ -965,6 +1002,10 @@ for k, v in pairs:
 	l, r = 1, ...
 	while l < r:
 		...
+		if ... :
+			l = mid + 1
+		else:
+			r = mid - 1
 
 	return l
 	```
@@ -973,7 +1014,7 @@ for k, v in pairs:
 - `string.lower()` convert to lower case
 - `string.isupper()`, `string.islower()`, `string,upper()`
 - when using zip(a, b) and a b have different lengths, could not iterate through all possible combinations
-- common data structure to use: hashmap, 1/2 queue, stack, 
+- common data structure to use: hashmap, 1/2 queue, stack, minheap/maxheap, doubly linked list
 - 2 deque for keeping max and min
 	```
 	for num in nums:
@@ -992,6 +1033,7 @@ sorting优缺点
 OOP problem
 memoization
 python constructor
+functools
 
 ## 3410
 https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=216941&highlight=two%2Bsigma
