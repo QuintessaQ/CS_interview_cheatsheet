@@ -3,7 +3,8 @@
 - Greeting
 	- "Hey! How is it going?! God, i don't even remembr how long I have been working from home，feels like longer than it iactually is." 
 	- "I am actually really excited about the interviews, this is the only chance to talk to someone outside of my team and my roommate. (laugh)"
-	- "How are things in (interviewer's city)? People starts to wear makses and take things serisouly now, hope it gets better soon!"
+	- "How are things in (interviewer's city)? People start to wear masks and take things serisouly now, hope it will get better soon!"
+
 - the flow
 	- Clarifying questions
 	- Brainstorm data structures before coding
@@ -15,7 +16,7 @@
 - think out loud, explain your thought process
 	- brute force 
 	- then optimize it
-- "should I start implement it in code, or you want me to conitnue to optimize it?"
+- "should I start implement it in code, or you want me to continue to optimize it?"
 - explain a bit when coding
 - explain time complexity
 - go through test cases when finished
@@ -25,7 +26,7 @@
 ### Miscellaneous
 	- over communication
 		- "Hey, if I look like I am looking to my right/left, that's because my camera is here and I have my codepad opened on another screen"
-		- "Hi, if I am silent for a couple secs/mins, I am just thinking through the question"
+		- "Hi, if I am silent for a couple secs/mins, I am just thinking about the question"
 	- 彩虹屁
 		- 吹/dig further when he mentions the challenge/headache in work
 		- talk about your potential solutions	
