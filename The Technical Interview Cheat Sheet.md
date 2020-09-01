@@ -905,6 +905,12 @@ for k, v in pairs:
 - ``ord(char)`` convert char to int
 
 - random number generation
+	- ``random.randrange(start, stop[, step])`` return a randomly selected element from range(start, stop, step). 
+	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
+	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
+	- ``random.random()`` generate a random number between 0 and 1 
+
+
 
 ### **Trie node**
 - 
@@ -932,6 +938,9 @@ for k, v in pairs:
 				return node.char_map[char]
 			return None
 	```
+- Insert and search costs O(key_length)
+- the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N), where N is number of keys in Trie
+
 
 ### **heapq (minheap)**
 - every parent node has a value less than or equal to any of its children
@@ -949,7 +958,6 @@ for k, v in pairs:
 	heappush(h, 5)
 	heappush(h, 4)
 	a = heappop(h)
-	
 	```
 
 ### **functools**
@@ -961,34 +969,34 @@ for k, v in pairs:
 	- Great software maintenance
 	https://www.cs.drexel.edu/~introcs/Fa15/notes/06.1_OOP/Advantages.html?CurrentSlide=3
 2. what is encapsulation and polymorphism and benefits
-	-Encapsulation: Binding the data with the code that manipulates it. It keeps the data and the code safe from external interference.
+	- Encapsulation: Binding the data with the code that manipulates it. It keeps the data and the code safe from external interference.
 	- Benefit of encapsulation :
-	1) It improves maintainability and flexibility and re-usability.
-	2) The fields can be made read-only (If we don’t define setter methods in the class) or write-only (If we don’t define the getter methods in the class).
-	3) User would not be knowing what is going on behind the scene.
-	-polymorphism: Polymorphism is the capability of a method to do different things based on the object that it is acting upon. In other words, polymorphism allows people define one interface and have multiple
+		1) It improves maintainability and flexibility and re-usability.
+		2) The fields can be made read-only (If we don’t define setter methods in the class) or write-only (If we don’t define the getter methods in the class).
+		3) User would not be knowing what is going on behind the scene.
+	- **Polymorphism** is the capability of a method to do different things based on the object that it is acting upon. In other words, polymorphism allows people define one interface and have multiple
 	implementations. There are two different polymorphisms: runtime polymorphism and compile time polymorphism
 	- Benefit of polymorphism:
-	1) The basic reason behind polymorphism is that we can implement different behaviors of the same object depending upon the reference type passed to an object.
-	2) jdbc, servlets, jsp have come through polymorphism, if not there we have to remember all dependent classes related to DB, Servers...to use in our java coding
-	3) Polymorphism enables us to best core java training in Bangalore define one or more methods to have the same name but differs in number of parameters and method types.
+		1) The basic reason behind polymorphism is that we can implement different behaviors of the same object depending upon the reference type passed to an object.
+		2) jdbc, servlets, jsp have come through polymorphism, if not there we have to remember all dependent classes related to DB, Servers...to use in our java coding
+		3) Polymorphism enables us to best core java training in Bangalore define one or more methods to have the same name but differs in number of parameters and method types.
 3. the difference between Java function call and Python function call ????
 	-Python and Java call methods similarly: If you have an object x and method foo , you go x.foo()
 	-Python also has a library of global functions that are not methods of objects. One such function is len, which returns the length of its argument.
 4. difference between interface and abstract class
 	- Interface:
 		- cannot provide any code at all, just the signature - A class may implemented several interfaces
-		- cannot haveg instance variables
+		- cannot have instance variables
 		- must be public or none
 		- cannot contains constructor
 		- slow
 	- Abstract class:
 		- can provide complete default code and/or just the details that have to be overriden. - in case of abstract class, a class may only extend only one abstract class.
-		- an abstract can have non-abstract methods
+		- an abstract class can have non-abstract methods
 		- an abstract class can have instance variables
 		- contain constructor
 		- fast
-
+5. https://realpython.com/oop-in-python-vs-java/
 
 ### **math**
 ### **Other tricks**
@@ -1012,9 +1020,9 @@ for k, v in pairs:
 - `div, mod = divmod(num, divisor)`
 - valid parenthesis: if encounter ')' and if stack and stack[-1] == '(', pop the last '('
 - `string.lower()` convert to lower case
-- `string.isupper()`, `string.islower()`, `string,upper()`
+- `string.isupper()`, `string.islower()`, `string.upper()`
 - when using zip(a, b) and a b have different lengths, could not iterate through all possible combinations
-- common data structure to use: hashmap, 1/2 queue, stack, minheap/maxheap, doubly linked list
+- common data structure to use: hashmap, 1/2 queue(s), stack, minheap/maxheap, doubly linked list
 - 2 deque for keeping max and min
 	```
 	for num in nums:
