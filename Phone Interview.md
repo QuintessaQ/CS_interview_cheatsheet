@@ -9,6 +9,7 @@
 	- Clarifying questions
 	- Brainstorm data structures before coding
 	- Think of the brute force solution first
+	- consider edge cases!!
 	- State that you know this is too long / inefficient / blah, state why
 	- Now try to improve upon it
 	- You can ask for hints if you’re absolutely stuck!
