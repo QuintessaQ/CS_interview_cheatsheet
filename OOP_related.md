@@ -37,12 +37,57 @@
         ```
     - java static attribute: ~ class variables
 - public vs. private
-    - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class
+    - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class, but can use setters and getters
     - python has non-public instance variale, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
-    - can use double underscore, ``self.__cupholder = 6``, will get error when accessing it with `my_car.__cupholder`. 
+    - can use double underscore, ``self.__cupholder = 6``, will get error when accessing it with `my_car.__cupholder`. When Python sees an attribute with double underscores, it changes the attribute by prefixing the original name of the attribute with an underscore, followed by the class name. So we can do `my_car._Car__cupholders`.
+- access control
+    - python can delete attributes, `del my_car.year`
+    - **Properties** allow functions to be declared in Python classes that are analogous to Java getter and setter methods. Names of the decorated functions are all the same --> they control access to the same variable
+        ```
+        class Car:
+            def __init__(self, color, model, year):
+                self.color = color
+                self.model = model
+                self.year = year
+                self._voltage = 12
+        
+            @property
+            def voltage(self):
+                return self._voltage
+        
+            @voltage.setter
+            def voltage(self, volts):
+                print("Warning: this can cause problems!")
+                self._voltage = volts
+        
+            @voltage.deleter
+            def voltage(self):
+                print("Warning: the radio will stop working!")
+                del self._voltage
+        ...
+        >>> my_car.voltage # Python calls .voltage() decorated with @property.
 
+        >>> my_car.voltage = 6 #Python calls .voltage() decorated with @voltage.setter.
+        Warning: this can cause problems!
 
+        >>> del my_car.voltage #Python calls .voltage() decorated with @voltage.deleter.
+        Warning: the radio will stop working!
+        ```
 
+- self & this
+    - `this` is implicit in hava code, e.g. in setter
+        ```
+        public void setColor(){
+            this.color = color;
+            // or..
+            color = newColor;
+        }
+        ```
+    - `self` is required if declaring instance variable, otherwise python will create a local variable instead of an attribute
+
+- methods and functions
+    - python has functions but java doesn't
+    - 
 
 
 ### **functional v.s. imperative programming**
