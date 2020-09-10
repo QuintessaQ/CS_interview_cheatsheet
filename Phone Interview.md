@@ -31,6 +31,7 @@
 	- 彩虹屁
 		- 吹/dig further when he mentions the challenge/headache in work
 		- talk about your potential solutions	
+	- don't say anything negative about companies you've worked at !!!!!!
 
 ### Red Flags
     - when the interviewer says we're running out of time, "time is up，thank you for your time with us"
@@ -49,4 +50,7 @@
 	- Any example projects interns have worked on?
 	- What’s your favorite thing about working for your company?
 	- How does this company compare to other places you’ve worked before?
-	
+	- what's a typical day like (if care about work-life balance)
+	- What is your most challenging part in your daily work?.
+	- what do you expect from a new hire/intern of my level in the fist half year?
+	- what’s the most unique part about working at xxx that you’ve never experienced before.
