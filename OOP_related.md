@@ -312,6 +312,8 @@ implementations. There are two different polymorphisms: runtime polymorphism and
     - slow
 - Abstract class:
     - can provide complete default code and/or just the details that have to be overriden. - in case of abstract class, a class may only extend only one abstract class.
+    -  An abstract class cannot be used to create objects (to access it, it must be inherited from another class). 
+    - An abstract method can only be used in an abstract class, and it does not have a body. 
     - an abstract class can have non-abstract methods
     - an abstract class can have instance variables
     - contain constructor
@@ -382,9 +384,48 @@ class Rectangle implements Shape
 ```
 
 ### Java reserved keywords
-- abstract
+- https://www.w3schools.com/java/java_ref_keywords.asp
 - 
+| \ | Class  | Package | Subclass (same pkg) | Subclass (diff pkg) | World
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| public  | + | + | + | + | + |
+| protected  | + | + | + | + |  |
+| no modifier (default) | + | + | + |  |  |
+| private | + |  | |  |  |
 
+-  `abstract` non-access modifier
+-  `byte` A data type that can store whole numbers from -128 and 127
+- `case` Marks a block of code in switch statements
+- `switch` Selects one of many code blocks to be executed
+    ```
+    int day = 4;
+    switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    }
+    ```
+- `try` `catch` 
+    ```
+    try {
+    //  Block of code to try
+    }
+    catch(Exception e) {
+    //  Block of code to handle errors
+    }
+    ```
+- `enum`
+    ```
+    enum Level {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+    Level myVar = Level.MEDIUM;
+    ```
 ### Miscellaneous 
 - `==` checks for object references and `equals()`checks for values
 
