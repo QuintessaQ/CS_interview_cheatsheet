@@ -408,13 +408,16 @@ class Rectangle implements Shape
         break;
     }
     ```
-- `try` `catch` 
+- `try` ... `catch` ... `finally`
     ```
     try {
     //  Block of code to try
     }
     catch(Exception e) {
     //  Block of code to handle errors
+    }
+    finally {
+    //Statements to be executed no matter exception occurs or not.
     }
     ```
 - `enum`
@@ -426,6 +429,12 @@ class Rectangle implements Shape
     }
     Level myVar = Level.MEDIUM;
     ```
+- `final` a non-access modifier used for classes, attributes and methods, which makes them non-changeable (impossible to inherit or override)
+- `import` Used to import a package, class or interface
+- `super` Refers to superclass (parent) objects
+- `synchronized` a non-access modifier, which specifies that methods can only be accessed by one thread at a time
+- `volatile` indicates that an attribute is not cached thread-locally, and is always read from the "main memory"
+
 ### Miscellaneous 
 - `==` checks for object references and `equals()`checks for values
 
