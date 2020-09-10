@@ -237,5 +237,59 @@ implementations. There are two different polymorphisms: runtime polymorphism and
     - an abstract class can have instance variables
     - contain constructor
     - fast
+
+### Java miscellaneous
+- `==` checks for object references and `equals()`checks for values
+- integer cache
+    -  Integer objects are cached internally and reused via the same referenced objects.
+    - applicable for Integer values in range between –127 to +127 
+    - Integer caching works only on autoboxing. Integer objects will not be cached when they are built using the constructor
+- autoboxing
+    - automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes
+    - ``Integer a = 10;``
+    -  ``Character c = 'a'``
+    - The Java compiler applies unboxing when an object of a wrapper class is
+        - Passed as a parameter to a method that expects a value of the corresponding primitive type.
+        - Assigned to a variable of the corresponding primitive type. 
+        - ```
+         Integer i = new Integer(-8);
+
+        // 1. Unboxing through method invocation
+        int absVal = absoluteValue(i);
+
+        List<Double> ld = new ArrayList<>();
+        ld.add(3.1416);    // Π is autoboxed through method invocation.
+
+        // 2. Unboxing through assignment
+        double pi = ld.get(0);
+        ```
+- generics
+    - It would be nice if we could write a single sort method that could sort the elements in an Integer array, a String array, or an array of any type that supports ordering.
+    - All generic method declarations have a type parameter section delimited by angle brackets (< and >) that precedes the method's return type ( < E > in the next example).
+    - ```
+    // generic method printArray
+    public static < E > void printArray( E[] inputArray ) {
+        // Display array elements
+        for(E element : inputArray) {
+            System.out.printf("%s ", element);
+        }
+        System.out.println();
+    }
+    ```
+    - Bounded Type Parameters
+        - To declare a bounded type parameter, list the type parameter's name, followed by the extends keyword, followed by its upper bound.
+        - ``public static <T extends Comparable<T>> T maximum(T x, T y, T z) ``
+    - generic class
+        - class name is followed by a type parameter section.
+        - type parameter section of a generic class can have one or more type parameters separated by commas.
+        - ```
+        public class Box<T> {
+            ...
+        }
+
+        Box<Integer> integerBox = new Box<Integer>();
+        Box<String> stringBox = new Box<String>();
+        ```
+
 ### https://realpython.com/oop-in-python-vs-java/
 https://github.com/careercup/CtCI-6th-Edition/tree/master/Java/Ch%2015.%20Threads%20and%20Locks
