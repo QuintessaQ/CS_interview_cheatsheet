@@ -86,8 +86,67 @@
     - `self` is required if declaring instance variable, otherwise python will create a local variable instead of an attribute
 
 - methods and functions
+    - A function is a piece of code that is called by name. 
+    - A method is a piece of code that is called by a name that is associated with an object, can operate on data that is contained within the class
     - python has functions but java doesn't
-    - 
+    - python can declare a function anywhere, not in a class; can't alter/store any data in any class, but can use local & global variables
+    - every line of java belongs to a class, functions can't exist outside of a cladd
+    - static method in java ~ function, callable anywhere without first creating an instance of the class
+
+- inheritance and polymorphism
+    - inheritance allows objects to derive attributes and functionality from other objects, creating a hierarchy moving from more general objects to more specific.
+    - polymorphism allows two or more objects to behave like one another, which allows them to be used interchangeably. For example, if a method or function knows how to paint a Vehicle object, then it can also paint a Car or Boat object, since they inherit their data and behavior from the Vehicle.
+    - python supports multiple inheritance
+        ```
+        class Car(Vehicle, Device):
+            def __init__(self, color, model, year):
+                Vehicle.__init__(self, color, model)
+                Device.__init__(self)
+                self.year = year
+        ```
+    - java only supports single inheritance, but can implements differnt interfaces, each class and interface needs to live in its own file.
+        ```
+        public interface Device {
+            int getVoltage();
+        }
+
+        public class Car extends Vehicle implements Device {
+            private int voltage;
+            private int year;
+
+            public Car(String color, String model, int year) {
+                super(color, model);
+                this.year = year;
+                this.voltage = 12;
+            }
+
+            @Override
+            public int getVoltage() {
+                return voltage;
+            }
+        }
+        ```
+    - Interfaces only define the methods—they cannot define instance data or implementation details.
+
+- types and polymorphism
+    - polymorphism: Every class and interface in Java is a type. Therefore, if two Java objects implement the same interface, then they are considered to be the same type with respect to that interface.
+    - python: duck typing. Instead of identifying objects by type, Python examines their behavior. “walks like a duck and quacks like a duck, then it’s a duck.”
+    
+- default methods
+    - All Java classes descend from the Object class, which contains a set of methods every other class inherits. Subclasses can either override them or keep the defaults. 
+        ```
+        class Object {
+        boolean equals(Object obj) { ... }    
+        int hashCode() { ... }    
+        String toString() { ... }       
+        }
+        ```
+    - python has a set of common dunder (double underscore) methods
+        ```
+        
+        ```
+    
+
 
 
 ### **functional v.s. imperative programming**
