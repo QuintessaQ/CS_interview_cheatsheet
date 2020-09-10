@@ -13,15 +13,19 @@
 	- State that you know this is too long / inefficient / blah, state why
 	- Now try to improve upon it
 	- You can ask for hints if you’re absolutely stuck!
-
 - think out loud, explain your thought process
 	- brute force 
 	- then optimize it
+- ask questions!!
+	- e.g. constraints? the data type of tree node values? does this api care more about speed or space?
+- name functions properly, don't name it as `solution()` 
 - "should I start implement it in code, or you want me to continue to optimize it?"
 - explain a bit when coding
 - explain time complexity
 - go through test cases when finished
-- follow up on the same coding question
+- improvement on the same coding question
+	- java doc，unit test, regression test, performance tuning, benchmarking, A/B testing
+
 	
 
 ### Miscellaneous
@@ -32,6 +36,8 @@
 		- 吹/dig further when he mentions the challenge/headache in work
 		- talk about your potential solutions	
 	- don't say anything negative about companies you've worked at !!!!!!
+	- 背题的人写代码和讨论test case和真明白背后原理或者数学证明的是完全不同的
+
 
 ### Red Flags
     - when the interviewer says we're running out of time, "time is up，thank you for your time with us"
