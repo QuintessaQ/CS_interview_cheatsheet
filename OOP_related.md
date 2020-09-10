@@ -143,11 +143,59 @@
         ```
     - python has a set of common dunder (double underscore) methods
         ```
-        
+         __repr__() #string represention of object, unambigous, ~hashCode()
+         __str__()  # readable, ~toString()
+         >>>  print(str(my_car)
         ```
-    
+- operator overloading
+    - Python’s dunder methods allow you to implement operator overloading, something that Java doesn’t offer at all.
+        ```
+        class Car:
+            def __init__(self, color, model, year):
+                self.color = color
+                self.model = model
+                self.year = year
 
+            def __str__(self):
+                return f'Car {self.color} : {self.model} : {self.year}'
 
+            def __eq__(self, other):
+                return self.year == other.year
+
+            def __lt__(self, other):
+                return self.year < other.year
+
+            def __add__(self, other):
+                return Car(self.color + other.color, 
+                   self.model + other.model, 
+                   int(self.year) + int(other.year))
+        ...
+        >>> my_car < your_car
+        ```
+- reflection
+    - Reflection refers to examining an object or class from within the object or class
+        ```
+        >>> print(type(my_car))
+        <class 'car.Car'>
+        >>> print(isinstance(my_car, Car))
+        True
+
+        Car car = new Car("yellow", "beetle", 1969);
+        System.out.println(car.getClass());
+        System.out.println(car instanceof Car);
+
+        ```
+- Examining an Object’s Attributes
+    - ``dir(my_car)`` in python view every attribute and function contained in any object
+    - ``getattr()`` returns specific details of a given attribute or function
+        ```
+        >>> print(getattr(my_car, "__format__"))
+        <built-in method __format__ of Car object at 0x7fb4c10f5438>
+        ```
+    - ``.getFields()`` in java retrieves a list of all publicly accessible attributes. 
+    - ``.getDeclaredMethods()`` retrives public methods
+    - ``getDeclaredMethods()`` returns an array of Method objects. The Method object itself has a method called ``.invoke()``, which will call the Method, can return ``method.invoke(object)`` instead.
+    - python can just add ``()``, 
 
 ### **functional v.s. imperative programming**
 
