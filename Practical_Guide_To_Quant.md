@@ -43,3 +43,13 @@
 - 5 groups, 5 races, have orderibg in each group
 - pick tops from each group, 1 race, then 3 groups have potential answers, 3+2+1 candidates
 - race  1,2,3,6,7, then add 11 and race 
+
+## Chapter 4 Probablity Theory
+### Coin toss game
+- remove one coin from A
+- E1: A more coins
+- E2: equal coins
+- E3: A fewer coins
+- P(E1) = P(E2) = x, then 2x + y = 1
+- result = x + y/2 = 0.5
+
