@@ -90,7 +90,7 @@
         ```
 
 - self & this
-    - `this` is implicit in hava code, e.g. in setter
+    - `this` is implicit in java code, e.g. in setter
         ```
         public void setColor(){
             this.color = color;
@@ -105,7 +105,7 @@
     - A method is a piece of code that is called by a name that is associated with an object, can operate on data that is contained within the class
     - python has functions but java doesn't
     - python can declare a function anywhere, not in a class; can't alter/store any data in any class, but can use local & global variables
-    - every line of java belongs to a class, functions can't exist outside of a cladd
+    - every line of java belongs to a class, functions can't exist outside of a class
     - static method in java ~ function, callable anywhere without first creating an instance of the class
 
 - inheritance and polymorphism
@@ -119,7 +119,11 @@
                 Device.__init__(self)
                 self.year = year
         ```
-    - java only supports single inheritance, but can implements differnt interfaces, each class and interface needs to live in its own file.
+    - `super` keyword and `super()`
+        - `super()` calls parent class constructor 
+        - `super` refers to parent class objectm, e.g. `super.maxSpeed`
+       
+    - java only supports single inheritance, but can implements different interfaces, each class and interface needs to live in its own file.
         ```
         public interface Device {
             int getVoltage();

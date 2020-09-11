@@ -53,3 +53,14 @@
 - P(E1) = P(E2) = x, then 2x + y = 1
 - result = x + y/2 = 0.5
 
+### Card game
+- 1/13 + 1/13 * 48/52 + 1/13 * 44/52...
+= 1/(13*52) * (0 + 4 + 8 + ... + 48) 
+=  1/(13*52) * (4 + 48) * 13 /2
+= 24/52
+= 8/17
+
+
+### Drunk passenger
+- E1: seat #1 taken before #100
+- E2: seat #100 taken before #1
