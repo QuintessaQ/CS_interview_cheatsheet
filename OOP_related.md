@@ -36,6 +36,21 @@
         my_car.wheels #0
         ```
     - java static attribute: ~ class variables
+        - static is used for a constant variable or a method that is same for every instance of a class
+        -  ``Non-static variable cannot be referenced from a static context``
+            ```
+            class MyProgram
+            {
+                int count = 0;
+                public static void main(String[] args)
+                {
+                    System.out.println(count);
+                }
+            }
+            ```
+        - static methods
+            - They can directly call other static methods only.
+            - They can access static data directly.
 - public vs. private
     - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class, but can use setters and getters
     - python has non-public instance variale, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
@@ -434,6 +449,14 @@ class Rectangle implements Shape
 - `super` Refers to superclass (parent) objects
 - `synchronized` a non-access modifier, which specifies that methods can only be accessed by one thread at a time
 - `volatile` indicates that an attribute is not cached thread-locally, and is always read from the "main memory"
+
+
+### Java garbage collector
+- Java programs perform automatic memory management. 
+- Java programs compile to bytecode that can be run on a Java Virtual Machine, or JVM for short. When Java programs run on the JVM, objects are created on the heap, which is a portion of memory dedicated to the program. 
+- Eventually, some objects will no longer be needed. The garbage collector finds these unused objects and deletes them to free up memory.
+- unreferenced objects are identified and marked as ready for garbage collection
+
 
 ### Miscellaneous 
 - `==` checks for object references and `equals()`checks for values

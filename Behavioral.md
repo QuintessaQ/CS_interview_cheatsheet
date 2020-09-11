@@ -36,6 +36,9 @@
 - what if your teammate/colleague disagree with you?
 队友/同事不同意你的观点咋办？
     - 你有没有自己花一些时间做一个数字化（quantitative）的比较？有没有向队友/同事提交一个详细的报告或者比较（report/strong case）来说服ta？会不会有效的沟通？
+    - do a quantitative comparison first
+    - talk to him
+    - talk to my manager
 - how do you define success?
     - 一般我都说达到自己制定的目标就算成功，这样容易说；那就可以理解为你有没有为自己制定目标？你的目标是啥？你现在完成的怎么样？未来在这个公司想怎么发展自己？（develop tech stack，gain more domain knowledge，see myself in postion of senior engiener in xx years）
 - what if you get assigned to a challenging task?
