@@ -221,7 +221,8 @@
 - HashMap in Java
 	- computes key.hashCode(), so no duplicate key
 	- default load factor = 0.75
-
+	-  any class can serve as a key if and only if it overrides the equals() and hashCode() method
+	- The bucket is a linkedlist but not java.util.Linkedlist. HashMap has its own implementation of the linkedlist. Therefore, it traverses through linkedlist and compares keys in each entry using keys.equals() until equals() returns true. Then, the value object is returned.
 #### Time Complexity:
 - Indexing: O(1) amortized
 - Search: O(1), worst: O(n)
