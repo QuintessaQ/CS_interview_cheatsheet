@@ -999,6 +999,13 @@ for k, v in pairs:
 		maxd.append(num)
 		mind.append(num)
 	```
+- bitwise operators
+	- ``(int) <<`` shift bits, e.g. ``carry = (x & y) << 1``
+	- ``^`` XOR in binary
+	- ``~`` flip all bits in binary and add 1 at front / add 1 to the number, e.g. `~24 = -25`
+	- ``&`` AND in binary
+	- ``|`` OR in binary
+
 
 todo:
 add more from algo: dp, greedy
