@@ -473,5 +473,7 @@ class Rectangle implements Shape
 ### Miscellaneous 
 - `==` checks for object references and `equals()`checks for values
 
-### https://realpython.com/oop-in-python-vs-java/
-https://github.com/careercup/CtCI-6th-Edition/tree/master/Java/Ch%2015.%20Threads%20and%20Locks
+### random links
+- https://realpython.com/oop-in-python-vs-java/
+- https://github.com/careercup/CtCI-6th-Edition/tree/master/Java/Ch%2015.%20Threads%20and%20Locks
+- https://blog.csdn.net/longyulu/article/details/9159589
