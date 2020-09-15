@@ -1,5 +1,41 @@
 ## Overview
 - start by asking you to design a system that performs a given task
+### examples
+- Design a URL shortening service like bit.ly.
+- How would you implement the Google search?
+- Design a client-server application which allows people to play chess with one another.
+- How would you store the relations in a social network like Facebook and implement a feature where one user receives notifications when their friends like the same things as they do?
+
+## Step1: System Design Process
+- use cases
+    - e.g. Design a URL shortening service like bit.ly.
+        - shortening: take an url -> return shorter url
+        - redirection: take a short url -> redirect to the original url
+    - custom url: let user custom their short url
+    - analytics: allow people to look at usage statistics of the url
+    - automatic link expiration
+    - manual link removal: remove a short url used before
+    - UI vs API
+- constraints
+    - usage per second: e.g. assume not in top3 url service but in top10
+    - start estimating from usage per month
+
+## Step2: Abstract design
+-  draw a simple diagram of your ideas
+- e.g. url shortening
+    - application service layer
+        - shortening service
+            - generate new hash
+            - check if it's in data storage
+                - if not, generate new mapping
+                - if yes, keep generating until an unusued one is found
+        - redirection service
+            - retrieve the value given the hash
+    - data storage layer, keeps track of the hash to url mapping
+        - act like a big hash table
+        - stores new mapping
+        - retrieves value given a key
+    - hashed_url = convert_to_base_62(md5(original_url + random_salt))[:6]
 
 ## Topics
 ### Concurrency
