@@ -37,6 +37,46 @@
         - retrieves value given a key
     - hashed_url = convert_to_base_62(md5(original_url + random_salt))[:6]
 
+## Step3: Understanding bottleneck
+- traffic is probably not going to be hard, data more interesting
+
+## Step4: Scalability
+- ideas
+    - Vertical scaling
+    - Horizontal scaling
+    - Caching
+    - Load balancing
+    - Database replication
+    - Database partitioning
+- clones
+    - every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory. 
+    - Sessions need to be stored in a centralized data store which is accessible to all your application servers. 
+    - a code change is sent to all your servers without one server still serving old code, serving the same codebase from all your servers
+    - servers can now horizontally scale and you can already serve thousands of concurrent requests
+- database
+    - can stay with MySQL, and use it like a NoSQL database
+    - or you can switch to a better and easier to scale NoSQL database like MongoDB or CouchDB, using NoSQL instead of scaling a relational database
+- cache
+    - A cache is a simple key-value store and it should reside as a buffering layer between your application and your data storage.
+    - Whenever your application has to read data it should at first try to retrieve the data from your cache.
+    - if it’s not in the cache should it then try to get the data from the main data source
+    - Cached Database Queries
+        - A hashed version of your query is the cache key
+        - issues
+            - expiration: it is hard to delete a cached result when you cache a complex query 
+            - When one piece of data changes (for example a table cell) you need to delete all cached queries who may include that table cell.
+    - Cached Objects
+        - store the complete instance of the class or the assembed dataset in the cache
+        - easily get rid of the object whenever something did change and makes the overall operation of your code faster and more logical.
+- asynchronism
+    - Async #1
+        - doing the time-consuming work in advance and serving the finished work with a low request time.
+    - Async #2
+        - start the task when the customer is in the bakery and tell him to come back at the next day. Refering to a web service that means to handle tasks asynchronously.
+        - A user comes to your website and starts a very computing intensive task which would take several minutes to finish. So the frontend of your website sends a job onto a job queue and immediately signals back to the user: your job is in work, please continue to the browse the page
+
+
+
 ## Topics
 ### Concurrency
 - Do you understand threads, deadlock, and starvation? Do you know how to parallelize algorithms? Do you understand consistency and coherence?
