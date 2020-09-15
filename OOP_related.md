@@ -217,6 +217,14 @@
     - python can just add ``()``, 
 
 ### **functional v.s. imperative programming**
+- functional programming: 
+    - a form of declarative programming
+    - avoid changing state and mutable data
+    - lazy evaluation
+    - support parallel programming
+    - no side effect
+    - 不变性带来的另一个好处是：由于（多个线程之间）不共享状态，不会造成资源争用(Race condition)，也就不需要用锁来保护可变状态，也就不会出现死锁，这样可以更好地并发起来，尤其是在对称多处理器（SMP）架构下能够更好地利用多个处理器（核）提供的并行处理能力。
+
 
 
 ### **what is encapsulation and polymorphism and benefits**
