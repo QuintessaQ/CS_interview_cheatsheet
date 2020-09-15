@@ -19,15 +19,10 @@
     - like to challenge myself with unfamiliar concepts
 - why our company?
     - 公司的mission是什么？我的career goal和你们公司的mission完美契合；职位的要求是什么？我的背景和能力和这个职位的要求完美契合。最后强调你是good fit
-    - As compared to traditional software companies, DE Shaw is relatively small and it highly values its researchers and programmers. It makes quite a bit of money per employee, so it can afford to spoil its programmers. This results in the fact that the median quality of its hires is significantly higher than other companies, as it can afford to hire the most competent set of programmers, e.g. 25 International Math Olympiads Medals
-    - At other companies, I’m used to work with people “as good as” as I am, whereas at DE Shaw I’ll be humbled and always learn from the smarter people around me, and there will be a tremendous improvement in my skill level in the long run.
-    - Also, what I personally like about the software developer role at DE Shaw is that it is very directed towards the goal of making profits, instead of working on a product for customers. This motivates me as a programmer to contribute more by writing rigorous code and heavily employing unit tests and integration tests.
-    - D.E.Shaw Research (biochemistry)
-        - 一番奋斗身家亿万的Shaw，是成功人士里的另类，他不仅没有追求花天酒地的生活，反而开始更加发奋的读书搞科研，而且是带着一帮博士读书搞科研。年近50，身家亿万，钱多得花不掉的Shaw成立了D.E.Shaw Research，雇了一大帮找不到工作的博士，一年发10万刀的工资，干的事情就是一个——帮他每年在国际顶尖的学术杂志《自然》和《科学》上灌水，完成自己最初的梦想，然后继续在计算化学这个领域吊打全世界。
-        - develops technologies for molecular dynamics simulations (including Anton, a massively parallel special-purpose supercomputer, and Desmond, a software package for use on conventional computers and computer clusters) 
-    - The D. E. Shaw group is trusted by investors across the world to manage their assets by seeking the optimal balance of risk and reward. While we’re known as a pioneer in quantitative investing, we also have considerable expertise in areas that involve fundamental analysis or portfolio manager discretion. We use a combination of quantitative and qualitative tools to uncover independent, hard-to-find sources of return across global public and private markets.
-
-
+    - As compared to traditional software companies, xxx is relatively small and it highly values its researchers and programmers. It makes quite a bit of money per employee, so it can afford to spoil its programmers. This results in the fact that the median quality of its hires is significantly higher than other companies, as it can afford to hire the most competent set of programmers, e.g. 25 International Math Olympiads Medals
+    - At other companies, I’m used to work with people “as good as” as I am, whereas at xxx I’ll be humbled and always learn from the smarter people around me, and there will be a tremendous improvement in my skill level in the long run.
+    - Also, what I personally like about the software developer role at xxx is that it is very directed towards the goal of making profits, instead of working on a product for customers. This motivates me as a programmer to contribute more by writing rigorous code and heavily employing unit tests and integration tests.
+  
 - how did you hear about this position?
     - 如实回答就行，我一般都说career fair和公司的工程师聊了聊，关键是最后要再重复一遍，据我了解，这个职位是干啥或者需要啥，我以前也在做这个或者有相关的技能，所以good fit
 - what if your teammate/colleague is hard to work with / not contributing?
