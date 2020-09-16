@@ -4,7 +4,7 @@
     - Objects created for Object Oriented Programs can easily be reused in other programs.
     - Large programs are very difficult to write. Object Oriented Programs force designers to go through an extensive planning phase, which makes for better designs with less flaws. In addition, once a program reaches a certain size, Object Oriented Programs are actually easier to program than non-Object Oriented ones.
     - modularity, extensibility, and reusability   
-        - Object-orientedprogrammingis modular, as it provides separation of duties in object-based program development. It is also extensible, as objects can be extended to include new attributes and behaviors. Objects can also be reused within an across applications. Because of these three factors
+        - Object-oriented programming is modular, as it provides separation of duties in object-based program development. It is also extensible, as objects can be extended to include new attributes and behaviors. Objects can also be reused within an across applications. Because of these three factors
     - Great software maintenance
         - Since the design is modular, part of the system can be updated in case of issues without a need to make large-scale changes.
 
@@ -51,6 +51,7 @@
         - static methods
             - They can directly call other static methods only.
             - They can access static data directly.
+
 - public vs. private
     - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class, but can use setters and getters
     - python has non-public instance variale, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
@@ -121,7 +122,7 @@
         ```
     - `super` keyword and `super()`
         - `super()` calls parent class constructor 
-        - `super` refers to parent class objectm, e.g. `super.maxSpeed`
+        - `super` refers to parent class object, e.g. `super.maxSpeed`
        
     - java only supports single inheritance, but can implements different interfaces, each class and interface needs to live in its own file.
         ```
@@ -161,11 +162,11 @@
         }
         ```
     - python has a set of common dunder (double underscore) methods
-        ```
-         __repr__() #string represention of object, unambigous, ~hashCode()
-         __str__()  # readable, ~toString()
+        - ``__repr__()`` string represention of object, unambigous, ~hashCode()
+        - ``__str__()`` readable, ~toString()
          >>>  print(str(my_car)
-        ```
+        -  ``__eq__(self, other)`` could be overriden for customized equality, otherwise `==` just compares addresses
+        
 - operator overloading
     - Python’s dunder methods allow you to implement operator overloading, something that Java doesn’t offer at all.
         ```
@@ -213,7 +214,7 @@
         ```
     - ``.getFields()`` in java retrieves a list of all publicly accessible attributes. 
     - ``.getDeclaredMethods()`` retrives public methods
-    - ``getDeclaredMethods()`` returns an array of Method objects. The Method object itself has a method called ``.invoke()``, which will call the Method, can return ``method.invoke(object)`` instead.
+    - ``.getDeclaredMethods()`` returns an array of Method objects. The Method object itself has a method called ``.invoke()``, which will call the Method, can return ``method.invoke(object)`` instead.
     - python can just add ``()``, 
 
 ### **functional v.s. imperative programming**
@@ -224,7 +225,6 @@
     - support parallel programming
     - no side effect
     - 不变性带来的另一个好处是：由于（多个线程之间）不共享状态，不会造成资源争用(Race condition)，也就不需要用锁来保护可变状态，也就不会出现死锁，这样可以更好地并发起来，尤其是在对称多处理器（SMP）架构下能够更好地利用多个处理器（核）提供的并行处理能力。
-
 
 
 ### **what is encapsulation and polymorphism and benefits**
@@ -248,9 +248,6 @@ implementations. There are two different polymorphisms: runtime polymorphism and
 - subclass (child): the class that inherits from another class
 - superclass (parent): the class being inherited from
 - If you don't want other classes to inherit from a class, use the `final` keyword
-
-
-
 
 
 ## **Java Concepts**

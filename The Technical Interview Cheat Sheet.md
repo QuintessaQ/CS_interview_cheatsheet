@@ -1019,6 +1019,7 @@ OOP problem
 memoization
 python constructor
 functools
+numpy
 
 ## 3410
 https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=216941&highlight=two%2Bsigma

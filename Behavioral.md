@@ -22,10 +22,10 @@
 
 - why our company?
     - 公司的mission是什么？我的career goal和你们公司的mission完美契合；职位的要求是什么？我的背景和能力和这个职位的要求完美契合。最后强调你是good fit
-    - As compared to traditional software companies, xxx is relatively small and it highly values its researchers and programmers. It makes quite a bit of money per employee, so it can afford to spoil its programmers. This results in the fact that the median quality of its hires is significantly higher than other companies, as it can afford to hire the most competent set of programmers, e.g. 25 International Math Olympiads Medals
-    - At other companies, I’m used to work with people “as good as” as I am, whereas at xxx I’ll be humbled and always learn from the smarter people around me, and there will be a tremendous improvement in my skill level in the long run.
-    - Also, what I personally like about the software developer role at xxx is that it is very directed towards the goal of making profits, instead of working on a product for customers. This motivates me as a programmer to contribute more by writing rigorous code and heavily employing unit tests and integration tests.
-
+   - employees' quality: The bar and the median quality of its hires is significantly higher than other companies, as it makes quite a bit of money per employee and therefore can afford to hire the most competent set of programmers. At other companies, I’m used to work with people “as good as” as I am, whereas at jane street I’ll be humbled and always learn from the smarter people around me.
+    - values personal growth: from what I heard of, managers at jane street place a strong emphasis on employees personal growth, including programming skills and leadership. With a low turnover rate, js could allocate abundant resource, both in financial resource and human effort, in training and upgrading new employees, so they could take resposibilities in the upcoming years. This is especially tempting for someone who is about to graduate from college and is seeking a tremendous improvement in the skill set.
+    - collaborative environment: no levels within the company, all programmers are called 'software developers'. This encourages a collaborative working environment as we won't be stressed by your teammates title
+    - Also, what I personally like about the software developer role at jane street is that it is very directed towards the goal of making profits, instead of working on a product for customers as in traditional tech companies. This motivates me as a programmer to contribute more by writing rigorous code and heavily employing unit tests and integration tests.
 - how did you hear about this position?
     - 如实回答就行，我一般都说career fair和公司的工程师聊了聊，关键是最后要再重复一遍，据我了解，这个职位是干啥或者需要啥，我以前也在做这个或者有相关的技能，所以good fit
 
@@ -41,7 +41,7 @@
     - talk to my manager
 
 - how do you define success?
-    - 一般我都说达到自己制定的目标就算成功，这样容易说；那就可以理解为你有没有为自己制定目标？你的目标是啥？你现在完成的怎么样？未来在这个公司想怎么发展自己？（develop tech stack，gain more domain knowledge，see myself in postion of senior engiener in xx years）
+    - 一般我都说达到自己制定的目标就算成功，这样容易说；那就可以理解为你有没有为自己制定目标？你的目标是啥？你现在完成的怎么样？未来在这个公司想怎么发展自己？（develop tech stack，gain more domain knowledge，see myself in postion of senior engineer in xx years）
 
 - what if you get assigned to a challenging task?
     - 你会不会和你的老板沟通？你会不会和你的同事沟通？你会不会提出合理的要求？能不能以非常职业的方式解决这个问题？
@@ -52,7 +52,7 @@
     - keep doing reflections on daily work
     - double check we've satisfied all requirements when project finished
     - (myself) don't make assumptions, open to any idea in general
-    
+
 - what if a task is due earlier? what would you do if you have multiple deadlines upcoming?
     - 你是怎么管理你的时间的？比如日历上设置好项目，还有提醒；你会不会根据工作的优先级安排你的时间？你会不会为了项目组的整体利益考虑（best interest of my team），舍弃一些个人利益？比如为了毕设，自己的考试就不投入太多时间；会不会和别人沟通寻找解决方案？如果你是组长，你知道due提前了会不会采取措施？比如立刻开会，重新安排这个项目后面的任务和时间节点。
     - figure out priority
