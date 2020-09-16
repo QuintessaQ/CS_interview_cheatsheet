@@ -167,7 +167,7 @@
 	- This is known as **hashing**, which is the concept that an input and an output have a one-to-one correspondence to map information.
   	- Hash functions return a unique address in memory for that data.
 	- knows nothing about the table size, thus need to mod table_size
-	- perfct hash function: map each input to a different index in the table
+	- perfect hash function: map each input to a different index in the table
 		- impossible
 		- don't know size(table)
 		- #possible values >> table size
@@ -196,7 +196,7 @@
 - java.lang.Objects hashCode()
 	- returns memory address of the object by default
 	- if override equals, must override hashCode()
-	- a.equals(b) returns true iff a and b points to the same object
+	- a.equals(b) returns true iff a and b are the same object
 	- if equal, then should have the same hashcode and hashed to the same bucket
 - **load factor** \lambda = # of entries / lenth of array
 	- if \lambda = 1/2, expected # of probes = 2
@@ -406,6 +406,10 @@ def merge(arr, h, mid, t):
 
 #### Time Complexity:
 - Best Case Sort: O(n)
+	```
+	if (arr[mid] > arr[mid + 1]) 
+		merge(arr, low, mid, high); 
+	```
 - Average Case Sort: O(n log n)
 - Worst Case Sort: O(n log n)
 - Space: O(n)
@@ -581,14 +585,13 @@ This algorithm never needed to compare all the differences to one another, savin
 
 
 ### **List**
-
 #### Methods
 - ``list.insert(i, x)``insert `x` at `i`
 - ``list.remove(x)`` remove the first occurrence of x, raise `ValueError` if not found
 - ``list.pop([i])`` remove elem at `i`, remove the last item if argument unspecified
 - ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
 - ``list.count(x)`` returns # of x in the list
-- ``list.sort(key = None, reverse = False)`` sort
+- ``list.sort(key = None, reverse = False)`` sort in place
 - ``a = sorted(list, key=None, reverse=False)``
 - ``del``
 	```
@@ -598,7 +601,7 @@ This algorithm never needed to compare all the differences to one another, savin
 
 #### Miscellaneous
 - could use list as stack or queue
-- use it as queue not efficient, use 	`collections.deque` instead.
+- use it as queue not efficient, use `collections.deque` instead.
 - list comprehensions
 	- ``l = [(i, j) for i in x for j in y if i == j]``
 - comparing sequences and other types: uses lexicographical ordering
@@ -863,6 +866,24 @@ for k, v in pairs:
 	#[(1, 2), (2, 3), (3, 2), (1, 1)]
 	```
 
+### **heapq (minheap)**
+- every parent node has a value less than or equal to any of its children
+- `heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2]`
+- methods
+	- `heapq.heappush(heap, item)`
+	- `heappop(heap)` pop and return the smallest item from the heap. Raise `IndexError` if heap empty
+	- `heap[0]` access the smallest element without popping it
+	- `heapify(x)` transform list x into a heap, **in-place**, O(n)
+	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
+	- `nsmallest(n, iterable, key=None)` return smallest n elements
+- Examples
+	```
+	h = []
+	heappush(h, 5)
+	heappush(h, 4)
+	a = heappop(h)
+	```
+
 ### **built-in functions**
 - ``abs()``
 - ``all(iterable)`` returns True if all elements in the iterable are true, or iterable empty
@@ -904,13 +925,13 @@ for k, v in pairs:
 - ``definition.__name__`` the name of the class, function, method, ...
 - ``chr(int)`` convert int to char
 - ``ord(char)`` convert char to int
+- ``str.isdigit()`` check if a string only contains numeric values
 
 - random number generation
 	- ``random.randrange(start, stop[, step])`` return a randomly selected element from range(start, stop, step). 
 	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
 	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
 	- ``random.random()`` generate a random number between 0 and 1 
-
 
 
 ### **Trie node**
@@ -943,23 +964,6 @@ for k, v in pairs:
 - the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N), where N is number of keys in Trie
 
 
-### **heapq (minheap)**
-- every parent node has a value less than or equal to any of its children
-- `heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2]`
-- methods
-	- `heapq.heappush(heap, item)`
-	- `heappop(heap)` pop and return the smallest item from the heap. Raise `IndexError` if heap empty
-	- `heap[0]` access the smallest element without popping it
-	- `heapify(x)` transform list x into a heap, in-place, O(n)
-	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
-	- `nsmallest(n, iterable, key=None)` return smallest n elements
-- Examples
-	```
-	h = []
-	heappush(h, 5)
-	heappush(h, 4)
-	a = heappop(h)
-	```
 
 ### **functools**
 
