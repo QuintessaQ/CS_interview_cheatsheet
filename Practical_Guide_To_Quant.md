@@ -64,3 +64,23 @@
 ### Drunk passenger
 - E1: seat #1 taken before #100
 - E2: seat #100 taken before #1
+
+### N point on a circle
+- 1/2^{N-1} chance that all 2, ..., N points in the same semi-circle
+- same for all i
+- N * 1/2^{N-1} 
+
+### poker hands
+- four-of-a-hand: 13 * 48
+- full house: 13 * 12 * 4 * 6
+- hand with two pairs: 13 * 6 * 6 * 6 * 44
+
+### hopping rabbit
+- stair(1) = 1
+- stair(2) = 2
+- stair(n) = stair(n-1) + stair(n-2)
+
+### screwy pirates
+- for each random group of 5, there must be a lock that none of them has the key to, yet all other 6 pirates have the key
+- number of locks = \binom(11,5)
+- each lock has 6 keys, each pirate has \binom(11,5) * 6 / 11
