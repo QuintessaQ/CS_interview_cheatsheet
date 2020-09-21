@@ -84,3 +84,34 @@
 - for each random group of 5, there must be a lock that none of them has the key to, yet all other 6 pirates have the key
 - number of locks = \binom(11,5)
 - each lock has 6 keys, each pirate has \binom(11,5) * 6 / 11
+
+### chess tournament
+- conditional probablity approach
+    - each player has 1/(2^n-1) of meeting player 1
+    - 1 and 2 do not meet in round 1 has probablity (2^n-2)/(2^n-1)
+    - 1 and 2 do not meet in round 2 has probablity (2^{n-1}-2)/(2^{n-1}-1)
+    - multiply together, get 2^{n-1}/(2^n-1)
+- counting approach
+    - 1 and 2 must be in different subgroup
+    - 2^{n-1}/(2^n-1)
+
+### application letters
+- let E_i be the event that envelop i is correct
+- P(E_i) = 1/5
+- P(E_iE_j) = 1/5 * 1/4
+- \sum P(E_iE_j) = 10 * 1/5 * 1/4 = 1/2
+- P(E_iE_jE_k) = 1/5 * 1/4 * 1/3
+- \sum P(E_iE_jE_k) = \binom(5, 3) * 1/5 * 1/4 * 1/3 = 1/3!
+- 1 - 1/2 + 1/3! - 1/4! + 1/5!
+
+### birthday problem
+- Pr(nobody has the same birtyday) < 1/2
+- 365 * 364 * ... * (365-n+1)/365^n < 1/2
+
+### 100th digit
+- binom theorem: (x + y)^n = \sum_{k=0}{n} \binom(n, k) x^k y^{n-k}
+- calculate (1-\sqrt(2))^n and (1+\sqrt(2))^n and add together, must be an integer
+- 0 < (1-\sqrt(2))^3000 <<10^{-100}
+
+### cubic of integer
+
