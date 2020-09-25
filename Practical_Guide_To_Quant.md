@@ -114,4 +114,19 @@
 - 0 < (1-\sqrt(2))^3000 <<10^{-100}
 
 ### cubic of integer
+- x = a + 10b
+- x^3 = (a + 10b)^3 = a^3 + 30a^2b + 300ab^2 + 1000b^3
+- last digit of x^3 depends on a^3, a = 1
+- second to last digit of x^3 depends on 30a^2b = 30b, 3b = 1, thus b = 7
+- prob = 1/100
+
+### boys and girls
+- part A
+    - A = everyone has >= son
+    - B = both are boys
+    - {bb, bg, gb, gg}
+    - Pr = 1/3
+
+- part B
+    - 1/2
 
