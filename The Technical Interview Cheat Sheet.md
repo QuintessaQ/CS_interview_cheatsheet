@@ -868,6 +868,7 @@ for k, v in pairs:
 
 ### **heapq (minheap)**
 - every parent node has a value less than or equal to any of its children
+-  `import heap`
 - `heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2]`
 - methods
 	- `heapq.heappush(heap, item)`
@@ -926,7 +927,7 @@ for k, v in pairs:
 - ``chr(int)`` convert int to char
 - ``ord(char)`` convert char to int
 - ``str.isdigit()`` check if a string only contains numeric values
-
+- ``str.isalpha()`` returns True if all the characters are alphabet letters (a-z).
 - random number generation
 	- ``random.randrange(start, stop[, step])`` return a randomly selected element from range(start, stop, step). 
 	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
