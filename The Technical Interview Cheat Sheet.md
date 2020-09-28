@@ -933,7 +933,7 @@ for k, v in pairs:
 	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
 	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
 	- ``random.random()`` generate a random number between 0 and 1 
-
+- ``gcd(a, b)``
 
 ### **Trie node**
 - 
