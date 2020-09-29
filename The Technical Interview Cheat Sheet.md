@@ -1011,6 +1011,7 @@ for k, v in pairs:
 	- ``&`` AND in binary
 	- ``|`` OR in binary
 
+- `s = s.replace(" ", "")` remove whitespace in s
 
 todo:
 add more from algo: dp, greedy
