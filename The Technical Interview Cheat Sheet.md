@@ -839,6 +839,7 @@ for k, v in pairs:
 #### product
 - ``product(*iterables[, r])`` return the cartesian product of input iterables
 - `product(A, B)` is the same as `[(x, y) for x in A for y in B]`, but not ``for x, y in zip(A, B)``
+- `*iterables` could be a list of lists, need to add `*` prior to the variable name
 - 
 	```
 	arr1 = [1,2,3]
@@ -877,6 +878,14 @@ for k, v in pairs:
 	- `heapify(x)` transform list x into a heap, **in-place**, O(n)
 	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
 	- `nsmallest(n, iterable, key=None)` return smallest n elements
+
+- could define ``__lt__`` method to compare objects
+	```
+	def __lt__(self, other):
+		return self.intAttribute < other.intAttribute
+	```
+- or use tuples and heapq sort by the first and subsequent elements
+	
 - Examples
 	```
 	h = []
@@ -1012,6 +1021,8 @@ for k, v in pairs:
 	- ``|`` OR in binary
 
 - `s = s.replace(" ", "")` remove whitespace in s
+- use stack
+- `idx ^= 1` flip the `idx` between 0 and 1
 
 todo:
 add more from algo: dp, greedy

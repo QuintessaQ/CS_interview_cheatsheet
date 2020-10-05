@@ -130,3 +130,18 @@
 - part B
     - 1/2
 
+### all-girl world?
+X = # of boys before having a girl
+X = 0, 1, 2, \infty
+average proportion of boys = \sum_{k=0} k/(k+1) * (1/2)^{k+1}
+
+###unfair coin
+B: biased
+HS: 10 heads
+Pr(B|HS) = \frac{Pr(B \cap HS)}{Pr(HS)}
+Pr(HS) = Pr(F \cap HS) + Pr(B \cap HS)
+Pr(B \cap HS) = Pr(HS|B) * Pr(B) = 1 * 1/10^3
+
+Pr(B|HS) = \frac{1/10^3}{(1/2)^10 * 999/1000 + 1/10^3}
+
+### fair probability from an unfair coin
