@@ -145,3 +145,23 @@ Pr(B \cap HS) = Pr(HS|B) * Pr(B) = 1 * 1/10^3
 Pr(B|HS) = \frac{1/10^3}{(1/2)^10 * 999/1000 + 1/10^3}
 
 ### fair probability from an unfair coin
+Pr(H) = p
+Pr(HH) = p^2
+Pr(HT) = 2p(1-p)
+Pr(TT) = (1-p)^2
+
+throw it twice, if HH or TT, discard
+if HT, count as positive, if TF, then negative
+
+### dart game
+enumerate all possible outcomes of three throws
+
+### birthday line
+assume i'm the n^th person
+P(n) = Pr(first n-1 person different birthdays) * Pr(my birthday is the same as one of them)
+= \frac{365 * 364 * ... * 365-n+2}{365^{n-1}} * \frac{n-1}{365}
+find the n such that P(n) > P(n-1) and P(n) > P(n+1)
+
+### dice order
+Pr = Pr(increasing order | three different number) * Pr(three different number) 
+= 1/6 * 5/6 * 4/6
