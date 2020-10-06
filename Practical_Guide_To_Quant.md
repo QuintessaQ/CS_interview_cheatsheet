@@ -165,3 +165,38 @@ find the n such that P(n) > P(n-1) and P(n) > P(n+1)
 ### dice order
 Pr = Pr(increasing order | three different number) * Pr(three different number) 
 = 1/6 * 5/6 * 4/6
+
+### Monty hall problem
+if not switch, Pr(win) = 1/3
+if switch, Pr(win) = Pr(originally picked a goat) = 2/3
+
+### Amoeba population
+Let P(E) be the probability that the amoeba dies.
+Let F1, F2, F3, F4 be those four individual outcomes
+P(E) = P(E|F1)P(F1) + P(E|F2)P(F2) + P(E|F3)P(F3) + P(E|F4)P(F4)
+= 1/4 + P(E)/4 + P(E)^2/4 + P(E)^3/4
+P(E) = \sqrt(2) - 1
+
+### candies in a jar
+
+### coin toss game
+Pr(A win) = Pr(xHT) + Pr(xxxHT) ...
+= P(A|H) * 1/2 + P(A|T) * 1/2
+P(A|T) = P(B) 
+    = 1-P(A)
+conditioned on B's toss
+P(A|H) = 1/2*0 + 1/2(1-P(A|H))
+-> P(A|H) = 1/3
+P(A) = 4/9
+
+4.4 Discrete & continuous distributions
+
+### meeting probability
+Pr(|X-Y| <= 5) = shaded area in a square
+
+### probablity of a triangle
+x y-x 1-y
+assume x < y
+x + y-x > 1-y -> y > 1/2
+y-x + 1-y > x -> x < 1/2
+x + 1-y > y-x -> x + 1/2 > y
