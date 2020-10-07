@@ -970,6 +970,52 @@ for k, v in pairs:
 				return node.char_map[char]
 			return None
 	```
+	```
+	class TrieNode():
+		def __init__(self):
+			self.children = collections.defaultdict(TrieNode)
+			self.is_word = False
+
+	class WordDictionary:
+		def __init__(self):
+			"""
+			Initialize your data structure here.
+			"""
+			self.root = TrieNode()        
+			
+
+		def addWord(self, word: str) -> None:
+			"""
+			Adds a word into the data structure.
+			"""
+			curr = self.root
+			for w in word:
+				curr = curr.children[w]   
+			curr.is_word = True
+	
+
+		def search(self, word: str) -> bool:
+			"""
+			Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+			""" 
+			self.res = False
+			self.dfs(self.root, word)
+			return self.res
+
+		def dfs(self, node, word):
+			if not word:
+				if node.is_word:
+					self.res = True
+				return
+			if word[0] == '.':
+				for n in node.children.values():
+					self.dfs(n, word[1:])
+			else:
+				if word[0] not in node.children:
+					return
+				self.dfs(node.children[word[0]], word[1:])
+        
+	```
 - Insert and search costs O(key_length)
 - the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N), where N is number of keys in Trie
 
