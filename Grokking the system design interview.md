@@ -1,10 +1,10 @@
 https://www.educative.io/courses/grokking-the-system-design-interview?affiliate_id=5749180081373184/
-##Designing a URL Shortening service like TinyURL
-### Why do we need URL shortening?
+# Designing a URL Shortening service like TinyURL
+## Why do we need URL shortening?
 - URL shortening is used for optimizing links across devices, tracking individual links to analyze audience and campaign performance, and hiding affiliated original URLs.
 
-### Requirements and Goals of the System
-## Functional Requirements
+## Requirements and Goals of the System
+### Functional Requirements
 -Given a URL, our service should generate a shorter and unique alias of it. This is called a short link. This link should be short enough to be easily copied and pasted into applications.
 - When users access a short link, our service should redirect them to the original link.
 - Users should optionally be able to pick a custom short link for their URL.
@@ -62,3 +62,65 @@ Our service should also be accessible through REST APIs by other services.
     Where “url_key” is a string representing the shortened URL to be retrieved. A successful deletion returns ‘URL Removed’.
 - How do we detect and prevent abuse? 
     - A malicious user can put us out of business by consuming all URL keys in the current design. To prevent abuse, we can limit users via their api_dev_key. Each api_dev_key can be limited to a certain number of URL creations and redirections per some time period (which may be set to a different duration per developer key).
+
+## Database Design
+- A few observations about the nature of the data we will store:
+    - We need to store billions of records.
+    - Each object we store is small (less than 1K).
+    - There are no relationships between records—other than storing which user created a URL.
+    - Our service is read-heavy.
+- Database Schema
+    - We would need two tables: one for storing information about the URL mappings, and one for the user’s data who created the short link.
+    - url mapping of char[16]
+        - original_url char[512]
+        - creation_date
+        - expiration_date
+        - user_id
+    - user info
+        - name
+        - email
+        - register_date
+        - last_login_time
+- What kind of database should we use? 
+    - Since we anticipate storing billions of rows, and we don’t need to use relationships between objects – a NoSQL store like DynamoDB, Cassandra or Riak is a better choice. 
+    - A NoSQL choice would also be easier to scale. Please see SQL vs NoSQL for more details.
+
+## Basic System Design and Algorithm
+### encoding actual url
+- We can compute a unique hash (e.g., MD5 or SHA256, etc.) of the given URL.
+    - MD5
+    - MD5 message-digest algorithm is a widely used hash function producing a 128-bit hash value.
+    - One basic requirement of any cryptographic hash function is that it should be computationally infeasible to find two distinct messages that hash to the same value. MD5 fails this requirement catastrophically; such collisions can be found in seconds on an ordinary home computer.
+- This encoding could be base36 ([a-z ,0-9]) or base62 ([A-Z, a-z, 0-9]) and if we add ‘+’ and ‘/’ we can use Base64 encoding. 
+- Using base64 encoding, a 6 letters long key would result in 64^6 = ~68.7 billion possible strings
+- Using base64 encoding, an 8 letters long key would result in 64^8 = ~281 trillion possible strings
+- If we use the MD5 algorithm as our hash function, it’ll produce a 128-bit hash value. After base64 encoding, we’ll get a string having more than 21 characters (since each base64 character encodes 6 bits of the hash value). 
+- Now we only have space for 8 characters per short key, how will we choose our key then? We can take the first 6 (or 8) letters for the key. This could result in key duplication, to resolve that, we can choose some other characters out of the encoding string or swap some characters.
+- issues
+    - If multiple users enter the same URL, they can get the same shortened URL, which is not acceptable.
+    - What if parts of the URL are URL-encoded? e.g., http://www.educative.io/distributed.php?id=design, and http://www.educative.io/distributed.php%3Fid%3Ddesign are identical except for the URL encoding.
+- workarounds
+    - We can append an increasing sequence number to each input URL to make it unique, and then generate a hash of it. We don’t need to store this sequence number in the databases, though. Possible problems with this approach could be an ever-increasing sequence number. Can it overflow? Appending an increasing sequence number will also impact the performance of the service.
+    - Another solution could be to append user id (which should be unique) to the input URL. However, if the user has not signed in, we would have to ask the user to choose a uniqueness key. Even after this, if we have a conflict, we have to keep generating a key until we get a unique one.
+
+### Generating keys offline 
+- We can have a standalone Key Generation Service (KGS) that generates random six-letter strings beforehand and stores them in a database (let’s call it key-DB). Whenever we want to shorten a URL, we will just take one of the already-generated keys and use it. This approach will make things quite simple and fast. Not only are we not encoding the URL, but we won’t have to worry about duplications or collisions. 
+- can concurrency cause problem?
+    - As soon as a key is used, it should be marked in the database to ensure it doesn’t get reuse. If there are multiple servers reading keys concurrently, we might get a scenario where two or more servers try to read the same key from the database. 
+    - For simplicity, as soon as KGS loads some keys in memory, it can move them to the used keys table. This ensures each server gets unique keys. If KGS dies before assigning all the loaded keys to some server, we will be wasting those keys–which could be acceptable, given the huge number of keys we have.
+    - KGS also has to make sure not to give the same key to multiple servers. For that, it must synchronize (or get a lock on) the data structure holding the keys before removing keys from it and giving them to a server.
+    - Can each app server cache some keys from key-DB? 
+        - Yes, this can surely speed things up. Although in this case, if the application server dies before consuming all the keys, we will end up losing those keys. This can be acceptable since we have 68B unique six-letter keys.
+    - How would we perform a key lookup? 
+        - We can look up the key in our database to get the full URL. If it’s present in the DB, issue an “HTTP 302 Redirect” status back to the browser, passing the stored URL in the “Location” field of the request. If that key is not present in our system, issue an “HTTP 404 Not Found” status or redirect the user back to the homepage.
+    - it is reasonable (and often desirable) to impose a size limit on a custom alias to ensure we have a consistent URL database. Let’s assume users can specify a maximum of 16 characters per customer key (as reflected in the above database schema).
+
+### Data Partitioning and Replication
+- Range Based Partitioning
+    - We can store URLs in separate partitions based on the first letter of the hash key. Hence we save all the URLs starting with letter ‘A’ (and ‘a’) in one partition, save those that start with letter ‘B’ in another partition and so on. This approach is called range-based partitioning. We can even combine certain less frequently occurring letters into one database partition. We should come up with a static partitioning scheme so that we can always store/find a URL in a predictable manner.
+    - The main problem with this approach is that it can lead to unbalanced DB servers. For example, we decide to put all URLs starting with letter ‘E’ into a DB partition, but later we realize that we have too many URLs that start with the letter ‘E’.
+
+- Hash-Based Partitioning
+    - In this scheme, we take a hash of the object we are storing. We then calculate which partition to use based upon the hash. In our case, we can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object.
+    - Our hashing function will randomly distribute URLs into different partitions (e.g., our hashing function can always map any ‘key’ to a number between [1…256]), and this number would represent the partition in which we store our object.
+
