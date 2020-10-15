@@ -943,7 +943,9 @@ for k, v in pairs:
 	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
 	- ``random.random()`` generate a random number between 0 and 1 
 - ``gcd(a, b)``
-
+- ``string.split()`` split by white space
+- ``'a' <= c <= 'z'`` string comparison
+## common algs
 ### **Trie node**
 - 
 	```
@@ -1018,7 +1020,21 @@ for k, v in pairs:
 	```
 - Insert and search costs O(key_length)
 - the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N), where N is number of keys in Trie
-
+- backtracking algorithm, find all paths from one node to another
+```
+def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        res = []
+        n = len(graph)
+        def backtrack(node, path):
+            if node == n-1:
+                res.append(path)
+            
+            for nxt in graph[node]:
+                if nxt not in path:
+                    backtrack(nxt, path + [nxt])
+        backtrack(0, [0])
+        return res
+```
 
 
 ### **functools**
