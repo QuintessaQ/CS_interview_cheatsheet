@@ -21,7 +21,7 @@
     - start estimating from usage per month
 
 ## Step2: Abstract design
--  draw a simple diagram of your ideas
+- draw a simple diagram of your ideas
 - e.g. url shortening
     - application service layer
         - shortening service

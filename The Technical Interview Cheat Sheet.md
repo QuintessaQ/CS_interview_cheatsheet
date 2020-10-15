@@ -1089,6 +1089,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 - ``string.split()`` split by white space
 - ``'a' <= c <= 'z'`` string comparison
 - ``str.find(sub,start,end)`` returns the lowest index of the substring if it is found in given string. If not found then it returns -1.
+- ``min(list, key = ...)`` find the min element in a list by key
 todo:
 add more from algo: dp, greedy
 leetcode tricks
