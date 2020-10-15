@@ -162,3 +162,20 @@ Our service should also be accessible through REST APIs by other services.
 - We can store the permission level (public/private) with each URL in the database. We can also create a separate table to store UserIDs that have permission to see a specific URL. If a user does not have permission and tries to access a URL, we can send an error (HTTP 401) back. 
 - Given that we are storing our data in a NoSQL wide-column database like Cassandra, the key for the table storing permissions would be the ‘Hash’ (or the KGS generated ‘key’). The columns will store the UserIDs of those users that have the permission to see the URL.
 
+# Design instagram
+## what is instagram
+- For the sake of this exercise, we plan to design a simpler version of Instagram, where a user can share photos and can also follow other users. The ‘News Feed’ for each user will consist of top photos of all the people the user follows.
+
+## Requirements and Goals of the System
+- Functional Requirements
+    - Users should be able to upload/download/view photos.
+    - Users can perform searches based on photo/video titles.
+    - Users can follow other users.
+    - The system should be able to generate and display a user’s News Feed consisting of top photos from all the people the user follows.
+- Non-functional Requirements
+- Our service needs to be highly available.
+- The acceptable latency of the system is 200ms for News Feed generation.
+- Consistency can take a hit (in the interest of availability), if a user doesn’t see a photo for a while; it should be fine.
+- The system should be highly reliable; any uploaded photo or video should never be lost.
+
+## Some Design Considerations
