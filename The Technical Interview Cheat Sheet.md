@@ -583,6 +583,7 @@ This algorithm never needed to compare all the differences to one another, savin
 - ``[]`` denotes optional arguments
 - ``...`` means there are multiple such elements
 
+### ** String**
 
 ### **List**
 #### Methods
@@ -933,18 +934,8 @@ for k, v in pairs:
 - ``object.__dict__``
 - ``instance.__class__`` the class of that instance
 - ``definition.__name__`` the name of the class, function, method, ...
-- ``chr(int)`` convert int to char
-- ``ord(char)`` convert char to int
-- ``str.isdigit()`` check if a string only contains numeric values
-- ``str.isalpha()`` returns True if all the characters are alphabet letters (a-z).
-- random number generation
-	- ``random.randrange(start, stop[, step])`` return a randomly selected element from range(start, stop, step). 
-	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
-	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
-	- ``random.random()`` generate a random number between 0 and 1 
-- ``gcd(a, b)``
-- ``string.split()`` split by white space
-- ``'a' <= c <= 'z'`` string comparison
+
+
 ## common algs
 ### **Trie node**
 - 
@@ -1085,7 +1076,19 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 - `s = s.replace(" ", "")` remove whitespace in s
 - use stack
 - `idx ^= 1` flip the `idx` between 0 and 1
-
+- ``chr(int)`` convert int to char
+- ``ord(char)`` convert char to int
+- ``str.isdigit()`` check if a string only contains numeric values
+- ``str.isalpha()`` returns True if all the characters are alphabet letters (a-z).
+- random number generation
+	- ``random.randrange(start, stop[, step])`` return a randomly selected element from range(start, stop, step). 
+	- ``random.randint(a, b)`` return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
+	- ``random.choice(seq)`` return a random element from the non-empty sequence seq. If seq is empty, raises IndexError.
+	- ``random.random()`` generate a random number between 0 and 1 
+- ``gcd(a, b)``
+- ``string.split()`` split by white space
+- ``'a' <= c <= 'z'`` string comparison
+- ``str.find(sub,start,end)`` returns the lowest index of the substring if it is found in given string. If not found then it returns -1.
 todo:
 add more from algo: dp, greedy
 leetcode tricks
