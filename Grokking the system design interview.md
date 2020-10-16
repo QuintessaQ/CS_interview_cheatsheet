@@ -1,4 +1,11 @@
 https://www.educative.io/courses/grokking-the-system-design-interview?affiliate_id=5749180081373184/
+# names of large numbers
+- 1 KB = 1024 bytes = 10^3 bytes | kilobytes
+- 1 MB = 1024 KB = 10^6 bytes | megabytes
+- 1 GB = 10^9 bytes | gigabytes
+- 1 TB = 10^12 bytes | terabytes
+- 1 PB = 10^15 bytes | petabytes
+
 # Designing a URL Shortening service like TinyURL
 ## Why do we need URL shortening?
 - URL shortening is used for optimizing links across devices, tracking individual links to analyze audience and campaign performance, and hiding affiliated original URLs.
@@ -179,3 +186,42 @@ Our service should also be accessible through REST APIs by other services.
 - The system should be highly reliable; any uploaded photo or video should never be lost.
 
 ## Some Design Considerations
+- The system would be read-heavy, so we will focus on building a system that can retrieve photos quickly.
+    - Practically, users can upload as many photos as they like. Efficient management of storage should be a crucial factor while designing this system.
+    - Low latency is expected while viewing photos.
+    - Data should be 100% reliable. If a user uploads a photo, the system will guarantee that it will never be lost.
+
+## Capacity Estimation and Constraints
+- Let’s assume we have 500M total users, with 1M daily active users.
+- 2M new photos every day, 23 new photos every second.
+- Average photo file size => 200KB
+- Total space required for 1 day of photos
+    - 2M * 200KB => 400 GB
+- Total space required for 10 years:
+    - 400GB * 365 (days a year) * 10 (years) ~= 1425TB
+
+## High Level System Design
+- At a high-level, we need to support two scenarios, one to upload photos and the other to view/search photos. 
+- Our service would need some object storage servers to store photos and also some database servers to store metadata information about the photos.
+
+##  Database Schema 
+- We need to store data about users, their uploaded photos, and people they follow. - Photo table will store all data related to a photo; we need to have an index on (PhotoID, CreationDate) since we need to fetch recent photos first.
+- photo table
+    ```
+    photoID: int - key
+    userID : int
+    photo_path: char[256]
+    photo_latitude: int
+    photo_longitude: int
+    creation_date: date
+
+    ```
+- user table
+    ```
+    userID: int - key
+    name: char[20]
+    email: char[30]
+    creation_date: date
+    last_login: date
+    user_follow: users
+    ```
