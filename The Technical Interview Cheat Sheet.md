@@ -1120,7 +1120,12 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	>>> '{0:08b}'.format(6)
 	'00000110'
 	```
+- `dictionary.get(keyname, [value])` value is optional, returned if the specified key does not exist.
+- `bisect`
 
+
+
+Default value None
 todo:
 add more from algo: dp, greedy
 leetcode tricks
