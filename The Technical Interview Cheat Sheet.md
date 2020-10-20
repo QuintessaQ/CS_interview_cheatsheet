@@ -1090,6 +1090,37 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 - ``'a' <= c <= 'z'`` string comparison
 - ``str.find(sub,start,end)`` returns the lowest index of the substring if it is found in given string. If not found then it returns -1.
 - ``min(list, key = ...)`` find the min element in a list by key
+- ``yield``
+	- The yield statement suspends function’s execution and sends a value back to the caller, but retains enough state to enable function to resume where it is left off. When resumed, the function continues execution immediately after the last yield run. This allows its code to produce a series of values over time, rather than computing them at once and sending them back like a list.
+	- ```
+	# A Python program to generate squares from 1 
+	# to 100 using yield and therefore generator 
+	# An infinite generator function that prints 
+	# next square number. It starts with 1 
+	def nextSquare(): 
+		i = 1; 
+	
+		# An Infinite loop to generate squares  
+		while True: 
+			yield i*i                 
+			i += 1  # Next execution resumes  
+					# from this point      
+	
+	# Driver code to test above generator  
+	# function 
+	for num in nextSquare(): 
+		if num > 100: 
+			break    
+		print(num) 
+	```
+- binary nunbers
+	```
+	>>> bin(6)  
+	'0b110'
+	>>> '{0:08b}'.format(6)
+	'00000110'
+	```
+
 todo:
 add more from algo: dp, greedy
 leetcode tricks
