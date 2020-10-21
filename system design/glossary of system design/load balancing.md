@@ -24,12 +24,12 @@ Help scale horizontally across an ever-increasing number of servers.
 # text
 - Load Balancer (LB) is another critical component of any distributed system. It helps to spread the traffic across a cluster of servers to improve responsiveness and availability of applications, websites or databases. LB also keeps track of the status of all the resources while distributing requests. If a server is not available to take new requests or is not responding or has elevated error rate, LB will stop sending traffic to such a server.
 - Typically a load balancer sits between the client and the server accepting incoming network and application traffic and distributing the traffic across multiple backend servers using various algorithms. By balancing application requests across multiple servers, a load balancer reduces individual server load and prevents any one application server from becoming a single point of failure, thus improving overall application availability and responsiveness.
-![client_loadbalancer_server](images/client_loadbalancer_server.png)
+![client_loadbalancer_server](../images/client_loadbalancer_server.png)
 - To utilize full scalability and redundancy, we can try to balance the load at each layer of the system. We can add LBs at three places:
     - Between the user and the web server
     - Between web servers and an internal platform layer, like application servers or cache servers
     - Between internal platform layer and database.
-![loadbalancer2](images/loadbalancer2)
+![loadbalancer2](../images/loadbalancer2)
 
 ## Benefits of Load Balancing
 - Users experience faster, uninterrupted service. Users won’t have to wait for a single struggling server to finish its previous tasks. Instead, their requests are immediately passed on to a more readily available resource.
@@ -62,4 +62,4 @@ Help scale horizontally across an ever-increasing number of servers.
 
 ## Redundant Load Balancers
 - The load balancer can be a single point of failure; to overcome this, a second load balancer can be connected to the first to form a cluster. Each LB monitors the health of the other and, since both of them are equally capable of serving traffic and failure detection, in the event the main load balancer fails, the second load balancer takes over.
-- ![redundant load balancer](images/redundant_load_balancer.png)
+- ![redundant load balancer](../images/redundant_load_balancer.png)
