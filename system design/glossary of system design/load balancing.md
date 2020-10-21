@@ -29,7 +29,7 @@ Help scale horizontally across an ever-increasing number of servers.
     - Between the user and the web server
     - Between web servers and an internal platform layer, like application servers or cache servers
     - Between internal platform layer and database.
-![loadbalancer2](../images/loadbalancer2)
+![loadbalancer2](../images/loadbalancer2.png)
 
 ## Benefits of Load Balancing
 - Users experience faster, uninterrupted service. Users won’t have to wait for a single struggling server to finish its previous tasks. Instead, their requests are immediately passed on to a more readily available resource.
