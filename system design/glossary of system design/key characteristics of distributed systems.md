@@ -1,4 +1,5 @@
-# Key Characteristics of Distributed Systems
+Key Characteristics of Distributed Systems
+====
 
 # keypoints
 ## Scalability
@@ -38,7 +39,7 @@ Key characteristics of a distributed system include Scalability, Reliability, Av
 - Horizontal vs. Vertical Scaling: Horizontal scaling means that you scale by adding more servers into your pool of resources whereas Vertical scaling means that you scale by adding more power (CPU, RAM, Storage, etc.) to an existing server.
 - With horizontal-scaling it is often easier to scale dynamically by adding more machines into the existing pool; Vertical-scaling is usually limited to the capacity of a single server and scaling beyond that capacity often involves downtime and comes with an upper limit.
 - Good examples of horizontal scaling are Cassandra and MongoDB as they both provide an easy way to scale horizontally by adding more machines to meet growing needs. Similarly, a good example of vertical scaling is MySQL as it allows for an easy way to scale vertically by switching from smaller to bigger machines. However, this process often involves downtime.
-- ![Vertical scaling vs. Horizontal scaling](images/Vertical scaling vs. Horizontal scaling.png)
+- ![Vertical scaling vs. Horizontal scaling](../images/Vertical scaling vs. Horizontal scaling.png)
 
 ## Reliability
 - By definition, reliability is the probability a system will fail in a given period. In simple terms, a distributed system is considered reliable if it keeps delivering its services even when one or several of its software or hardware components fail. Reliability represents one of the main characteristics of any distributed system, since in such systems any failing machine can always be replaced by another healthy one, ensuring the completion of the requested task.
