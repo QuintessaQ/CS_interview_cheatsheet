@@ -1,0 +1,109 @@
+Introduction To Probability
+====
+
+# Experiments with random outcomes
+## Sample space & probabilities
+- Definition 1.1
+    - sample space \Omega
+
+
+    \documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{accents}
+\usepackage{xparse}
+\usepackage{tikz}
+\usepackage{IEEEtrantools}
+\usepackage[ruled,vlined]{algorithm2e}
+\pagestyle{fancy}
+\setlength{\headheight}{40pt}
+
+\newcommand{\iso}{\cong}
+\newtheorem{claim}{Claim}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{ \mathbb{P}}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\newtheorem{probleminternal}{Problem}
+\NewDocumentEnvironment{prob}{o}{
+  \IfValueT{#1}{
+    \renewcommand{\theprobleminternal}{#1}
+    \addtocounter{probleminternal}{-1}
+  }
+  \probleminternal
+}
+{\endprobleminternal}
+
+%%%%% Put header information here
+\author{}
+\title{4710 review}
+%%%%%
+\makeatletter
+\lhead{\@author} 
+\rhead{\@title} 
+\cfoot{\thepage\ of \pageref{LastPage}}
+
+\begin{document}
+
+\section*{Problem 4}
+We weren't able to solve the problem, but this is as close as we got. Given an input to the problem consisting of towns $1, \dots n$, dates $1, \dots, m$, and garbage production $g(i, j)$ for each town $i$ and date $j$, construct a flow network $(G, c, s, t)$ as follows:
+\begin{itemize}
+    \item For each town $i$, generate $d = \lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor$ disjoint intervals $[d(j),d(k)]_i$ satisfying $\sum\limits_{d(j) \leq s \leq d(k)} g(i,s) > 2$ according to the following algorithm: \\
+    \begin{algorithm}[H]
+    \SetAlgoLined
+    Initialize $M = \emptyset$ \\
+    Let $S = \{[d(j),d(k)] \; | \; \sum\limits_{d(j) \leq s \leq d(k)} g(i,s) > 2\}$\\
+    Let $I = [d(j),d(k)] \in S$ be the interval which minimizes $d(k)$, and remove $I$ from $S$\\
+    \While{$|M| < d$}{
+    Iterate through $S$ until we encounter some first interval $I_k$ such that $I_k \cap I = \emptyset$\\
+    Update $M \leftarrow M \cup (I \cap I_1 \cap \dots \cap I_{k-1})$\\
+    Set $I \leftarrow I_k$
+    }
+    Output $M$
+    \end{algorithm}
+    \item Create a source $s$, sink $t$, nodes $t_i$ for each town $i$, nodes $d_j$ for each date $j$, and nodes $I^i_{jk}$ for each disjoint interval computed previously ($i$ is the corresponding town, corresponding to the sum over dates $d(j) \dots d(k)$).
+    \item Create edges $(s,t_i)$ of capacity $c(s,t_i) = \lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor$ for each town $i$.
+    \item Create edges $(t_i, I^i_{jk})$ of capacity 1 for each interval $I^i_{jk}$ corresponding to town $i$.
+    \item Create edges $(I^i_{jk}, d_s)$ for each $j \leq s \leq k$ of capacity 1.
+    \item Create edges $(d_j, t)$ of capacity 1 for each date $d_j$.\\
+\end{itemize}
+\begin{claim}
+Integer max flows $f^*$ of value $|f^*| = \sum_{i=1,\dots,n} (\lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor)$ can be converted into a feasible schedule for the original problem.
+\end{claim}
+\begin{proof}
+By construction, we have that $c(\delta^-(t_i)) = c(\delta^+(t_i))$ for each town $t_i$. Then since $|f^*| = \sum_{i=1,\dots,n} (\lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor)$, it is clear that $f^*$ saturates all arcs $(s,t_i)$, and therefore must also saturate all arcs between "town" nodes and "disjoint interval" nodes. Thus, the layer between "disjoint interval" nodes and "date" nodes is an assignment of towns to days, where the garbage truck visits town $i$ on day $s$ if $f(I^i_{jk}, d(s)) = 1$.\\
+\\The 1-capacity edges from dates to the sink ensures that each date is assigned to at most 1 town. We still need to show that for this assignment, there does not exist an interval $[j,k]$ and town $i$ such that $\sum_{d(j) \leq s \leq d(k)} g(i,s) > 2$. Equivalently, we can show that for any town $i$, any interval $[j,k]$ intersects with at least one of the $d$ disjoint intervals computed for town $i$ during the graph construction.\\
+\\Assume toward a contradiction that there exists some town $i$ and interval $[j,k]$ of dates such that $\sum_{d(j) \leq s \leq d(k)} g(i,s) > 2$, and $[j,k]$ is disjoint from the "must visit" intervals $[j_1,k_1], \dots, [j_d,k_d]$ computed for town $i$. Then, we have that
+\begin{equation}
+\begin{aligned}
+    \sum_j g(i,j) &\geq 2(d+1) && \text{($>2$ units of trash produced in $d+1$ disjoint intervals)}\\
+    \implies \frac{\sum_j g(i,j)}{2} &\geq d + 1 \\
+    \implies \lfloor \frac{\sum_j g(i,j)}{2} \rfloor &\geq d+1 &&\text{($d+1$ is integer)}
+    \end{aligned}
+\end{equation}
+But by definition $\lfloor \frac{\sum_j g(i,j)}{2} \rfloor = d$, which is a contradiction.\\
+\\So, the assignment given by $\{(i,s) \; | \; f^*(I^i_{jk}, d(s)) = 1\}$ is a valid assignment for the original problem, where for each $(i,j)$, the truck visits town $i$ on day $j$.\\
+\\\textbf{Where it went wrong:} All that would be left to show at this point is that there exists a feasible flow of value $\sum_{i=1,\dots,n} (\lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor)$ in $(G,c,s,t)$, but we weren't able to do so with this construction due to the fact that there may exist restrictive sets in the edge layer between "disjoint interval" nodes and "date" nodes. Explicitly, there may exist a subset of dates $D = \{d(i), \dots, d(j)\}$ such that $c(\delta^-(S)) > c(\delta^+(S))$, in which case there is no feasible flow that saturates arcs in this edge layer, and therefore no max flow of value $\sum_{i=1,\dots,n} (\lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor)$. This likely occurs since our algorithm for generating disjoint intervals for each town is greedy in that it doesn't consider all possible combinations of disjoint intervals during which trash output exceeds 2 in city $i$ (at least one of these combinations would have no restrictive sets).\\
+\\Had we been able to find a feasible flow of the desired flow value, we would have been able to conclude that there exists an integer max flow by the integrality property, and therefore our proof of claim 1 would immediately give that there exists an admissible schedule for the original problem. Further, that the following algorithm would correctly generate one in the form of a set of (town, day) assignments:\\
+    \begin{algorithm}[H]
+    \SetAlgoLined
+    Generate $(G,c,s,t)$ as described above\\
+    Run the generic Ford Fulkerson algorithm on $(G,c,s,t)$ to find an integer max flow $f^*$ with $|f^*| = \sum_{i=1,\dots,n} (\lfloor \frac{\sum_{j = 1\dots m} g(i,j)}{2} \rfloor)$ \\
+    Output $\{(i,s) \; | \; f^*(I^i_{jk}, d(s)) = 1\}$
+    \end{algorithm}
+\end{proof}
+\textbf{Runtime Analysis:}
+Initially it takes $O(nm^2)$ time to compute all date intervals for which town $i$ produces more than 2 units of trash, then an additional $O(nm^2)$ time to iterate through the resulting sets and compute disjoint intervals, assuming that the set intersection operation is implemented in $O(1)$ time.\\
+\\The flow network $(G,c,s,t)$ has $O(n)$ nodes corresponding to towns, $O(m)$ nodes corresponding to dates, and $O(m)$ nodes corresponding to disjoint intervals, since $\sum_i(\lfloor \frac{\sum_{j} g(i,j)}{2} \rfloor)\leq \lfloor \frac{\sum_{ij} g(i,j)}{2} \rfloor \leq \lfloor \frac{m}{2} \rfloor = O(m)$. There is one edge corresponding to each node except for the source and sink, so it follows that it takes time $O(m+n)$ to construct $(G,c,s,t)$.\\
+\\It follows that it takes $O(m^2 + mn)$ time to compute a max flow using the Ford Fulkerson algorithm, since the value of the max flow in $G$ is $O(m)$. Finally, it takes $O(m)$ time to iterate through edges between the node layers corresponding to "disjoint intervals" and "dates" and add a pair $(i,s)$ for town $i$ and date $s$ to $S$ if $f^*(I^i_{jk}, d(s)) = 1$.\\
+\\Therefore, the total runtime of this algorithm is $O(nm^2)$.
+\end{document}
+
+
