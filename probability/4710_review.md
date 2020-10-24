@@ -74,22 +74,27 @@ Introduction To Probability
 - X_1, ..., X_n are random variables on the same probability space, then they are independent if P(X_1 \in B_1, X_2 \in B_2, ..., X_n \in B_n) = \prod_{k=1}^n P(X_k \in B_k)
 
 ## independent trials
-- Bernoulli distribution
+- **Bernoulli distribution**
   - records the result of a single trial with 2 possile outcomes
   - 0 <= p < 1, X ~ Ber(p) with success probability p if X \in {0, 1} and P(X = 1) = p and P(X = 0) = 1-p
   - e.g. a sequence of n independent trials
     - Pr(X_1 = 0, X_2 = 1, X_3 = X_4 = 0) = p(1-p)^3
-- Binomial distribution
+  - E[X] = p
+  - Var(X) = p(1-p)
+- **Binomial distribution**
   - X \sim Bin(n, p)
   - Let X be the number of successes in n indep trials, with success probaility p, X_i denotes the outcome of trial i
   - X = X_1 + X_2 + ... + X_n
   - Pr(X = k) = \binom{n}{k} p^k (1-p)^{n-k}
-- geometric distribution
+  - E[X] = np
+  - Var(X) = np(1-p)
+- **geometric distribution**
   - X \sim Geom(p)
   - infinite sequence of indep trials
   - X is the number of trials needed to see the first success
   - P(X = k) = P(X_1 = 0, X_2 = 0, ..., X_{k-1} = 0, X_k = 1) = (1-p)^{k-1}p
-
+  - E[X] = 1/p
+  - Var(X) = (1-p)/p^2
 ## Further topics
 - conditional independence 
   - P(A_i1 A_i2 ... A_ik | B) = P(A_i1 | B) P(A_i2 | B) ... P(A_ik | B)
@@ -111,3 +116,85 @@ Introduction To Probability
   - A_k = the first k picks are all distinct
   - p(A_k) = \frac{365 * 364 * ... * (365 - (k-1))}{365^k}
   - p_k = 1 - p(A_k)
+
+# random variables
+## probability distribution of random variables
+- discrete: Bernoulli, binomial, geometric
+- probability density function p.d.f
+  - P(X <= b) = \int_{-\inf}^{b} f(x) dx
+- if a random variable X has density function f then point values have probability zero
+  - P(X = c) = \int_c^c f(x) dx = 0 \any c
+- f(x) \geq 0 for \any x \in \R
+- \int_{-\inf}^{\inf} f(x) dx = 1
+- **uniform distribution**
+  - X \sim Unif[a, b]
+  - f(x) = 1/(b-a) if x \in [a,b]
+            0      otherwise
+  - P(c <= X <= d) = \int_c^d 1/(b-a) dx
+- the value f(x) of a density function is not a probability, but it gives probability of sets by integration
+- P(a < X < a + \epsilon) \simeq f(a) * \epsilon
+- E[X] = (a+b)/2
+- Var(X) = (b-a)^2/12
+## cumulative distribution function c.d.f
+- F(s) = P(X <= s) \any s \in \R
+- P(a < X <= b) = P(X <= b) - P(X <= a) = F(b) - F(a)
+- For discrete random variable
+  - F(s) = P(X <= s) = \sum_{k:k <= s} P(X = k)
+- For continuous random variabnle
+  - F(s) = P(X <= s) = \int_{-\inf}^s f(x) dx
+- find pmf/pdf from cdf
+  - if F is piecewise constant, then X is discrete. Possible values of X are where F has jumps. P(X = x) = magnitude of the jump of F at a
+  - if F continuous, F'(x) exists everywhere, except possibly at finitely many points, then X is continuous, f(x) = F'(x). If F not differentiable at x, then f(x) can be set arbitrary
+- property of cdf
+  - monotonicity: if s < t then F(s) <= F(t)
+  - right continuity: for each t \in \R, F(t) = lim_{s -> t^+} F(s)
+  - lim_{t -> -\inf} F(t) = 0, lim_{t -> \inf} F(t) = 1
+- P(X < a) = lim_{s -> a^-} F(s)
+
+## Expectation
+- expectation / first moment of discrete variablne: u = E[X] = \sum_{k} kP(X = k)
+- expectation of continuous random variable : E[X] = \int_{-\inf}^{\inf} xf(x) dx
+- St. Petersburg paradox: flip a coin, if head, win 2 dollars and game is over; if tail, prize is doubled and flip again. 
+  - Let Y denote the prize
+  - P(Y = 2^n) = 2^{-n}
+  - E[Y] = \sum_{n=1}^{\inf} 2^n 2^{-n} = \sum 1 = \inf
+- undefined expectation
+  - you and I flip a fair coin until we see the first head
+  - let n denote the number of flips needed, if n odd, you pay me 2^nl otherwise I pay you 2^n
+  - P(X = 2^n) = 2^{-n}, for odd n>= 1
+  - P(X = -2^n) = 2^{-n} for even n >= 1
+  - E[X] = 2^1 * 2*{-1} + (-2^2) * 2*{-2} + ... = 1 - 1 + 1 - 1..
+  - the expectation does not exist
+- expectation of a function of random variable
+  - discrete: E[g(X)] = \sum_k g(k) P(X = k)
+  - continuous: E[g(X)] = \int_{-\inf}^{\inf} g(k) P(X = k)
+- a stick of length l is broekn at a uniformly chosen random location. What is the expected length of the longer piece?
+  - g(x) = l-x if 0 <= l-x <=l/2
+            x if l/2 < x <= l
+  - E[g(x)] = \int_0^l g(x) f(x) dx
+            = \int_0^{l/2} (l-x)/l dx + \int_{l/2
+             ^{l} x/l dx
+            = 3l/4 
+- the n-th moment of X is E[X^n] = \sum_k k^n P(X = k)
+- median / 0.5-th quantile of X is any m that satisfies P(X >= m) >= 1/2, P(X <= m) >= 1/2
+- first quartile: p = 0.25, third quartile: p = 0.75
+- p-th quantile is any x satisfying P(X <= X) >= P, P(X >= x) >= 1-p
+
+## variance
+- Var(X) = E[(X - u)^2] = \sigma^2
+        = E[X^2] - (E[X])^2
+- standard deviation SD(X) = \sigma 
+- discrete: Var(X) = \sum_k (k-u)^2 P(X = k)
+- continuous Var(X) = \int_{\int}^{\int} (x-u)^2 f(x)dx
+- for an indicator random variable, Var[I_A] = P(A) P(A^c)
+- E(aX+b) = aE[X] + b
+- Var(aX+b) = a^2Var(X)
+![Properties of Random Variables](images/properties_of_random_variables.png)
+
+## Gaussian distribution
+- Z \sim N(0, 1), a random variable Z has standard normal distribution / standard Gaussian distribution if Z has density function \phi(x) = 1/\sqrt(2\pi) e^{-x^2/2}
+- bell shaped curve
+- c.d.f \Phi(x) = 1/\sqrt(2\pi) \int_{-\inf}^{x} e^{-s^2/2} ds
+- X \sim N(u, \sigma^2) iff. f(x) = 1/\sqrt(2\pi \sigma^2)e^{-(x-u)^2/2\sigma^2}
+- if X \sim N(u, \sigma^2), Z = (X - u)/\sigma
+- if 1 <= k < l are integers and E[X^l] finite
