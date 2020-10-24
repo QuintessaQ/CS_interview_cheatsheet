@@ -55,3 +55,59 @@ Introduction To Probability
 - probability distribution of X is P{X \in B} for set B of real numbers
 - X is a discrete random variable if there exists a finite or countably infinite set {k_1, k_2, ...} of real numbers such that sum_i P(X = k_i) = 1
 - probability mass function p.m.f. of a discrete random variable is p_X = p(k) = Pr(X = k) for all possible k of X
+
+# Conditional probability and independence
+## conditional probability
+- The conditional probability of A given B is P(A | B) = P(AB) / P(B)
+- Multiplication rule for n events
+  - P(A_1A_2...A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1A_2)...P(A_n|A_1A_2...A_{n-1})
+- a finite collection of events {B_1, ..., B_n} is a partition of \Omega if B_iB_j = \empty whenever i != j and \bigcup_{i=1}^n B_i = \Omega
+
+## bayes' formula
+- P(B | A) = P(AB) / P(A) = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|B^c)P(B^c)}
+- general version of bayes' formula
+  - P(B_k|A) = P(AB_k)/P(A) = \frac{P(A|B_k)P(B_k)}{\sum_{i=1}^n P(A|B_i)P(B_i)}
+
+## independence
+- A independent of B if P(A|B) = P(A) or P(AB) = P(A)P(B)
+- if A B independent, same is true for A^c and B^c, A^c and B, A and B^c
+- X_1, ..., X_n are random variables on the same probability space, then they are independent if P(X_1 \in B_1, X_2 \in B_2, ..., X_n \in B_n) = \prod_{k=1}^n P(X_k \in B_k)
+
+## independent trials
+- Bernoulli distribution
+  - records the result of a single trial with 2 possile outcomes
+  - 0 <= p < 1, X ~ Ber(p) with success probability p if X \in {0, 1} and P(X = 1) = p and P(X = 0) = 1-p
+  - e.g. a sequence of n independent trials
+    - Pr(X_1 = 0, X_2 = 1, X_3 = X_4 = 0) = p(1-p)^3
+- Binomial distribution
+  - X \sim Bin(n, p)
+  - Let X be the number of successes in n indep trials, with success probaility p, X_i denotes the outcome of trial i
+  - X = X_1 + X_2 + ... + X_n
+  - Pr(X = k) = \binom{n}{k} p^k (1-p)^{n-k}
+- geometric distribution
+  - X \sim Geom(p)
+  - infinite sequence of indep trials
+  - X is the number of trials needed to see the first success
+  - P(X = k) = P(X_1 = 0, X_2 = 0, ..., X_{k-1} = 0, X_k = 1) = (1-p)^{k-1}p
+
+## Further topics
+- conditional independence 
+  - P(A_i1 A_i2 ... A_ik | B) = P(A_i1 | B) P(A_i2 | B) ... P(A_ik | B)
+  - e.g. Suppose 9/10 coins are fair, 1/10 coins are biased with tail probability 3/5
+    - A_1 = first flip yields tail, A_2 = second flip yields tail
+    - success flipis of **a given coin** are independent
+    - P(A_1|F) = P(A_2|F) = 1/2, P(A_1|B) = P(A_2|B) = 3/5
+    - P(A_1A_2|F) = P(A_1|F)P(A_2|F), P(A_1A_2|B) = P(A_1|B)P(A_2|B) 
+    - P(A_1A_2) = P(A_1A_2|F)P(F) + P(A_1A_2|B)P(B) 
+- hypergeometric distribution
+  - X \sim Hypergeom(N, N_A, n)
+  - X takes values in the set [0, n] 
+  - P(X = k) = \frac{\binom{N_A}{k} \binom{N - N_A}{n-k}}{\binom{N}{k}}
+  - sample n items without replacement, choose k items from N_A type A items, and n-k from N-N_A type B items
+- the birthday problem
+  - How large should a randomly selected group of people be to guarantee that with probability at least 1/2 there are two people with the same birthday?
+  - Take a random sample size of k
+  - p_k = Pr(there is repetition in the sample, how large should k be to have p_k > 1/2
+  - A_k = the first k picks are all distinct
+  - p(A_k) = \frac{365 * 364 * ... * (365 - (k-1))}{365^k}
+  - p_k = 1 - p(A_k)
