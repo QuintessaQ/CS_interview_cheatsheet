@@ -587,18 +587,23 @@ This algorithm never needed to compare all the differences to one another, savin
 
 ### **List**
 #### Methods
+- ``list.extend(iterable)`` Note that all iterable can be extended, not just list
 - ``list.insert(i, x)``insert `x` at `i`
 - ``list.remove(x)`` remove the first occurrence of x, raise `ValueError` if not found
 - ``list.pop([i])`` remove elem at `i`, remove the last item if argument unspecified
+- ``list.popleft()`` pop first elem in the queue
 - ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
 - ``list.count(x)`` returns # of x in the list
 - ``list.sort(key = None, reverse = False)`` sort in place
+- ``list.reverse()`` reverse in place
+- ``reversed(list)`` has return value, faster than arr[::-1]
 - ``a = sorted(list, key=None, reverse=False)``
 - ``del``
 	```
 	del arr[0]
 	del arr[2:4]
 	```
+- ``list.copy()`` return shallow copy of the list, equivalent to a[:] 
 
 #### Miscellaneous
 - could use list as stack or queue
@@ -693,11 +698,20 @@ for elem in d.keys()/d.values():
 ### **Collections**
 - starts with ``from collections import xxx``
 
-#### deque
+#### deque (double-ended queue)
+- ``collections.dequeue([iterable[, maxlen]])`` returns a deque object initialized left-to-right (using `append()` with data from iterable). Empty if iterable not specified
+- supports thread-safe, memory efficient `append`s & `pop`s from either side, O(1) performance
+- whereas `list` is optimized for fast **fixed-length** operations, has O(n) costs for `pop(0)` and `insert(0, v)`, which change size & position of the underlyding data representation
 ```
 q = deque([1,2,3,4])
 q.append(5)
+q.appendleft(x)
 q.popleft()
+q.pop()
+q.remove(x) #remove first occurrence of x, raise ValueError if not found
+q.count(x) # counter number of deque elements equal to x
+q.extend(iterable) #extend the RHS of deque
+q.extendleft(iterable) #extend the LHS of the deque, will reverse the elements in iterable
 ```
 
 #### Counter
