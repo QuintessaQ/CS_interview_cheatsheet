@@ -604,7 +604,12 @@ This algorithm never needed to compare all the differences to one another, savin
 	del arr[2:4]
 	```
 - ``list.copy()`` return shallow copy of the list, equivalent to a[:] 
+- other tricks
+	```
+	lst[from_inclusive : to_exclusive : ±step_size]
 
+	
+	```
 #### Miscellaneous
 - could use list as stack or queue
 - use it as queue not efficient, use `collections.deque` instead.
@@ -634,6 +639,9 @@ This algorithm never needed to compare all the differences to one another, savin
 d = {} #this creates empty dict
 s = set() 
 
+# remove element from set, raise error if does not exist
+s.remove("test")
+
 # put letters in a string to a set
 letters = set('arabica')
 
@@ -657,6 +665,7 @@ a = {x for x in set1 if x not in set2}
 s = {1,2,3,4}
 for elem in sorted(s):
 	...
+
 ```
 
 
@@ -692,6 +701,16 @@ for elem in d.keys()/d.values():
 
 # print all keys
 ''.join(d.keys())
+
+# return None if key does not exist
+d.get("test")
+
+# return default value if key does not exist
+d.get("test2", default_value)
+
+# delete one element, and also return the value
+d.pop("test")
+
 ```
 
 
@@ -829,6 +848,9 @@ for k, v in pairs:
 - returns \frac{n!}{r!(n-r)!} items
 - 
 	```
+	combinations('ABCD', 2)  # --> AB AC AD BC BD CD
+	combinations(range(4), 3)  # --> 012 013 023 123
+
 	letters = 'abcdef'
 	comb = combinations(letters, 3)
 	#select 3 from letters
@@ -840,6 +862,22 @@ for k, v in pairs:
 	list(combinations_with_replacement(range(1, 5), 2))
 	# [(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)]
 	```
+ 
+- implementation
+	```
+	def combinations(lst, r):
+		if r == 1:
+			return [(item, ) for item in lst]
+		n = len(lst)
+		res = []
+		for i in range(n):
+			rest = lst[i+1:]
+			# rest = lst[i:] if with replacement
+			prev = combinations(rest, r-1)
+			prev = [(lst[i],) + item for item in prev]
+			res += prev
+		return res
+	```
 #### permutations
 - ``permutations(iterable[, r])`` return successive r length permutations of elements in the iterable
 -
@@ -849,6 +887,22 @@ for k, v in pairs:
 
 	permutations([1,2,3], 2)
 	# (1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)
+	```
+- implementation
+	```
+	def permutation(lst, r=None):
+		if not r:
+			r = len(lst)
+		if r == 1:
+			return [(item, ) for item in lst]
+		n = len(lst)
+		res = []
+		for i in range(n):
+			rest = lst[:i] + lst[i+1:]
+			prev = permutation(rest, r-1)
+			prev = [(lst[i],) + item for item in prev]
+			res += prev
+		return res
 	```
 
 #### product
@@ -882,6 +936,25 @@ for k, v in pairs:
 	#[(1, 2), (2, 3), (3, 2), (1, 1)]
 	```
 
+#### other methods
+- **accumulate**
+	- ``itertools.accumulate(iterable[, func, *, initial=None])``
+	- Make an iterator that returns accumulated sums, or accumulated results of other binary functions
+	- 
+		```
+		data = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
+		list(accumulate(data, operator.mul))     # running product
+		# [3, 12, 72, 144, 144, 1296, 0, 0, 0, 0]
+		list(accumulate(data, max))              # running maximum
+		# [3, 4, 6, 6, 6, 9, 9, 9, 9, 9]
+		```
+- **chain** 
+	- ``itertools.chain(*iterables)``
+		- ``chain('ABC', 'DEF')`` --> A B C D E F
+	- ``chain.from_iterable(iterable)``
+		-  ``chain.from_iterable(['ABC', 'DEF'])`` --> A B C D E F
+
+
 ### **heapq (minheap)**
 - every parent node has a value less than or equal to any of its children
 -  `import heap`
@@ -893,6 +966,9 @@ for k, v in pairs:
 	- `heapify(x)` transform list x into a heap, **in-place**, O(n)
 	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
 	- `nsmallest(n, iterable, key=None)` return smallest n elements
+	- `heapq.heappushpop(heap, 2)` push then pop
+	- `heapq.heapreplace(li, 4)` pop then push
+
 
 - could define ``__lt__`` method to compare objects
 	```
@@ -1127,7 +1203,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 			break    
 		print(num) 
 	```
-- binary nunbers
+- binary numbers
 	```
 	>>> bin(6)  
 	'0b110'
@@ -1136,6 +1212,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	```
 - `dictionary.get(keyname, [value])` value is optional, returned if the specified key does not exist.
 - `bisect`
+- `float('inf')`, `float('-inf')` positive and negative infinity
 
 
 
@@ -1157,3 +1234,5 @@ thread vs process
 
 ## random links
 - https://www.evernote.com/shard/s576/client/snv?noteGuid=7e58b450-1abe-43a8-bf82-fbf07f1db13c&noteKey=049802174415b418a2e65f75b744ab72&sn=https%3A%2F%2Fwww.evernote.com%2Fshard%2Fs576%2Fsh%2F7e58b450-1abe-43a8-bf82-fbf07f1db13c%2F049802174415b418a2e65f75b744ab72&title=Interview%2BPreparation
+- comprehensive python cheatsheet 
+https://gto76.github.io/python-cheatsheet/
