@@ -584,32 +584,67 @@ This algorithm never needed to compare all the differences to one another, savin
 - ``...`` means there are multiple such elements
 
 ### ** String**
+- 
+	```
+	<str>  = <str>.strip()                       # Strips all whitespace characters from both ends.
+	<str>  = <str>.strip('<chars>')              # Strips all passed characters from both ends.
+	<list> = <str>.split()                       # Splits on one or more whitespace characters.
+	<list> = <str>.split(sep=None, maxsplit=-1)  # Splits on 'sep' str at most 'maxsplit' times.
+	<list> = <str>.splitlines(keepends=False)    # Splits on \n,\r,\r\n. Keeps them if 'keepends'.
+	<str>  = <str>.join(<coll_of_strings>)       # Joins elements using string as separator.
+	<bool> = <sub_str> in <str>                  # Checks if string contains a substring.
+	<bool> = <str>.startswith(<sub_str>)         # Pass tuple of strings for multiple options.
+	<bool> = <str>.endswith(<sub_str>)           # Pass tuple of strings for multiple options.
+	<int>  = <str>.find(<sub_str>)               # Returns start index of first match or -1.
+	<int>  = <str>.index(<sub_str>)              # Same but raises ValueError if missing.
+	<str>  = <str>.replace(old, new [, count])   # Replaces 'old' with 'new' at most 'count' times.
+	<str>  = <str>.translate(<table>)            # Use `str.maketrans(<dict>)` to generate table.
+	<str>  = chr(<int>)                          # Converts int to Unicode char.
+	<int>  = ord(<str>)                          # Converts Unicode char to int.   
+	<str>.lower()								 # convert to lower case
+	<str>.upper()								 # convert to upper case
+	<str>.capitalize()							 # capitalize the first letter
+	<str>.lstrip([<str>])
+	<str>.rstrip([<str>])
+	
+	txt = ",,,,,ssaaww.....banana"
+	x = txt.lstrip(",.asw")
+	# 'banana'
+	```
+
+-
+	┏━━━━━━━━━━━━━━━┯━━━━━━━━━━┯━━━━━━━━━━┯━━━━━━━━━━┯━━━━━━━━━━┯━━━━━━━━━━┓
+	┃               │ [ !#$%…] │ [a-zA-Z] │  [¼½¾]   │  [²³¹]   │  [0-9]   ┃
+	┠───────────────┼──────────┼──────────┼──────────┼──────────┼──────────┨
+	┃ isprintable() │    ✓     │    ✓     │    ✓     │    ✓     │    ✓     ┃
+	┃ isalnum()     │          │    ✓     │    ✓     │    ✓     │    ✓     ┃
+	┃ isnumeric()   │          │          │    ✓     │    ✓     │    ✓     ┃
+	┃ isdigit()     │          │          │          │    ✓     │    ✓     ┃
+	┃ isdecimal()   │          │          │          │          │    ✓     ┃
+	┗━━━━━━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━┷━━━━━━━━━━┛
 
 ### **List**
 #### Methods
-- ``list.extend(iterable)`` Note that all iterable can be extended, not just list
-- ``list.insert(i, x)``insert `x` at `i`
-- ``list.remove(x)`` remove the first occurrence of x, raise `ValueError` if not found
-- ``list.pop([i])`` remove elem at `i`, remove the last item if argument unspecified
-- ``list.popleft()`` pop first elem in the queue
-- ``list.index(x[, start[, end]])`` return index of the first occurrence of `x`, raise `ValueError` if not found
-- ``list.count(x)`` returns # of x in the list
-- ``list.sort(key = None, reverse = False)`` sort in place
-- ``list.reverse()`` reverse in place
-- ``reversed(list)`` has return value, faster than arr[::-1]
-- ``a = sorted(list, key=None, reverse=False)``
-- ``del``
+- 
 	```
+	list.extend(iterable)		# Note that all iterable can be extended, not just list
+	list.insert(i, x) 			# insert `x` at `i`
+	list.remove(x) 				# remove the first occurrence of x, raise `ValueError` if not found
+	list.pop([i]) 				# remove elem at `i`, remove the last item if argument unspecified
+	list.popleft() 				# pop first elem in the queue
+	list.index(x[, start[, end]]) # index of the first occurrence of `x`, raise `ValueError` if not found
+	list.count(x) 				#returns # of x in the list
+	list.sort(key = None, reverse = False) # sort in place
+	list.reverse() 				#reverse in place
+	reversed(list) 				# has return value, faster than arr[::-1]
+	a = sorted(list, key=None, reverse=False)
+	list.copy() 				# return shallow copy of the list, equivalent to a[:] 
+	lst[from_inclusive : to_exclusive : ±step_size]
+
 	del arr[0]
 	del arr[2:4]
 	```
-- ``list.copy()`` return shallow copy of the list, equivalent to a[:] 
-- other tricks
-	```
-	lst[from_inclusive : to_exclusive : ±step_size]
 
-	
-	```
 #### Miscellaneous
 - could use list as stack or queue
 - use it as queue not efficient, use `collections.deque` instead.
@@ -642,6 +677,9 @@ s = set()
 # remove element from set, raise error if does not exist
 s.remove("test")
 
+# remove but doesn't raise error
+s.discard(elem)
+
 # put letters in a string to a set
 letters = set('arabica')
 
@@ -655,7 +693,7 @@ a | b
 a & b
 a.intersection(b)
 
-# elems in a or b but not in both
+# symmetric difference: elems in a or b but not in both
 a ^ b
 
 # set comprehension
@@ -666,7 +704,18 @@ s = {1,2,3,4}
 for elem in sorted(s):
 	...
 
+# subset
+<bool> = s1.issubset(s2)    
+s1 <= s2
+
+# superset
+<bool> = s1.issuperset(s2)    
+s1 >= s2
 ```
+
+### **Frozen set**
+- ``frozenset([iterable])`` immutable version of set
+- can be used as keys in dictionary, or elements of another set
 
 
 ### **Dictionary**
@@ -685,6 +734,9 @@ sorted(d)
 
 # use 'in' to check if contains a key
 's' in d
+
+# Adds items. Replaces ones with matching keys.
+d1.update(d2)
 
 # constructs dictionary from sequences of key-value pairs
 # could put list of tuples as argument
@@ -712,6 +764,8 @@ d.get("test2", default_value)
 d.pop("test")
 
 ```
+
+
 
 
 ### **Collections**
@@ -796,6 +850,9 @@ q.extendleft(iterable) #extend the LHS of the deque, will reverse the elements i
 d = defaultdict(list)
 for k, v in pairs:
 	d[k].append(v)
+
+# Creates a dict with default value 1.
+d = defaultdict(lambda: 1) 
 ```
 
 #### OrderedDict
@@ -954,6 +1011,20 @@ for k, v in pairs:
 	- ``chain.from_iterable(iterable)``
 		-  ``chain.from_iterable(['ABC', 'DEF'])`` --> A B C D E F
 
+### Generators / Iterators
+- Any function that contains a yield statement returns a generator.
+- e.g.
+	```
+	def count(start, step):
+		while True:
+			yield start
+			start += step
+
+	counter = count(10, 2)
+	next(counter), next(counter), next(counter)
+	# (10, 12, 14)
+
+	```
 
 ### **heapq (minheap)**
 - every parent node has a value less than or equal to any of its children
