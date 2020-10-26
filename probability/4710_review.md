@@ -106,7 +106,10 @@ Introduction To Probability
     - P(A_1A_2) = P(A_1A_2|F)P(F) + P(A_1A_2|B)P(B) 
 - hypergeometric distribution
   - X \sim Hypergeom(N, N_A, n)
+  - The result of each draw (the elements of the population being sampled) can be classified into one of two mutually exclusive categories
+  - The probability of a success changes on each draw, as each draw decreases the population
   - X takes values in the set [0, n] 
+  - k is num of successes/type A
   - P(X = k) = \frac{\binom{N_A}{k} \binom{N - N_A}{n-k}}{\binom{N}{k}}
   - sample n items without replacement, choose k items from N_A type A items, and n-k from N-N_A type B items
 - the birthday problem
@@ -198,3 +201,57 @@ Introduction To Probability
 - X \sim N(u, \sigma^2) iff. f(x) = 1/\sqrt(2\pi \sigma^2)e^{-(x-u)^2/2\sigma^2}
 - if X \sim N(u, \sigma^2), Z = (X - u)/\sigma
 - if 1 <= k < l are integers and E[X^l] finite
+
+# Approximations of the binomial distribution
+## normal approximation
+- central limit theorem
+  - e.g. pmf of Bin(n, p) distribution can be close to the bell curve of the normal distribution
+- law of rare events
+  - When p small, Bin(n, p) close to Poisson()
+- CLT for binomial
+  - S_n \sim Bin(n, p) should approximate the density function of X \sim N(np, np(1-p)) as n becomes large
+  - let p be fixed, then lim_{n -> \inf} P(a <= (S_n - np)/\sqrt(np(1-p)) <= b) = \int_a^b 1/\sqrt(2\pi) e^{-x^2/2} dx
+- Suppose S_n \sim Bin(n, p) with n large and p not too close to 0 or 1, or np(1-p) > 10, then P(a <= (S_n - np)/\sqrt(np(1-p)) <= b) is close to \Phi(b) - \Phi(a)
+- first approximated the binomial with the normal distribution, then approximated the c.d.f of normal distribution using the table in the appendix
+- three sigma rule: \Phi(3) - \Phi(-3) \simeq 0.9974
+- continuity correction
+  - compared to P(k_1 <= S_n <= k_2),  P(k_1 -1/2 <= S_n <= k_2 + 1/2) is a better approximation
+
+## law of large numbers
+- law of large numbers for binomial random variables
+  - \any fixed \epsilon > 0, lim_{n -> \inf} P(|S_n/n - p| < \epsilon) = 1
+- CLT describes the error in the law of large numbers
+  - S_n / n = p + \sigma/\sqrt(n) * (S_n - np)/(\sigma\sqrt(n)) \simeq p + \sigma/\sqrt(n) Z
+  - decomposes S_n/n into a sum of p and a random error
+  - for large n this random error is approximately normal w/ sdv \sigma/\sqrt(n)
+
+## applications of the normal approximation
+- want to estimate p for a biased coin
+  - law of large number: flip n times, count S_n, take \hat(p) = S_n/n as the estimate for p
+  - P(|\hat(p) - p| < \epsilon) = P(|S_n/n-p|<\epsilon)
+                                = P(-ne < S_n - np < ne)
+                                = then divide both sides by \sqrt(np(1-p))
+                                = 2\Phi(e\sqrt(n)/\sqrt(p(1-p))) - 1
+                                >= 2\Phi(2e\sqrt(n)) - 1
+  - use it to solve problem that says 'how many times shold we flip a coin... so \hat(p) is within 0.05 of the true p, with probability at least 0.99?'
+- confidence intervals
+  - (\hat(p) - e, \hat(p) + e) contains the true p with probability at least r, 100r% is the confidence level
+  - e.g. 'find the 95% confidence level'
+    - use 2\Phi(2e\sqrt(n)) - 1 > 0.95 to solve for e
+- maximum likelihood estimator
+  - \hat(p) = S_n / n
+  - once S_n = k has been observed, can use pmf of S_n to compare how likely outcome k is under different value of p
+- polling
+  - actually sampling without replacement - hypergeometric
+  - but sampling with replacement leads to indep trials and binomal distribution for number of success
+  - if sample size n small compared to population, then even if sampling w/ replcament, meeting the same person twice has low chance
+  - could use Bin(n,p) for polling
+  - Hypergeom(N, N_A, n) converges to Bin(n, p) as N -> \inf and N_A/N -> p
+- random walk
+  - let X_1, X_2, X_3 be indep random variable s.t. P(X_j = 1) = p, P(X_j = -1) = 1-p
+  - S_0 = 0
+  - S_n = X_1 + X_2 + .. + X_n
+  - X_j is the j-th step, S_n is her position after n steps
+  - random sequence S_0, S_1, S_2, ... is a simple random walk
+  - if p = 1/2, then S_n is a symmetric simple random walk, otherwise asymmetric
+  - T_n = number of times the coin came up heads
