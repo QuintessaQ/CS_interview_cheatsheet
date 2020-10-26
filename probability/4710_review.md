@@ -182,7 +182,8 @@ Introduction To Probability
 - median / 0.5-th quantile of X is any m that satisfies P(X >= m) >= 1/2, P(X <= m) >= 1/2
 - first quartile: p = 0.25, third quartile: p = 0.75
 - p-th quantile is any x satisfying P(X <= X) >= P, P(X >= x) >= 1-p
-
+- median of X
+  - find m with P(X <= m) = 1/2
 ## variance
 - Var(X) = E[(X - u)^2] = \sigma^2
         = E[X^2] - (E[X])^2
@@ -255,3 +256,48 @@ Introduction To Probability
   - random sequence S_0, S_1, S_2, ... is a simple random walk
   - if p = 1/2, then S_n is a symmetric simple random walk, otherwise asymmetric
   - T_n = number of times the coin came up heads
+  - S_n = T_n - (n - T_n) = 2T_n - n
+  - T_n \sim Bin(n, p)
+  - E[S_n] = n(2p-1)
+  - Var[S_n] = 4np(1-p)
+
+## Poisson approximation (discrete)
+- X \sim Poisson(\lambda)
+  - \lambda > 0, X has Poisson distribution if X is nonnegative integer with
+  - P(X = k) = e^{-\lambda} \lambda^k/k!, k \in \N
+  - E[X] = \lambda
+  - Var[X] = \lambda
+- law of rare events
+  - if successes rare in a sequence of indep trials, then number of successes is approximated by Poisson
+  - Let S_n \sim Bin(n, \lambda/n), \lambda/n < 1, then 
+  - lim_{n -> \inf} P(S_n = k) = e^{-\lambda} \lambda^k/k!
+- Let X \sim Bin(n, p) and Y \sim Poisson(np), then \any subset A \subset {0,1,2...}, we have |P(X \in A) - P(Y \in A)| <= np^2
+- Poisson approximation of counting rare events
+  - X = num of rare events that are not strongly dependent of each other
+  - then X \sim Poisson(\lambda)
+  - P(X = k) \simeq e^{-\lambda} \lambda^k/k!
+- normal and poisson approximation of the binomial
+  - when np(1-p) > 10 -> use normal
+  - when np^2 small -> use poisson
+
+## Exponential distribution
+- X \sim Exp(\lambda)
+  - \lambda > 0, X has exponential distribution with rate \lambda if X has density function f(x) = \lambda e^{-\lambda x} for x >= 0, and 0 for x < 0
+- c.d.f 
+  - F(t) = \int_0^t \lambda e^{-\lambda x} dx = 1 - e^{-\lambda t}, t >= 0
+  - P(X > t) = 1 - P(X <= t) = e^{-\lambda t}
+- E[X] = 2/\lambda^2
+- Var[X] = 1/lambda^2
+- memoryless property
+  - for any s, t > 0
+  - P(X > t+s | X > t) = P(X > s)
+  - e.g. lifetime of some machine can be modeled by Exp(\lambda)
+    - regardless of how long the machine has been operation, the distribution of remaining time is the same as that of the original lifetime
+    - behaves as if it were brand new
+  - no other distribution with continuous p.d.f on [0, \inf] that satisfies the memoryless properyu
+- approximation
+  - model the time when first custiomer arrives in a discrete time scale
+  - probability that at least one custoner arrives time time interval of length 1/n is \lambda/n, for large n
+  - for k = 1,2,3... if first customer arrives during [(k-1)/n, k/n], set T_n = k/n
+  - P(T_n = k/n) = (1-\lambda/n)^{k-1} \lambda/n --> nT_n \sim Geom(\lambda/n)
+  - \lim_{n -> \inf}P(T_n > t) = e^{-\lambda t}, t >= 0
