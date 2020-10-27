@@ -606,7 +606,7 @@ This algorithm never needed to compare all the differences to one another, savin
 	<str>.capitalize()							 # capitalize the first letter
 	<str>.lstrip([<str>])
 	<str>.rstrip([<str>])
-	
+
 	txt = ",,,,,ssaaww.....banana"
 	x = txt.lstrip(",.asw")
 	# 'banana'
@@ -1193,6 +1193,48 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 
 
 ### **math**
+- types
+	```
+	<int>      = int(<float/str/bool>)       # Or: math.floor(<float>)
+	<float>    = float(<int/str/bool>)       # Or: <real>e±<int>
+	<complex>  = complex(real=0, imag=0)     # Or: <real> ± <real>j
+	<Fraction> = fractions.Fraction(0, 1)    # Or: Fraction(numerator=0, denominator=1)
+	<Decimal>  = decimal.Decimal(<str/int>)  # Or: Decimal((sign, digits, exponent))
+
+	
+	```
+- Note that 
+	- 'int(<str>)' and 'float(<str>)' raise ValueError on malformed strings.
+	- Decimal numbers can be represented exactly, unlike floats where '1.1 + 2.2 != 3.3'.
+	- Precision of decimal operations is set with: 'decimal.getcontext().prec = <int>'.
+
+- basic functions
+	```
+	<num> = pow(<num>, <num>)                # Or: <num> ** <num>
+	<num> = abs(<num>)                       # <float> = abs(<complex>)
+	<num> = round(<num> [, ±ndigits])        # `round(126, -1) == 130`
+	```
+- math
+	```
+	from math import e, pi, inf, nan, isinf, isnan
+	from math import cos, acos, sin, asin, tan, atan, degrees, radians
+	from math import log, log10, log2
+	```
+
+- bitwise operators
+	- 
+		```
+		<int> = <int> & <int>                    # And
+		<int> = <int> | <int>                    # Or
+		<int> = <int> ^ <int>                    # Xor (0 if both bits equal)
+		<int> = <int> << n_bits                  # Shift left (>> for right)
+		<int> = ~<int>                           # Not (also: -<int> - 1)
+		```
+	- ``(int) <<`` shift bits, e.g. ``carry = (x & y) << 1``
+	- ``^`` XOR in binary
+	- ``~`` flip all bits in binary and add 1 at front / add 1 to the number, e.g. `~24 = -25`
+	- ``&`` AND in binary
+	- ``|`` OR in binary
 ### **Other tricks**
 - conditions can be chained: ``a < b == c``
 - String.isdigit()
@@ -1227,12 +1269,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 		maxd.append(num)
 		mind.append(num)
 	```
-- bitwise operators
-	- ``(int) <<`` shift bits, e.g. ``carry = (x & y) << 1``
-	- ``^`` XOR in binary
-	- ``~`` flip all bits in binary and add 1 at front / add 1 to the number, e.g. `~24 = -25`
-	- ``&`` AND in binary
-	- ``|`` OR in binary
+
 
 - `s = s.replace(" ", "")` remove whitespace in s
 - use stack
