@@ -31,9 +31,9 @@ System Design Interviews: A step by step guide
 
 ## Step 3: System interface definition
 - Define what APIs are expected from the system. This will establish the exact contract expected from the system and ensure if we haven’t gotten any requirements wrong. Some examples of APIs for our Twitter-like service will be:
-    - postTweet(user_id, tweet_data, tweet_location, user_location, timestamp, …)  
-    - generateTimeline(user_id, current_time, user_location, …)
-    - markTweetFavorite(user_id, tweet_id, timestamp, …)
+    - ``postTweet(user_id, tweet_data, tweet_location, user_location, timestamp, …)``
+    - ``generateTimeline(user_id, current_time, user_location, …)``
+    - ``markTweetFavorite(user_id, tweet_id, timestamp, …)``
 
 ## Step 4: Defining data model
 - Defining the data model in the early part of the interview will clarify how data will flow between different system components. Later, it will guide for data partitioning and management. The candidate should identify various entities of the system, how they will interact with each other, and different aspects of data management like storage, transportation, encryption, etc. Here are some entities for our Twitter-like service:
