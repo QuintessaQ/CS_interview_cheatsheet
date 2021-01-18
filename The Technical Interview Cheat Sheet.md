@@ -899,7 +899,7 @@ d = defaultdict(lambda: 1)
 	```
 
 ### **itertools**
-#### combinations
+#### itertools.combinations
 - ``combinations(iterable, r)`` return r length subsequences of elements from iterable
 - inputs treated as unique based on their position, not value
 - returns \frac{n!}{r!(n-r)!} items
@@ -935,7 +935,7 @@ d = defaultdict(lambda: 1)
 			res += prev
 		return res
 	```
-#### permutations
+#### itertools.permutations
 - ``permutations(iterable[, r])`` return successive r length permutations of elements in the iterable
 -
 	```
@@ -962,7 +962,7 @@ d = defaultdict(lambda: 1)
 		return res
 	```
 
-#### product
+#### itertools.product
 - ``product(*iterables[, r])`` return the cartesian product of input iterables
 - `product(A, B)` is the same as `[(x, y) for x in A for y in B]`, but not ``for x, y in zip(A, B)``
 - `*iterables` could be a list of lists, need to add `*` prior to the variable name
@@ -975,7 +975,7 @@ d = defaultdict(lambda: 1)
 	```
 
 
-#### groupby
+#### itertools.groupby
 - ``groupby(iterable[, key])`` returns consecutive keys and groups from the iterable, key is a function that calculates keys for each elem in the iterable
 - 
 	```
@@ -988,9 +988,16 @@ d = defaultdict(lambda: 1)
 	# a : [('a', 1), ('a', 2)]
 	# b : [('b', 3), ('b', 4)]
 
-	lst = [1,1,2,2,2,3,3,1]
-	groupby(lst)
-	#[(1, 2), (2, 3), (3, 2), (1, 1)]
+
+	for key, group in groupby([1,1,1,1,5,1,1,1,1,4]):
+		print(key, list(group))
+	# 1 [1, 1, 1, 1]
+	# 5 [5]
+	# 1 [1, 1, 1, 1]
+	# 4 [4]
+	<!-- lst = [1,1,2,2,2,3,3,1]
+	groupby(lst) -->
+	<!-- #[(1, 2), (2, 3), (3, 2), (1, 1)] -->
 	```
 
 #### other methods
@@ -1069,6 +1076,7 @@ d = defaultdict(lambda: 1)
 	eval('1+2+3')
 	```
 - ``isinstance(object, classinfo)`` return True if the object is an instance of the classinfo
+	- e.g. ``isinstabce(1, int)``
 - ``map(function, iterable, ...)`` return an iterator that applies function to every item of iterable
 	```
 	nums = [1,2,3,4]
@@ -1321,8 +1329,11 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 - `dictionary.get(keyname, [value])` value is optional, returned if the specified key does not exist.
 - `bisect`
 - `float('inf')`, `float('-inf')` positive and negative infinity
-
-
+- assign values at odd and even indices
+	```
+	res[::2] = [x for _ in range((m+1)//2)]
+	res[1::2] = [y for _ in range(m//2)]
+	```
 
 Default value None
 todo:

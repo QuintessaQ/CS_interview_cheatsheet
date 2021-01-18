@@ -198,7 +198,7 @@ Introduction To Probability
 ## Gaussian distribution
 - Z \sim N(0, 1), a random variable Z has standard normal distribution / standard Gaussian distribution if Z has density function \phi(x) = 1/\sqrt(2\pi) e^{-x^2/2}
 - bell shaped curve
-- c.d.f \Phi(x) = 1/\sqrt(2\pi) \int_{-\inf}^{x} e^{-s^2/2} ds
+- c.d.f \Phi(x) = 1/\sqrt(2 \pi) \int_{-\inf}^{x} e^{-s^2/2} ds
 - X \sim N(u, \sigma^2) iff. f(x) = 1/\sqrt(2\pi \sigma^2)e^{-(x-u)^2/2\sigma^2}
 - if X \sim N(u, \sigma^2), Z = (X - u)/\sigma
 - if 1 <= k < l are integers and E[X^l] finite
@@ -286,8 +286,8 @@ Introduction To Probability
 - c.d.f 
   - F(t) = \int_0^t \lambda e^{-\lambda x} dx = 1 - e^{-\lambda t}, t >= 0
   - P(X > t) = 1 - P(X <= t) = e^{-\lambda t}
-- E[X] = 2/\lambda^2
-- Var[X] = 1/lambda^2
+- E[X] = 1/\lambda
+- Var[X] = 1/\lambda^2
 - memoryless property
   - for any s, t > 0
   - P(X > t+s | X > t) = P(X > s)
