@@ -1,12 +1,12 @@
 *.py
+*private*
 optiver
 hrt
 drw
 de_shaw
-*private*
 jane_street
 bridgewater
 imc
 facebook
 PDT
-complete_system_design/
+quant_trader
