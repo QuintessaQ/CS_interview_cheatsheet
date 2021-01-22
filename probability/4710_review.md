@@ -359,4 +359,29 @@ Introduction To Probability
 - X_1, ..., X_n are independent iff. 
   - F(x_1, x_2, ..., x_n) = \product_{k=1}^n F_{X_k}(x_k)
 
-##
+# Tail bounds and limit theorems
+## estimating tail probabilities
+- Markov's inequality
+  - let X be a nonnegative random variable
+  - for any c > 0
+  - P(X >= c) <= E[X]/c
+- Chebyshev's inequality
+  - X has finite mean \mu and a finite variance \sigma^2
+  - for any c > 0
+  - P(|X - \mu| >= c) <= \sigma^2/c^2
+
+## law of large numbers
+- suppose we have iid random variables X_1, X_2, ... 
+- with finite mean E[X_1] = \mu
+- finite variance Var(X_1) = \sigma^2
+- Let S_n = X_1 + ... + X_n
+- for any fixed \epsilon > 0 we have 
+- lim_{n -> \infty} P(|S_n/n - \mu| < \epsilon) = 1
+
+## central limit theorem
+- suppose we have iid random variables X_1, X_2, ... 
+- with finite mean E[X_1] = \mu
+- finite variance Var(X_1) = \sigma^2
+- Let S_n = X_1 + ... + X_n
+- for any fixed finite a and b
+- lim_{n -> \infty} P(a <= \frac{S_n - n\mu}{\sigma \sqrt{n}} <= b) = \Phi(b) - \Phi(a) = the integration of normal distribution from a to b
