@@ -301,3 +301,60 @@ Introduction To Probability
   - for k = 1,2,3... if first customer arrives during [(k-1)/n, k/n], set T_n = k/n
   - P(T_n = k/n) = (1-\lambda/n)^{k-1} \lambda/n --> nT_n \sim Geom(\lambda/n)
   - \lim_{n -> \inf}P(T_n > t) = e^{-\lambda t}, t >= 0
+
+# joint distribution of random variables
+## joint distribution of discrete random variables
+- X_1, X_2, ,.., X_n are discrete random variables
+- joint probability mass function 
+  - p(k_1, k_2, ..., k_n) = P(X_1 = k_1, X_2 = k_2, ..., X_n = k_n)
+- let p(k_1, ..., k_n) be the joint probability mass function of (X_1, ..., X_n)
+  - the probability mass function of X_j / marginal probability mass function of X_j
+    - p_{X_j}(k) = \sum_{l_1, ..., l_{j-1}, l_{j+1}, ..., l_n} p(l_1, ...,. l_{j-1}, k, l_{j+1}, l_n)
+- multinomial distribution
+  - n, r positive integers
+  - p_1, p_2, ..., p_r positive reals
+  - p_1 + p_2 + ... + p_r = 1
+  - if possible values are integer vectors (k_1, ..., k_r) such that  
+    - k_j >= 0
+    - k_1 + ... + k_r = n
+  - (X_1, ..., X_r) has multinomial distribution
+  - joint probability mass function 
+    - P(X_1 = k_1, X_2 = k_2, ..., X_r = k_r) = \binom{n}{k_1, k_2, ..., k_r}p_1^{k_1} ... p_r^{k_r}
+  - (X_1, ..., X_r) ~ Mult(n, r, p_1, ..., p_r)
+
+## joint continuous random variables
+- X_1, ..., X_n are jointly continuous if there exists a 
+- join density function f on R^n s.t. for subsets B \subset R^n
+  - P((X_1, ..., X_n) \in B) = \int ... \int_B f(x_1, ..., x_n) dx_1 ... dx_n
+- let f be the joint density function of X_1, ..., X_n. 
+- then each random variable X_j has a density function f_{X_j} that can be obtained by integrating away the other variables from f
+- f_{X_j}(x) = \int ... \int(n-1 integrals) f(x_1, ..., x_{j-1}, x, x_{j+1}, ..., x_n) dx_1 ... dx_{j-1} dx_{j+1} dx_n
+
+## joint distributions and independence
+### discrete
+- let p(k_1, ..., k_n) be the joint probability mass function of the discrete random variables X_1, ..., X_n
+- let p_{X_j}(k) = P(X_j = k) be the marginal probability mass function of X_j
+- X_1, ..., X_n are independent iff. 
+  - p(k_1, ..., k_n) = p_{X_1}(k) ... p_{X_n}(k_n)
+  - for all possible values k_1, ..., k_n
+  
+### continuous
+- if X_1, ..., X_n have joint density function
+  - f(x_1, x_2, ..., x_n) = f_{X_1}(x_1)f_{X_2}(x_2)...f_{X_n}(x_n)
+- then X_1, ..., X_n are independent
+- vice versa
+
+- suppose X_1, ..., X_{m+n} are independent random variables
+- define random variables Y = f(X_1, ..., X_m), Z = g(X_{m+1}, ..., X_{m+n})
+- then Y and Z are independent random variables
+
+## joint cumulative distribution function
+- discrete random variables   
+  - joint probability mass function
+- continuous random variables
+  - joint probability density function
+- joint cumulative distribution function
+  - F(s_1, ..., s_n) = P(X_1 <= s_1, ..., X_n <= s_n)
+  - F(x, y) = P(X <= x, Y <= y) = \int_{-\infty}^x \int_{-infty}^x f(s, t) dt ds
+- X_1, ..., X_n are independent iff. 
+  - F(x_1, x_2, ..., x_n) = \product_{k=1}^n F_{X_k}(x_k)
