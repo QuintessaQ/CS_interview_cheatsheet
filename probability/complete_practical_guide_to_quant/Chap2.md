@@ -90,3 +90,68 @@ grass. Tigers can eat grass, but they would rather eat sheep. Assume:
     - lim_{n -> \infty} x^x^x^ ... (n terms) = 2 <==> lim_{n -> \infty} x^x^x^ ... (n-1 terms) = 2. In other words, as n -> \infty, adding or minus one x^ should yield the same result
     - so x^x^x^x^x ... = x^(x^x^x^x^x ...) = x^2 = 2
     - x = \sqrt{2}
+
+## 2.3 Thinking Out of the Box
+### **Box packing**
+- Can you pack 53 bricks of dimensions l x 1 x 4 into a 6x 6 x 6 box?
+- **Solution**
+    - This is a nice problem extended from a popular chess board problem. In that problem, you have a 8x 8 chess board with two small squares at the opposite. diagonal corners removed. You have many bricks with dimension 1 x 2, Can you pack 31 bricks into the remaining 62 squares? (An alternative question is whether you can cover all 62 squares using bricks without any bricks overlapping with each other or sticking out of the board, which requires a similar analysis.)
+    - A real chess board figure surely helps the visualization. As shown in Figure 2.2, when a chess board is filled with alternative black and white squares, both squares at the opposite diagonal corners have the same color. If you put a 1 x 2 brick on the board, it will always cover one black square and one white square. Let's say it's the two black corner squares were removed, then the rest of the board can fit at most 30 bricks since we only have 30 black squares left (and each brick requires one black square). So to pack 31 bricks is out of the question. To cover all 62 squares without overlapping or overreaching, we must have exactly 31 bricks. Yet we have proved that 31 bricks cannot fit in the 62 squares left, so you cannot find a way to fill in all 62 squares without overlapping or overreaching.
+    - ![Figure 2.2](images/2.1.png)
+    - Just as any good trading stratey, if more and more people get to know it and replicate it, the effectiveness of such a strategy will disappear. As the chess board problem becomes popular, many interviewees simply commit it to memory (after all, it's easy to remember the answer). So some ingenious interviewer came up with the newer version to test your thinking process, or at least your ability to extend your knowledge to new problems.
+    - If we look at the total volume in this 3D problem, 53 bricks have a volume of 212, which is smaller then the box's volume 216. Yet we can show it is impossible to pack all the bricks into the box using a similar approach as the chess board problem. Let's imagine that the 6x 6 x 6 box is actually comprised of small 2 x 2 x 2 cubes. There should be 27 small cubes. Similar to the chess board (but in 3D), imagine that we have black cubes and white cubes alternates--it does take a little 3D visualization. So we have either 14 black cubes & 13 white cubes or 13 black cubes & 14 white cubes. For any 1x1x4 brick that we Rack into the box, half (1x1x2) of it must be in a black 2 x 2 x 2 cube and the other half must be in a white 2 x 2 x 2 cube. The problem is that each 2 x 2 x 2 cube can only be used by 4 of the 1 x 1 x 4 bricks. So for the color with 13 cubes, be it black or white, we can only use them for 52 1 x 1 x 4 tubes. There is no way to place the 53th brick. So we cannot pack 53 bricks of dimensions 1 x 1 x 4 into a 6 x 6 x 6 box.
+
+### **Calendar cubes**
+- You just had two dice custom-made. Instead of numbers 1-6, you place single-digit numbers on the faces of each dice so that every morning you can arrange the dice in a way as to make the two front faces show the current day of the month. You must use both dice (in other words, days 1-9 must be shown as 01 — 09), but you can switch the order of the dice if you want. What numbers do you have to put on the six faces of each of the two dice to achieve that?
+- **Solution**
+    - The days of a month include 11 and 22, so both dice must have 1 and 2. To express single-digit days, we need to have at least a 0 in one dice. Let's put a 0 in dice one first. Considering that we need to express all single digit days and dice two cannot have all the digits from 1 - 9, it's necessary to have a 0 in dice two as well in order to express all single-digit days.
+    - So far we have assigned the following numbers:.
+        - Dice one  1 2 0 ? ? ? 
+        - Dice two 	1 2 0 ? ? ?
+    - If we can assign all the rest of digits 3, 4, 5, 6, 7, 8, and 9 to the rest of the faces, the problem is solved. But there are 7 digits left. What can we do? Here's where you need to think out of the box. We can use a 6 as a 9 since they will never be needed at the same time! So, simply put 3, 4, and 5 ore one dice and 6, 7, and 8 on the other dice, and the final number on the two dice are
+        - Dice one  1 2 0 3 4 5
+        - Dice two 	1 2 0 6 7 8
+
+
+### **Door to offer**
+- You are facing two doors. One leads to your job offer and the other leads to exit. In front of either door is a guard. One guard always tells lies and the other always tells the truth. You can only ask one guard one yesIno question. Assuming you do want to get the job offer. what question will you ask?
+- **Solution**
+    - This is another classic brain teaser (maybe a little out-of-date in my opinion). One popular answer is to ask one guard: "Would the other guard say that you are guarding the door to the offer?" If he answers yes, choose the other door; if he answers no, choose the door this guard is standing in front of
+    - There are two possible scenarios:
+        - 1. Truth teller guards the door to offer: Liar guards the door to exit.
+        - 2. Truth teller guards the door to exit; Liar guards the door to offer.
+    - If we ask a guard a direct question such as "Are you guarding the door to the offer?" For scenario 1, both guards will answer yes; for scenario 2, both guards will answer no. So a direct question does not help us solve the problem. The key is to involve both guards in the questions as the popular answer does. For scenario 1, if we happen to choose the truth teller, he will answer no since the liar will say no; if we happen to choose the liar guard, he will answer yes since the truth teller will say no. For scenario 2, if we happen to choose the truth teller, he will answer yes since the liar will say yes; if we. happen to choose the liar guard, he will answer no since the truth teller with say yes. So for both scenarios, if the answer is no, we choose that door; if the answer is yes, we choose the other door. 
+    
+### **Message delivery**
+- You need to communicate with your colleague in Greenwich via a messenger service. Your documents are sent in a padlock box. Unfortunately the messenger service is not secure, so anything inside an unlocked box will he lost (including any locks you place inside the box) during the delivery. The high-security padlocks you and your colleague each use have only one key which the person placing the lock owns. How can you securely send a document to your colleague?
+- Hint: You can have more than one lock on the box.
+- **Solution**
+    - If you have a document to deliver, clearly you cannot deliver it in an unlocked box. So the first step is to deliver it to Greenwich in a locked box, Since you are the person who has the key to that lock, your colleague cannot open the box to get the document. Somehow you need to remove the lock before he can get the document, which means the box should be sent back to you before your colleague can get the document.
+    - So what can he do before he sends back the box? He can place a second lock on the box, which he has the key to! Once the box is back to you, you remove your own lock and send the box back to your colleague. He opens his own lock and gets the document.
+
+### **Last ball**
+- A bag has 20 blue balls and 14 red balls. Each time you randomly take two balls out. (Assume each ball in the bag has equal probability of being taken). You do not put these two balls back. Instead, if both balls have the same color, you add a blue ball to the bag; if they have different colors, you add a red ball to the bag. Assume that you have an unlimited supply of blue and red balls, if you keep on repeating this process, what will be the color of the last ball left in the bag? What if the bag has 20 blue balls and 13 red balls instead?
+- Hint: Consider the changes in the number of red and blue balls after each step.
+- **Solution** 
+    - Once you understand the hint, this problem should be an easy one. Let (B,R)
+represent the number of blue balls and red balls in the bag. We can take a look what will happen after two balls are taken out.
+    - Both balls are blue: (B, R) —> (B—1, R) 
+    - Both balls are red: (B, R) -> (B+1, R—2) 
+    - One red and one blue: (B, R) —> (B—1, R)
+    - Notice that R either stays the same or decreases by 2, so the number of red balls will never become odd if we begin with 14 red balls. We also know that the total number of balls decreases by one each time until only one ball is left. Combining the information we have, the last ball must be a blue one. Similarly, when we start with odd number of red balls, the final ball must be a red one.
+
+### **Light switches**
+- There is a light bulb inside a room and four switches outside. All switches are currently at off state and only one switch controls the light bulb. You may turn any number of switches on or off any number of times you want. How many times do you need to go into the room to figure out which switch controls the light bulb?
+- **Solution**
+    - You may have seen the classical version of this problem with 3 light bulbs inside the room and 3 switches outside. Although this problem is slightly modified, the approach is exact the same. Whether the light is on and off is binary, which only allows us to distinguish two switches. If we have another binary factor, there are 2x 2 4 possible combinations of scenarios, so we can distinguish 4 switches. Besides light, a light bulb also emits heat and becomes hot after the bulb has been lit for some time, So we can use the on/off and cold/hot combination to decide which one of the four switches controls the light.
+    - Turn on switches 1 and 2; move on to solve some other puzzles or do whatever you like for a while; turn off switch 2 and fin on switch 3; get into the room quickly, touch the bulb and observe \vhether the light is on or off.
+    - The light bulb is on and hot -> switch t controls the light;
+    - The light bulb is off and hot	-> switch 2 controls the light;
+    - The light bulb is on and cold	-> switch 3 controls the light;
+    - The light bulb is off and cold -> switch 4 controls the light, 
+
+### **Quant salary**
+- Eight quants from different banks are getting together for drinks. They are all interested in knowing the average salary of the group. Nevertheless, being cautious and humble individuals, everyone prefers not to disclose his or her own salary to the group. Can you come up with a strategy for the quants to calculate the average salary without knowing other people's salaries?
+- **Solution**
+    - This is a light-hearted problem and has more than one answer. One approach is for the first quant to choose a random number, adds it to his/her salary and gives it to the second quaint. The second quant will add his/her own salary to the result and give it to the third quant; ...; the eighth quant will add his/her own salary to the result and give it back to the first quant. Then the first quant will deduct the "random" number from the total and divide the "real" total by 8 to yield the average salary.
+    - You may be wondering whether this strategy has any use except being a good brain teaser to test interviewees. It does have applications in practice. For example, a third party data provider collect fund holding position data (securities owned by a fund and the number of shares) from all participating firms and then distribute the information back to participants. Surely most participants do not want others to figure out what they are holding. If each position in the fund has the same fund ID every day, its easy to reverse-engineer the fund from the holdings and to replicate the strategy. So different random numbers (or more exactly pseudo-random numbers since the provider knows what number is added to the fund ID of each position and complicated algorithm is involved to make the mapping one to one) are added to the fund ID of each position in the funds before distribution. As a result, the positions in the same fund appear to have different fund IDs. That prevents participants from re-constructing other funds. Using this approach, the participants can share market information and remain anonymous at the same time.
