@@ -60,3 +60,63 @@ probability that two cards have equal value, Let's say you have randomly selecte
         - P(\bigcup_{i=1}^N E_i) = \bigcup_{i=1}^N P(E_i) => P(\bigcup_{i=1}^N) = N * 1/2^{N-1} = N/2^{N-1}
     - The same argument can be extended to any arcs that have a length less than half a circle. If the ratio of the arc length to the circumference of the circle is x (X <= 1/2), then the probability of all N points fitting into the arc is N * X^{N-1}
     - ![Figure 4.1](images/4.1.png)
+
+## 4.2 Combinatorial Analysis
+- Many problems in probability theory can be solved by simply counting the number of different ways that a certain event can occur. The mathematic theory of counting is often referred to as combinatorial analysis (or combinatorics). In this section. we will cover the basics of combinatorial analysis.
+Basic principle of counting: Let S be a set of length-k sequences. If there are 
+    - n1 possible first entries,
+    - n2 possible second entries for each first entry,
+    - n3 possible third entries for each combination of first and second entries, etc. Then there are a total of n1 * n2 ... * nk possible outcomes.
+- Permutation
+    - A rearrangement of objects into distinct sequence (i.e., order matters).
+    - Property
+        - There are	n!/(n1! n2! ... nr !) different permutations of n objects of which n1 are alike, n2 are alike, ... , nr are alike.
+- Combination
+    - An unordered collection of objects (i.e., order doesn't matter).
+    - Property: There are \binom{n}{r} = n!/(n-r)!r! different combinations of n distinct objects taken r at a time
+- binomial theorem
+    - (x+y)^n = \sum_{k=0}^n \binom{n}{k} x^k y^{n-k}
+- inclusion-exclusion principle
+    - P(E1 \cup E2) = P(E1) + P(E2) - P(E1E2)
+
+
+
+### **Poker hands**
+- Poker is a card game in which each player gets a hand of 5 cards. There are 52 cards in a deck. Each card has a value and belongs to a suit. There are 13 values, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A, and four suits, spade, club, heart, diamond
+- What are the probabilities of getting hands with four-of-a-kind (four of the five cards with the same value)? Hands with a full house (three cards of one value and two cards of another value)? Hands with two pairs?
+- Solution
+    - The number of different hands of a five-card draw is the number of 5-element subsets of a 52-clement set, so total number of hands = \binom{52}{5} = 2598960
+    - Hands with a four-of-a-kind
+        - First we can choose the value of the four cards with the same value, there are 13 choices. The 5th card can be any of the rest 48 cards (12 choices for values and 4 choices for suits). So the number of hands with four-of-a kind is 13 * 48 = 624.
+    - Hands with a Full House: In sequence we need to choose the value of the triple. 13 choices; the suits of the triple, \binom{4}{3} choices; the value of the pair, 12 choices; and the suits of the pair \binom{4}{2} choices. So the number of hands with full house is 13 * \binom{4}{3} * 12 * \binom{4}{2} = 13 * 4 * 12 * 6 = 3744
+    - hands with two pairs: In sequence we need to choose the values of the two pairs, \binom{13}{2} choices; the suits of the firs pair, \binom{4}{2} choices; the suits of the second pair, \binom{4}{2} choicesl and the ramining card, 44 (52 - 4 * 2, since the last cards can not have the same value as either pair) choices. So the number of hands with two pairs is \binom{13}{2} * \binom{4}{2} * \binom{4}{2} * 44 = 78 * 6 * 6 * 44 = 123552
+    - to calculate the probability of each, we only need to divide the number of hands of each kind by the total possible number of hands
+
+### **Hopping rabbit**
+- A rabbit sits at the bottom of a staircase with n stairs. The rabbit can hop up only one ortwo stairs at a tilne, How many different ways are there for the rabbit to ascend to top of the stairs?
+- Hint: Consider an induction approach. Before the final hop to reach the n-th stair, the rabbit can be at either the (n-1)-th stair of the (n-2)-th stair assuming n > 2
+- Solution
+    - Let's begin with the simplest cases and consider solving the problem for any number of stairs using induction. For n = 1 , there is only one way and f (1) = 1. For n = 2, we can have one 2-stair hop or two 1-stair hops. So f(2) = 2. For any n > 2, there are always two possibilities for the last hop, either it's a 1-stair hop or a 2-stair bop. In the former case, the rabbit is at (n-1) before reaching n, and it has f(n —1) ways to reach (n-1). In the latter case, the rabbit is at (n-2) before reaching n, and it has f(n — 2) ways to reach (n - 2). So we have f (n) = f(n — 2) + f n —1). Using this function we can calculate f (n) for n = 3, 4, ...
+
+
+### **Screwy pirates 2**
+- Having peacefully divided the loot (in chapter 2), the pirate team goes on for more looting and expands the group to II pirates. To protect their hard-won treasure, they gather together to put all the loot in a safe. Still being a democratic bunch, they decide that only a majority — any majority — of them (>= 6) together can open the safe. So they ask a locksmith to put a certain number of locks on the safe. To access the treasure, every lock needs to be opened. Each lock can have multiple keys; but each key only opens one lock. The locksmith can give more than one key to each pirate.
+- What is the smallest number of locks needed? And how many keys must each pirate carry?
+- Hint: every subgroup of 6 pirates should have the same key to a unique lock that the other 5 pirates do not have.
+
+- Solution
+    - This problem is a good example of the application of combinatorial analysis in information sharing and cryptography. A general version of the problem was explained in a 1979 paper "How to Share a Secret" by Adi Shamir. Let's randomly select 5 pirates from the 11-member group; there must be a lock that none of them has the key to. Yet any of the other 6 pirates must have the key to this lock since any 6 pirates can open all locks. In other words, we must have a "special" lock to which none of the 5 selected pirates has a key and the other 6 pirates all have keys. Such 5-pirate groups are randomly selected. So for each combination of 5 pirates, there must be such a "special" lock. The minimum number of locks needed is \binom{11}{5} = 462 locks. Each lock has 6 keys, which are given to a unique 6-member subgroup. So each pirate must have 462 * 6 / 11 = 252 keys. That's surely a lot of locks to put on a safe and a lot of keys for each pirate to carry.
+
+## Chess tournament
+A chess tournament has 2^n players with skills 1 > 2 > ... > 2^n. It is organized as a knockout tournament, so that after each round only the winner proceeds to the next round. Except for the final, opponents in each round are drawn at random. Let's also assume that when two players meet in a game, the player with better skills always wins. What's the probability that players 1 and 2 will meet in the final?
+- Hint: Consider separating the players to two 2^{n-1} subgroups. What will happen if player 1 and 2 in the same group? Or not in the same group?	
+- Solution
+    - There are at least two approaches to solve the problem. The standard approach applies multiplication rule based on conditional probability, while a counting approach is far more efficient. (We will cover conditional probability in detail in the next section.) Let's begin with the conditional probability approach, which is easier to grasp. Since there are 2" players. the tournament will have n rounds (including the final). For round 1, players 2, 3, ..., 2^n each have 1/(2^n - 1) probability to be 1's rival, so the probability that 1 and 2 do not meet in round 1 is (2^n - 2)/(2^n - 1) = (2 * (2^{n-1} - 1))/(2^n - 1). Condition on that 1 and 2 do not meet in round 1. 2^{n-1} players proceed to the 2nd round and the conditional probability that 1 and 2 will not meet in round 2 is (2^{n-1} - 2)/(2^{n-1} - 1) = (2 * (2^{n-2} - 1))/(2^{n-1} - 1). We can repeat the same process until the (n-1)-th round, in which there are 2^2 (= 2^n / 2^{n-2}) players left and the conditional probability that 1 and 2 will not meet inround (n — 1) is (2^2 - 2)/(2^2 - 1) = (2 * (2^{2-1} - 1))/(2^2 - 1)
+    - Let E1 be the event that 1 and 2 do not meet in round 1;
+    - Let E2 be the event that I and 2 do not meet in rounds 1 and 2;
+    ...
+    - Let E_{n-1} be the the event that 1 and 2 do not meet in round	n —1
+    - Apply the multiplication rule. we have P(1 and 2 meet in the n-th game) = P(E1) * P(E2 | E1) * ... * P(E_{n-1} | E1 E2 ... E_{n-2})
+    = (2 * (2^{n-1} - 1))/(2^n - 1) * (2 * (2^{n-2} - 1))/(2^n - 1) * ... * (2 * (2^{2-1} - 1))/(2^2 - 1) = 2^{n-1}/(2^n - 1)
+    - Now let's move on to the counting approach. Figure 4.2A is the general case of what happens in the final. Player 1 always wins, so he will be in the final. From the figure, it is obvious that 2^n players are separated to two 2^{n-1}-player subgroups and each group will have one player reaching the final. As shown in Figure 4.2B, for player 2 to reach the final, he/she must be in a different subgroup from I . Since any of the remaining players in 2,3,..., 2^n are likely to be one of the (2^{n-1} — 1) players in the same subgroup as player 1 or one of the 2^{n-1} players in the subgroup different from player 1, the probability that 2 is in a different subgroup from 1 and that 1 and 2 will meet in the final is simply (2^{n-1})/(2^n - 1). Clearly, the counting approach provides not only a simpler solution but also more insight to the problem.
+    - ![Figure 4.1](images/4.1.png)
