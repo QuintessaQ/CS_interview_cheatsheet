@@ -120,3 +120,44 @@ A chess tournament has 2^n players with skills 1 > 2 > ... > 2^n. It is organize
     = (2 * (2^{n-1} - 1))/(2^n - 1) * (2 * (2^{n-2} - 1))/(2^n - 1) * ... * (2 * (2^{2-1} - 1))/(2^2 - 1) = 2^{n-1}/(2^n - 1)
     - Now let's move on to the counting approach. Figure 4.2A is the general case of what happens in the final. Player 1 always wins, so he will be in the final. From the figure, it is obvious that 2^n players are separated to two 2^{n-1}-player subgroups and each group will have one player reaching the final. As shown in Figure 4.2B, for player 2 to reach the final, he/she must be in a different subgroup from I . Since any of the remaining players in 2,3,..., 2^n are likely to be one of the (2^{n-1} — 1) players in the same subgroup as player 1 or one of the 2^{n-1} players in the subgroup different from player 1, the probability that 2 is in a different subgroup from 1 and that 1 and 2 will meet in the final is simply (2^{n-1})/(2^n - 1). Clearly, the counting approach provides not only a simpler solution but also more insight to the problem.
     - ![Figure 4.1](images/4.1.png)
+
+### **Application letters*
+- You're sending job applications to 5 firms: Morgan Stanley, Lehman Brothers, UBS, Goldman Sachs, and Merrill Lynch. You have 5 envelopes on the table neatly typed with names and addresses of people at these 5 firms. You even have 5 cover letters personalized to each of these firms. Your 3-year-old tried to be helpful and stuffed each cover letter into each of the envelopes for you. Unfortunately she randomly put letters
+- Hint: the complement is that at keast oen ketter is mailed to the correct firm.
+- Solution
+    - This problem is a classic example for the Inclusion-Exclusion Principle. In fact, a more general case is an example in Ross' textbook First Course in Probability.
+    - Let's denote by E_i, i =1, ..., 5 the event that the i-th letter has the correct envelope. Then P(\bigcup_{i=1}^5 E_i) is the probability that at least one letter has the correct envelope and 1 - P(\bigcup_{i=1}^5 E_i) is the probability that all letters have the wrong envelopes, P(\bigcup_{i=1}^5 E_i) can be calculated using the Inclusion-Exclusion Principle:
+        - P(\bigcup_{i=1}^5 E_i) = \sum_{i=1}^5 P(E_i) - \sum_{i_1 < i_2} P(E_{i_1} E_{i_2}) + ... + (-1)^6 P(E_1 E_2 ... E_5)
+    - It's obvious that P(E_i) = 1/5, \any i = 1, ..., 5. So \sum_{i=1}^5 P(E_i) = 1
+    - P(E_{i_1} E_{i_2}) is the event that both letter i_1 and letter i_2 have the correct envelope. The probability that i_1 has the correct envelope is 1/5; Conditioned on that i_1 has the correct envelope, the probability that i_2 has the corrrect envelope is 1/4 (there are only 4 envelopes left), So P(E_{i_1}E_{i_2}) = 1/5 * 1/(5-1) = (5-2)!/5!
+    - There are \binom{5}{2} = 5!/2!(5-2)! members of P(E_{i_1} E_{i_2}) in \sum_{i_1 < i_2} P(E_{i_1} E_{i_2}), so we have \sum_{i_1 < i_2} P(E_{i_1}E_{i_2}) = (5-2)!/5! * 5!/(2! (5-2)!) = 1/2!
+    - Similarly we have \sum_{i_1 < i_2 < i_3} P(E_{i_1} E_{i_2} E_{i_3}) = 1/3!, \sum_{i_1 < i_2 < i_3 < i_4} P(E_{i_1} E_{i_2} E_{i_3} E_{i_4}) = 1/4!, and .... = 1/5!
+    - Therefore, P(\bigcup_{i=1}^5 E_i) = 1 - 1/2! + 1/3! - 1/4! + 1/5! = 19/30
+    - So the probability that all 5 letters re mailed to the wrong firm is 1 -  P(\bigcup_{i=1}^5 E_i) = 11/30
+
+### **Birthday problem**
+- How many people do we need in a class to make the probability that two people have the same birthday more than 1/2? (For simplicity, assume 365 days a year.)
+- Solution
+    - The number is surprisingly small: 23. Lets say we have n people in the class. Without any restrictions, we have 365 possibilities for each individual's birthday. The basic principle of counting tells us that there are 365^n possible sequences.
+    - We want to find the number of those sequences that have no duplication of birthdays. For the first individual, we can choose any of the 365 days; but for the second, only 364 remaining choices left, ..., for the r-th individual, there are 365 – r +1 choices. So for n people there are 365 * 364 * ...* (365– n +1)  possible sequences where no two individuals have the same birthday. We need to have	365 * 364 * ...* (365– n +1) / 365^n < 1/2 for the odds to be in our favor. The smallest such n is 23.
+
+### **100th digit**
+- What is the 100th digit to the right of the decimal point in the decimal representation of (1 + \sqrt{2})^3000?
+
+- Solution
+    - If you still have not figure out the solution from the hint, here is one more hint: (1 + \sqrt{2}) + (1 - \sqrt{2})is an integer when n = 3000 .
+    - Applying the binomial theorem for (x + y)^n , we have
+    - ![Figure 4.1.1](images/4.1.1.png)
+    - ![Figure 4.1.2](images/4.1.2.png)
+
+### **Cubic of integer**
+- Let x be an integer between 1 and 10^12, what is the probability that the cubic of x ends with 11?
+- Hint: The last two digits of x^3 only depend on the last two digits of x
+- Solution 
+    - All integers can be expressed as x = a + 1Ob, where a is the last digit of x. Applying the binomial theorem, we have x3 = (a+10b)^3 = a^3 +30a^2b + 300ab^2 + 1000b^3.
+    - The unit digit of x^3 only depends on a^3. So a^3 has a unit digit of 1. Only a = 1 satisfies this requirement and a^3 =1. Since a63 =1, the tenth digit only depends on 30a^2b = 30b
+    - So we must have that 3b ends in 1, which requires the last digit of b to be 7
+    - Consequently, the last two digits of x should be 71, which has a probability of 1% for integers between 1 and 10^12.
+
+## 4.3 Conditional Probability and Bayes' formula
+Many financial transactions an responses to probability adjustments based on new—and most likely incomplete—information. Conditional probability surely is one of the most popular test subjects in quantitative interviews. So in this section, we focus on basic conditional probability definitions and theorems.
