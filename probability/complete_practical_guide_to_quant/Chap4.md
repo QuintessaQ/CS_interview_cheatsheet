@@ -160,4 +160,96 @@ A chess tournament has 2^n players with skills 1 > 2 > ... > 2^n. It is organize
     - Consequently, the last two digits of x should be 71, which has a probability of 1% for integers between 1 and 10^12.
 
 ## 4.3 Conditional Probability and Bayes' formula
-Many financial transactions an responses to probability adjustments based on new—and most likely incomplete—information. Conditional probability surely is one of the most popular test subjects in quantitative interviews. So in this section, we focus on basic conditional probability definitions and theorems.
+- Many financial transactions an responses to probability adjustments based on new—and most likely incomplete—information. Conditional probability surely is one of the most popular test subjects in quantitative interviews. So in this section, we focus on basic conditional probability definitions and theorems.
+- conditional probability
+- multiplication rule
+- law of total probability
+- independent events
+- bayes' formula
+
+### ** Boys and girls
+Part A. A company is holding a dinner for working mothers with at least one son. Ms. Jackson, a mother with two children, is invited. What is the probability that both children are boys
+- Solution
+    - The sample space of two children is given by \Omega = {(b,b), (b,g), (g,b),(g,g)}, (e.g. (g,b) means the older child is a girl and the younger child a boy), and each outcome has the same probability. Since Ms.Jackson is invited, she has at least one son. Let B be the event that at least one of the children is a boy and A be the event that both children are boys, we have
+        - P(A|B) = P(A \cap B)/P(B) = P({(b,b)})/P({(b,b), (b,g), (g,b)}) = (1/4)/(3/4) = 1/3
+
+- Part B. your new colleague, Ms. Parker is known to have two children. If you see her walking with one of her children and that child is a boy, what is the probability that both children are boys?
+- Solution
+    -  the other child is equally likely to be a boy or a girl (independent of the boy you've seen), so the probability that both children are boys is 1/2.
+    - Notice the subtle difference between part A and part B. In part A. the problem essentially asks given there is at least one boy in two children, what is the conditional probability that both children are boys. Part B asks that given one child is a boy, what is the conditional probability that the other child is also a boy. For both parts. we need to assume that each child is equal likely to be a boy or a girl.
+
+### **All-girl world?**
+- In a primitive society, every couple prefers to have a baby girl. There is a 50% chance that each child they have is a girl, and the genders of their children are mutually independent. If each couple insists on having more children until they get a girl and once they have a girl they will stop having more children, what will eventually happen to the fraction of girls in this society?
+- Solution
+    - It was surprising that many interviewees —- include many who studied probability -- have the misconception that there will be more girls. Do not let the word "prefer" and a wrong intuition misguide you. The fraction of baby girls are driven by, nature, or at least the X and Y chromosomes, not by the couples' preference. You only need to look at the key information: 50% and independence, Every new-born child has equal probability of being a boy or a girl regardless of the gender of any other children. So the fraction of girls born is always 50% and the fractions of girls in the society will stay stable at 50%.
+
+### **Unfair coin**
+- You are given 1000 coins. Among them, I coin has heads on both sides. The other 999 coins are fair coins. You randomly choose a coin and toss it 10 times. Each time, the coin turns up heads. What is the probability that the coin you choose is the unfair one,
+- Solution
+    - This is a classic conditional probability question that uses Bayes' theorem, Let A be the event that the chosen coin is the unfair one, then A^c is the event that the coin is a fair one. Let B be the event that all ten tosses turn up heads. Apply Bayes' theorem we have 
+        - P(A|B) = P(B|A)P(A)/P(B) = P(B|A)P(A)/(P(B|A)P(A) + P(B|A^c)P(A^c))
+    - The priors are P(A) = 1/1000 and P(A^c) 999/1000. If the coin is unfair, it always turns up heads. so P(B|A) = 1. If the coin is fair each time it has 1/2 probability turning up heads. So P(B|A^c) = (1/2)^{10} = 1/1024. Plug in all the available information and we have the answer
+        - P(A|B) = P(B|A)P(A) / (P(B|A)P(A) + P(B|A^c)P(A^c)) = 1/1000*1/(1/1000*1 + 999/1000 * 1/1024) ~= 0.5
+
+### **Fair probability from an unfair coin**
+- If you have an unfair coin, which may bias toward either heads or tails at an unknown probability, can you generate even odds using this coin?
+- Solution
+    - Unlike fair coins, we clearly can not generate even odds with one toss using an unfair coin. How about using 2 tosses? Let p1 be the probability the coin will yield head, and Pr be the probability the coin will yield tails ( p_H + p_T Consider two independent tosses. We have four possible outcomes HH, HT, TH and TT with probabilities P(HH) = p_Hp_H, P(HT) = p_Hp_T, P(TH) = p_Tp_H, P(TT) = p_Tp_T
+    - So we have P(HT)= P(TH). By assigning HT to winning and TH to losing, we can generate even odds.
+
+### **Dart game**
+- Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason's skillfulness is constant.
+- Solution
+    - A standard answer directly applies the conditional probability by enumerating all possible outcomes. If we rank the three darts' results from the best (A) to the worst (C), there are 6 possible outcomes with equal probability:
+    - 
+    ```
+    Outcome   1 2 3 4 5 6
+    1st throw A B A C B C
+    2nd throw B A C A C B 
+    3rd throw C C B B A A 
+    ```
+    - The information from the first two throws eliminates outcomes 2, 4 and 6. Conditioned on outcomes 1, 3, and 5, the outcomes that the 3rd throw is worse than the 1st throw are outcomes 1 and 3. So there is 2/3 probability that the third throw is farther from the center than the first.
+    - This approach surely is reasonable. Nevertheless, it is not an efficient approach. When the number of darts is small, we can easily enumerate all outcomes. What if it is a more complex version of the original problem:
+    - Jason throws n (n >= 5) darts at a dartboard, aiming for the center. Each subsequent dart is farther from the center than the first dart. If Jason throws the (n + 1)th dart. what is the probability that it is also farther from the center than his first?
+    - This question is equivalent to a simple question: what is the probability that the (n+1)-th throw is not the best among all (n+1) throws? Since the 1st throw is the best among the first n throws, essentially I am saving the event that the (n+1)th throw is the best of all (n+1) throws (let's call it A_{n+1}) is independent of the event that the 1st throw is the best of the first n throws (let's call it A_1). In fact, A_{n+1}, is independent of the order of the first n throws. Are these two events really independent? The answer is a resounding yes. If it is not obvious to you that A_{n+1} is independent of the order of the first n throws, let's look at it another way: the order of the first n throws is independent of A_{n+1}. Surely this claim is conspicuous. But independence is symmetric! Since the probability of A_{n+1} is 1/(n +1), the probability that (n+1)-th throw is not the best is n/(n+1).
+    - Hint: here you can again use symmetry argument: each throw is equally likely to be the best.
+    - For the original version. three darts are thrown independently, they each have a 1/3 chance of being the best throw. As long as the third dart is not the best throw, it will be worse than the first dart. Therefore the answer is 2/3.
+
+### **Birthday line**
+- At a movie theater, a whimsical manager announces that she will give a free ticket to the first person in line whose birthday is the same as someone who has already bought ticket. You are given the opportunity to choose any position in line. Assuming that you don't know anyone else's birthday and all birthdays are distributed randomly throughout the year (assuming 365 days in a year), what position in line gives you the largest chance of getting the free ticket?
+- Hint: If you are the n-th person in kine, to get the free ticket, the first (n-1) people in line must not have the same birthday and you must have the same birthday as one of them.
+- Solution
+    - If you have solved the problem that no two people have the same birthday in an n-people group, this new problem is just a small extension. Assume that you choose to be the n-th person in line. In order for you to get the free ticket, all of the first n-1 individuals in line must have different birthdays and your birthday needs to be the same as one of those n -1 individuals.
+    - p(n) = p(first n -1 people have no same birthday) * p(yours among those n - 1 birthdays) 365 * 364 * ... * (365 - n + 2)/365^{n-1} * (n-1)/365
+    - It is intuitive to argue that when n is small, increasing n will increase your chance of getting the free ticket since the increase of p(yours among those n-1 birthdays) is more significant than the decrease in p(firsi n-1 people have no sa,e birthday). So when n is small, we have P(n) > P(n-1). As n increases, gradually the negative impact of p(first n -1 people haven same birthday) will catch up and at a certain point we will have P(n+1) < P(n). So we need to find such an n that satisfies P(n) > P(n-1) and P(n) > P(n+1).
+    - ![Figure 4.2.1](images/4.2.1.png)
+    - You should be the 20th person in line
+
+### **Dice order**
+- We throw 3 dice one by one. What is the probability that we obtain 3 points in strictly increasing order?
+- Solution
+    - To have 3 points in strictly increasing order, first all three points must be different numbers. Conditioned on three different numbers, the probability of strictly increasing order is simply 1/3! = 1 /6 (one specific sequence out of all possible permutations). So we have
+    - P = P(diffcrent numbers in all three throws) x P(increasing order | 3 different numbers) - (1 * 5/6 * 4/6) * 1/6 = 5/54
+
+### **Monty Hall problem**
+-Monty Hall problem is a probability puzzle based on an old American show Lei is Make a Deal . The problem is named after the show's host. Suppose you're on the show now, and you're given the choice of 3 doors. Behind one door is a car; behind the other two, goats. You don't know ahead of time what is behind each of the doors.
+- You pick one of the doors and announce it. As soon as you pick the door, Monty opens one of the other two doors that he knows has a goat behind it. Then he gives you the option to either keep your original choice or switch to the third door. Should you switch? What is the probability of winning a car if you switch?
+- Solution 
+    - If you don't switch, whether you win or not is independent of Monty's action of showing you a goat, so your probability of winning is 1/3. What if you switch? Many Nvould argue that since there are only two doors left after Monty shows a door with goat. the probability of winning is 1/2. But is this argument correct?
+    - If you look at the problem from a different perspective, the answer becomes clear. Using a switching strategy, you win the car if and only if you originally pick a door with a goat. which has a probability of 2/3 (You pick a door with a goat, Monty shows a door With another goat, so the one you switch to must have a car behind it). If you originally, picked the door with the car, which has a probability of 1/3, you will lose by switching. So your probability of winning by switching is actually 2/3.
+
+### **Amoeba population**
+- There is a one amoeba in a pond. After every minute the_ amoeba may die. stay  the same, split into two or split into three with equal probability:ji its offspring, if it has any, will behave the same (and independent of other amoebas). What is the probability the amoeba population will die out?
+- Solution
+    - This is just another standard conditional probability problem once you realize we need to derive the probability conditioned on what happens to the amoeba one minute later. Let P(E) be the probability that the amoeba population will die out and apply the law of total probability conditioned on what happens to the amoeba one minute later:
+        - P(E) = P(E|F1)P(F1) + P(E|F2)P(F2)+ ...+ P(E|Fn)P(Fn)
+    - For the original amoeba, as stated in the question, there are four possible mutually exclusive events each with probability 1/4. Let's denote F1, as the event the amoeba dies;
+    - F2 as the event that it stays the same; F3 as the event that it splits into two; F4 as the event that it splits into three. For event F1, P(E|F1) = 1 since no amoeba is left. P(E|F2) = P(E) since the state is the same as the beginning. For F3, there are two amoebas; either behaves the same as the original one. The total amoeba population will die only if both amoebas die out. Since they are independent, the probability that they both will die out is P(E)^2. Similarly we have P(F4) = P(E). Plug in all the numbers, the equation becomes P(E) = 1/4 * 1 + 1/4 * P(E) + 1/4 x P(E)^2 + 1/4x P(E)^3. Solve this equation with the restriction 0 < P( E) < I, and we will get P(E) = \sqrt{2} - 1 = 0.414 (The other two roots of the equation are 1 and — \sqrt{2} - 1).
+
+### **Candies in a jar**
+- You are taking out candies one by one from a jar that has 10 red candies, 20 blue candies, and 30 green candies in it. What is the probability that there are at least 1 blue candy and 1 green candy left in the jar when you have taken out all the red candies.
+- Solution
+    - At first look, this problem appears to be a combinatorial one. However, a conditional probability approach gives a much more intuitive answer. Let T_r, T_h and T_g be the number that the last red, blue, and green candies are taken out respectively. To have at least 1 blue candy and 1 green candy left when all the red candies are taken out, we need to have T_r < T_h and T_r < T_g. In other words, we want to derive P(T_r < T_h \cap t_r < T_g). There are two mutually exclusive events that satisfy T_r < T_h and T_r < T_g : T_r < T_h < T_g and T_r < T_g < T_h.
+    - Therefore, P(T_r < T_h \cap t_r < T_g) = P(T_r < T_h < T_g) + P(T_r < T_g < T_h)
+    - T_r < T_h < T_g means that the last candy is green (T_g = 60). Since each of the 60 candies are equally likely to be the last candy and among them 30 are green ones, we have P(T_g = 60) = 30/60. Conditioned on T_g = 60, we need P(T_r < T_h | T_g = 60). Among the 30 red and blue candies, each candy is again equally likely to be the last candy and there are 20 blue candies, so P(T_r < T_h | T_g = 60) = 20/30 and P(T_r < T_h < T_g) = 30/60 * 20/30. Similarly, w ehave P(T_r < T_g < T_h) = 20/60 * 30/40
+    - Hence, P(T_r < T_h \cap t_r < T_g) = P(T_r < T_h < T_g) + P(T_r < T_g < T_h) = 30/60 * 20/30 + 20/60 * 30/40 = 7/12
