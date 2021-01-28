@@ -315,3 +315,23 @@ Part A. A company is holding a dinner for working mothers with at least one son.
 - Solution
     - We can break down the 20-minute interval into a sequence of 4 non-overlapping 5-minute intervals. Because of constant default probability (of observing a car), the probability of observing a car in any 5-minute interval is constant. Lets denote the probability to he p, then the probability that in any 5-minute interval we do not observe a car is 1— p.
     - The probability that we do not observe any car in all four of such independent 5-minute intervals is (1-p)^4 = 1 - 609/625 = 16/625, which gives p = 3/5
+
+## 4.4 Discrete and COntiuous Distribution
+- In this section, we review a variety of distribvuion fubctions for random variables that are widely used in quantative modeling. Although it may not be necessary to memorize the properties of the properties of these distributions, havibg an intuitive understanding of the distributions and having the ability to quickly derive important properties are valeuable skills in practice. As usual, let's begi with the theories:
+- Common functions of random variables
+- Table 4.1 summarizes how the basic properties of discrete and contibuous random variables are defined or calculated. These are the basics you should commit to memory.
+    - ![Table 4.1](images/Table4.1.png)
+- **Discrete random variables**
+- Table 4.2 includes some of the most widely-used discrete distributions. Discrete uniform random variable represents the occurrence of a value between number a and b when all values in the set {a, a+1, ..., b} have equal probability. Binonial randon variable represents the number of successes in a sequence of n experiments when each trial is independent a success with probability p. Poisson random variable represents the number of events occurring in a fixed period of time with the expected number of occurrences \lambda t when events occcur with a known average rate \lambda and are independent of the time since the last event. Geometric random variable represents the trial number (n) to get the first success when each trial is independently a success with probability p. Negative Binomial random variable represents the trial number to get to the r-th success when each trial is independently a success with probability p.
+    - ![Table 4.2](images/Table4.2.png)
+- **Continuous random variables**
+- tables 4.3 inclues some of the commonly encountered continuous distributiobs. Uniform distribution describes a random variable uniformly distributed over the interval [a,b]. Because of the central linit theorem, normal distribution/Gaussian distribution is by far the most popular continuous distribution. Exponential distribution models the arrival time of an event if it has a constant arrival rate \lambda. Gamma distribution with parameters (\alpha, \lambda) often arises, in practice, as the distribution of the amoubt of time one has to wait until a total of n events occur. Beta distribuion are used to model events that are constraibed withib a defibed interval. By adjusting the shape parameter \alpha and \beta, it can model different shapes of probabilit6y density functions
+    - ![Table 4.3](images/Table4.3.png)
+
+    Meeting probability
+Two bankers each arrive at the station at some random time between 5;00 am and 6:00 am (arrival time for either banker is uniformly distributed). They
+stay exactly
+minutes and then leave. What is the probability they will meet on a given day? Soizaion: Assume banker A arrives X minutes after 5:00 am and B arrives Y minutes afte!
+5:00 ant	and Y are independent uniform distribution between 0 and 60. Since bol11,
+onl: stay exactly five minutes,. as shown in Figure 4.4, A and B meet if and onlY . X r	5.
+So the probability that A and B will meet is simply the area of the shadowed regi.°11, divided by the area of the square (the rest of the region can be combined to a square %On , .
