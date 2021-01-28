@@ -328,10 +328,23 @@ Part A. A company is holding a dinner for working mothers with at least one son.
 - tables 4.3 inclues some of the commonly encountered continuous distributiobs. Uniform distribution describes a random variable uniformly distributed over the interval [a,b]. Because of the central linit theorem, normal distribution/Gaussian distribution is by far the most popular continuous distribution. Exponential distribution models the arrival time of an event if it has a constant arrival rate \lambda. Gamma distribution with parameters (\alpha, \lambda) often arises, in practice, as the distribution of the amoubt of time one has to wait until a total of n events occur. Beta distribuion are used to model events that are constraibed withib a defibed interval. By adjusting the shape parameter \alpha and \beta, it can model different shapes of probabilit6y density functions
     - ![Table 4.3](images/Table4.3.png)
 
-    Meeting probability
-Two bankers each arrive at the station at some random time between 5;00 am and 6:00 am (arrival time for either banker is uniformly distributed). They
-stay exactly
-minutes and then leave. What is the probability they will meet on a given day? Soizaion: Assume banker A arrives X minutes after 5:00 am and B arrives Y minutes afte!
-5:00 ant	and Y are independent uniform distribution between 0 and 60. Since bol11,
-onl: stay exactly five minutes,. as shown in Figure 4.4, A and B meet if and onlY . X r	5.
-So the probability that A and B will meet is simply the area of the shadowed regi.°11, divided by the area of the square (the rest of the region can be combined to a square %On , .
+### **Meeting probability**
+- Two bankers each arrive at the station at some random time between 5:00 am and 6:00 am (arrival time for either banker is uniformly distributed). They
+stay exactly five minutes and then leave. What is the probability they will meet on a given day? 
+- Solution
+    - Assume banker A arrives X minutes after 5:00 am and B arrives Y minutes after 5:00 am. X and Y are independent uniform distribution between 0 and 60. Since both only stay exactly five minutes, as shown in Figure 4.4, A and B meet if and only if |X - Y| <= 5
+    - So the probability that A and B will meet is simply the area of the shadowed region, divided by the area of the square (the rest of the region can be combined to a square with size length 55
+        - (60 * 60 - 2 * (1/2 * 55 * 55))/(60 * 60) = (60 + 55) * (60 - 55) / (60 * 60) = 23/144
+    - ![Figure 4.4](images/4.4.png)
+
+### **Probability of triangle**
+- A stick is cut twice randomly (each cut point follows a uniform distribution on the stick), what is the probability that the 3 segments can form a triangle?
+- Hint: Let the first cut point be x, the second one by y, use the figure to show ths distribution of x and y
+- Solution
+    - Without loss of generality, let's assume that the length of the stick is 1. Let's also label the point of the first cut as x and the second cut as y
+    - If x < y, then the three segments are x, y-x and 1-y. The conditions to form a triangles are
+        - x + (y-x) > 1-y => y > 1/2
+        - x + (1-y) > y-x => y < 1/2 + x
+        - (y-x) + (1-y) > x => x < 1/2
+    - The feasible area is shown in Figure 4.5. The case for x < y is the left gray triangle. Using symmetry, we can see that the case for x > y is the right gray triangle
+    - The total shadowed area represents the region where 3 segments can form a triangle, which is 1/4 of the square, So the probability is 1/4
