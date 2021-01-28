@@ -253,3 +253,65 @@ Part A. A company is holding a dinner for working mothers with at least one son.
     - Therefore, P(T_r < T_h \cap t_r < T_g) = P(T_r < T_h < T_g) + P(T_r < T_g < T_h)
     - T_r < T_h < T_g means that the last candy is green (T_g = 60). Since each of the 60 candies are equally likely to be the last candy and among them 30 are green ones, we have P(T_g = 60) = 30/60. Conditioned on T_g = 60, we need P(T_r < T_h | T_g = 60). Among the 30 red and blue candies, each candy is again equally likely to be the last candy and there are 20 blue candies, so P(T_r < T_h | T_g = 60) = 20/30 and P(T_r < T_h < T_g) = 30/60 * 20/30. Similarly, w ehave P(T_r < T_g < T_h) = 20/60 * 30/40
     - Hence, P(T_r < T_h \cap t_r < T_g) = P(T_r < T_h < T_g) + P(T_r < T_g < T_h) = 30/60 * 20/30 + 20/60 * 30/40 = 7/12
+
+### **Coin toss game**
+- Two players, A and B, alternatively toss a fair coin (A tosses the coin first, then B tosses the coin, then A, then B...). The sequence of heads and tails is recorded. If there is a head followed by a tail (HT subsequence), the game ends and the person who tosses the tail wins. What is the probability that A wins the ganne?
+- Hint: condition on the result of A's first toss and use symmetry
+- Solution
+    - Let P(A) be the probability that A wins; then the probability that B wills is P(B) = 1 - P(A). Let's condition P(A) on A's first toss, which has 1/2 probability of H (heads) and 1/2 probability of T (tails).
+    - P(A) = 1/2 P(A|H) + 1/2 P(A|T)
+    - If A's first toss is T, then B essentially becomes the first to toss (An H is required for the HT subsequence), So we have P(A|T)	= P(B) = 1 - P(A) 
+    - If A's first toss ends in H, lees further condition on B's first toss. B has 1/2 probability of getting T; in that case A loses. For the 1/2 probability that B gets H, B essentially becones the first one to toss an H. In that case, A has (1 - P(A|H)) probability of winning . So P(A|H) = 1/2 * 0 + 1/2(1-P(A|H)) => P(A|H) = 1/3
+    - Combining all the available information, we have
+    - P(A) = 1/2 * 1/3 + 1/2(1-P(A)) => P(A) = 4/9
+    - Sanity check
+        - we can see that P(A) < 1/2, which is reasonable since A cannot win in his first toss, yet B has 1/4 probability to win in her first toss.
+
+
+### **Russian roulette series**
+- Let's play a traditional version of Russian roulette. A single bullet is put into a 6-chamber revolver. The barrel is randomly spun so that each chamber is equally likely to be under the hammer. Two players take turns to pull the trigger -- with the gun unfortunately pointing at one's own head -- without further spinning until the gun goes off and the person who gets killed loses. If you, one of the players, can choose to go first for second, how will you choose? And what is your probability of loss?
+- Solution
+    - Marty people have the wrong impression that the first person has higher probability of loss. After all, the first player has a 1/6 chance of getting killed in the first round before the second player starts. Unfortunately, this is one of the few times that intuition is wrong. Once the barrel is spun, the position of the bullet is fixed. If you go first, you lose if and only if the bullet is in chamber 1, 3 and 5. So the probability that you lose is the same as the second player, 1/2. In that sense, whether to go first or seco does not matter.
+
+- Now, let's change the rule slightly. We will spin the barrel again after every trigger pull. Will you choose to be the first or the second player? And what is your probability of loss? 
+- Solution
+    - The difference is that each run now becomes independent. Assume that the first player's probability of losing is p, then the second player's probability of losing is 1–p. Let's condition the probability on the first person's first trigger pull. He has 1/6 probability of losing in this run. Otherwise, he essentially becomes the second player in the game with new (conditional) probability of losing 1– p. That happens with probability of 5/6. That gives us p = 1 * 1/6 + (1-p) * 5/6 => p = 6/11. So you should choose to be the second player and have 5/11 probability of losing.
+
+- If instead of one bullet, two bullets are randomly put in the chamber. Your opponent played the first and he was alive after the first trigger pull. You are given the option whether to spin the barrel. Should you spin the barrel?
+- Solution
+    - if you spin the barrel, the probability that you will lose in this round is 2/6.1i you don't spin the barrel, there are only 5 chambers left and your probability of losing in this round (conditioned on that your opponent survived) is 2/5. So you should spin the barrel.
+- What if the two bullets are randomly put in two consecutive positions? If your opponent survived his first round, should you spin the barrel?
+- Solution
+    - Now we have to condition our probability on the fact that the positions of the two bullets are consecutive. As shown in Figure 4.3, let's label the empty chambers as 1, 2, 3 and 4; label the ones with bullets 5 and 6. Since your opponent survived the first round, the possible position he encountered is 1, 2, 3 or 4 with equal probability. With 1/4 chance, the next one is a bullet (the position was 4). So if you don't spin, the chance of survival is 3/4. If you spin the barrel, each position has equal probability of being chosen, and your chance of survival is only 2/3. So you should not spin the barrel.
+    - ![Figure 4.3](images/4.3.png)
+
+### **Aces**
+- Fifty-two cards arc randomly distributed to 4 players with each player getting 13 cards. What is the probability that each of them will have an ace?
+- Solution
+    - The problem can be answered using standard counting methods. To distribute 52 cards to 4 players with 13 cards each has 52!/13!13!13!13! permutations. If each
+    needs to have one ace, we can distribute the aces first, which has 4! ways. Then we player needs to have one ace, we can distribute the rest 48 cards to 4 players with 12 cards each, which has 48!/12!12!12! permutations. So the probability that each of them will have an Ace is
+        - ![Figure 4.3.1](images/4.3.1.png)
+    - The logic becomes clearer if we use a conditional probability approach. Let's begin with any one of the four aces; it has probability 52/52 = 1 of belonging to a pile, The second ace can be any of the remaining 51 cards, among which 39 belong to a pile different from the first ace. So the probability that the second ace is not in the pile of the first ace is 39 /51. Now there are 50 cards left, among which 26 belong to the other two piles. So the conditional probability that the third ace is in one of the other 2 piles given the first two aces are already in different piles is 26/50. Similarly, the conditional probability that the fourth ace is in the pile different from the first three aces given that the first three aces are in different piles is 13/49 . So the probability that each pile has an ace is 1 * 39/51 * 26/50 * 13/49
+
+### **Gambler's ruin problem**
+- A gambler starts with an initial fortune of i dollars. On each successive game, the gambler wins $1 with probability p, 0 < p < 1, or loses $1 with probability q = 1–p. He will stop if he either accumulates N dollars or loses all his money. What is the probability that he will end up with N dollars? 
+- Solution
+    - This is a classic textbook probability problem called the Gambler's Ruin-Problem. Interestingly, it is still widely used in quantitative interviews.
+    - From any initial state i (the dollars the gambler has), 0	<= i <= N, let P_i be the probability that the gambler's fortune will reach N instead of 0. The next state is either i+1 with probability p or i –1 with probability q. So we have 
+        - P_i = p P_{i+1} + q P_{i-1} => P_{i+1} - P_i = q/p (P_i - P_{i-1}) = (q/p)^2 (P_{i-1} - P_{i-2}) = ... = (q/p)^i (P_1 - P_0)
+    - We also have the boundary probabilities P_0 = 0 and P_N = 1.
+    - So starting from P_2, we can successively evaluate P_i, as an expression of P_1,
+    - ![Figure 4.3.2](images/4.3.2.png)
+
+### **Basketball scores**
+- A basketball player is taking 100 free throws. She scores one point if the ball passes, through the hoop and zero point if she misses. She has scored on her first throw and missed on her second. For each of the following throw the probability of her scoring is the fraction of throws she has made so far. For example, if she has scored 23 points after the 40th throw, the probability that she will score in the 41th throw is 23/40. After 100 throws (including the first and the second), what is the probability that she scores exactly 50 baskets?
+- Hint: Again, do not let the nturiber 100 scares you. Start with smallest n, try to find a pattern by increasing n; and prove the pattern using induction
+- Solution
+    - Let (n,k), 1 <= k <= n, be the event that the player scores k baskets after n throws and P_{n,k} = P((n,k)). The sotution is surprisingly simple if we use an induction approach starting with n = 3. The third throw has 1/2 probability of scoring. So we have P_{3,1} = 1/2 and P_{3,2} = 1/2. For the case when n = 4, let's apply the law of total probability
+    - ![Figure 4.3.3](images/4.3.3.png)
+
+### **Cars on road**
+- If the probability of observing at least one car on a highway during any 20-minute time interval is 609/625, then what is the probability of observing at least one car during any 5-minute time interval? Assume that the probability of seeing a car at any moment is uniform (constant) for the entire 20 minutes.
+- Solution
+    - We can break down the 20-minute interval into a sequence of 4 non-overlapping 5-minute intervals. Because of constant default probability (of observing a car), the probability of observing a car in any 5-minute interval is constant. Lets denote the probability to he p, then the probability that in any 5-minute interval we do not observe a car is 1— p.
+    - The probability that we do not observe any car in all four of such independent 5-minute intervals is (1-p)^4 = 1 - 609/625 = 16/625, which gives p = 3/5
