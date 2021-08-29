@@ -105,7 +105,7 @@
 	- directed graph can be topologically ordered iff no cycle
 	- acyclic: no cycle
 - planar: can be drawn on the plane w/o any edge crossin
-	- every planer graph is 4-colorable
+	- every planar graph is 4-colorable
 
 ### **Tree**
 - an undirected graph if there is exactly one simple path between every vertex
@@ -172,7 +172,6 @@
 		- don't know size(table)
 		- #possible values >> table size
 
-
 #### What you need to know:
 - Designed to optimize searching, insertion, and deletion.
 - **Hash collisions** are when a hash function returns the same output for two distinct inputs.
@@ -183,7 +182,7 @@
 		- **chaining**: each bucket contains a linkedlist of items hashed to it
 			- uses more memory
 			- worst case: O(n), all elements hashed to one bucket
-		- **open addressing**: each buckect contains one element, look in successive array element to find a place for new item
+		- **open addressing**: each bucket contains one element, look in successive array element to find a place for new item
 			- when removing an element, mark it as NP (not present), so when searching for an element, could keep looking
 			- stop searching until it finds a null or the element you're searching for
 			- clustering: nearby hashes have similar probe sequences, so more collision
@@ -287,7 +286,7 @@ def bfs(v):
 - Uses a queue to store information about the tree while it traverses a tree.
 	- Because it uses a queue it is more memory intensive than **depth first search**.
 	- The queue uses more memory because it needs to stores pointers
-
+- in unweighted graphs it can be used to construct a shortest path from u to v.
 #### Time Complexity:
 - Search: Breadth First Search: O(|V| + |E|)
 
@@ -316,14 +315,14 @@ def dfs(v):
 - Uses a stack to push nodes onto.
 	- Because a stack is LIFO it does not need to keep track of the nodes pointers and is therefore less memory intensive than breadth first search.
 	- Once it cannot go further left it begins evaluating the stack.
-
+- topological sorting (i.e., resolving dependencies): the order in which a recursive DFS finishes processing the vertices of a (directed acyclic) graph of dependencies corresponds to a valid topological order.
 #### Time Complexity:
 - Search: Depth First Search: O(|E| + |V|)
 
 #### Breadth First Search Vs. Depth First Search
 - The simple answer to this question is that it depends on the size and shape of the tree.
-  - For wide, shallow trees use Breadth First Search
-  - For deep, narrow trees use Depth First Search
+  - For wide, shallow trees use Breadth First Search, or if the desired node closer to root
+  - For deep, narrow trees use Depth First Search, or if desired node occur infrequently
 - space: O(|V|)
 - time: 
 	- adjacency list: O(|V| + |E|)
@@ -405,11 +404,11 @@ def merge(arr, h, mid, t):
 - Know that it divides all the data into as small possible sets then compares them.
 
 #### Time Complexity:
-- Best Case Sort: O(n)
-	```
+- Best Case Sort: O(nlogn)
+	<!-- ```
 	if (arr[mid] > arr[mid + 1]) 
 		merge(arr, low, mid, high); 
-	```
+	``` -->
 - Average Case Sort: O(n log n)
 - Worst Case Sort: O(n log n)
 - Space: O(n)
@@ -440,7 +439,41 @@ def partition(arr, h, t):
 		else:
 			swap(arr, pivot+1, later)
 			later -= 1
+	return pivot
 ```
+```
+ def partition(arr, low, high):
+	i = low         # index of smaller element
+	pivot = arr[high]     # pivot
+
+	for j in range(low, high):
+		# If current element is smaller than or
+		# equal to pivot
+		print(i, j, arr)
+		if arr[j] <= pivot:
+			
+			arr[i], arr[j] = arr[j], arr[i]
+			i = i+1
+
+	arr[i], arr[high] = arr[high], arr[i]
+	return i
+
+def quickSort(arr, low, high):
+    if len(arr) == 1:
+        return arr
+    if low < high:
+  
+        # pi is partitioning index, arr[p] is now
+        # at right place
+        pi = partition(arr, low, high)
+  
+        # Separately sort elements before
+        # partition and after partition
+        quickSort(arr, low, pi-1)
+        quickSort(arr, pi+1, high)
+
+```
+
 
 #### What you need to know:
 - While it has the same Big O as (or worse in some cases) many other sorting algorithms it is often faster in practice than many other sorting algorithms, such as merge sort.
@@ -463,9 +496,9 @@ def partition(arr, h, t):
 - Know that it moves one space to the right comparing two elements at a time and moving the smaller on to left.
 
 #### Time Complexity:
-- Best Case Sort: Merge Sort: O(n)
-- Average Case Sort: Merge Sort: O(n^2)
-- Worst Case Sort: Merge Sort: O(n^2)
+- Best Case Sort: Bubble Sort: O(n)
+- Average Case Sort: Bubble Sort: O(n^2)
+- Worst Case Sort: Bubble Sort: O(n^2)
 
 #### Merge Sort Vs. Quicksort
 - Quicksort is likely faster in practice.
@@ -491,6 +524,92 @@ def topological_sort():
 		label it as k
 		delete it and all edges leaving it
 		k += 1
+```
+-
+```
+def topological_sort(digraph):
+    # digraph is a dictionary:
+    #   key: a node
+    # value: a set of adjacent neighboring nodes
+
+    # construct a dictionary mapping nodes to their
+    # indegrees
+    indegrees = {node : 0 for node in digraph}
+    for node in digraph:
+        for neighbor in digraph[node]:
+            indegrees[neighbor] += 1
+
+    # track nodes with no incoming edges
+    nodes_with_no_incoming_edges = []
+    for node in digraph:
+        if indegrees[node] == 0:
+            nodes_with_no_incoming_edges.append(node)
+
+    # initially, no nodes in our ordering
+    topological_ordering = [] 
+                
+    # as long as there are nodes with no incoming edges
+    # that can be added to the ordering 
+    while len(nodes_with_no_incoming_edges) > 0:
+
+        # add one of those nodes to the ordering
+        node = nodes_with_no_incoming_edges.pop()
+        topological_ordering.append(node)
+    
+        # decrement the indegree of that node's neighbors
+        for neighbor in digraph[node]:
+            indegrees[neighbor] -= 1
+            if indegrees[neighbor] == 0:
+                nodes_with_no_incoming_edges.append(neighbor)
+
+    # we've run out of nodes with no incoming edges
+    # did we add all the nodes or find a cycle?
+    if len(topological_ordering) == len(digraph):
+        return topological_ordering  # got them all
+    else:
+        raise Exception("Graph has a cycle! No topological ordering exists.")
+```
+```
+# Python program to print topological sorting of a DAG
+from collections import defaultdict
+class Graph:
+	def __init__(self, vertices):
+		self.graph = defaultdict(list) # dictionary containing adjacency List
+		self.V = vertices # No. of vertices
+
+	# function to add an edge to graph
+	def addEdge(self, u, v):
+		self.graph[u].append(v)
+
+	# A recursive function used by topologicalSort
+	def topologicalSortUtil(self, v, visited, stack):
+
+		# Mark the current node as visited.
+		visited[v] = True
+
+		# Recur for all the vertices adjacent to this vertex
+		for i in self.graph[v]:
+			if visited[i] == False:
+				self.topologicalSortUtil(i, visited, stack)
+
+		# Push current vertex to stack which stores result
+		stack.append(v)
+
+	# The function to do Topological Sort. It uses recursive
+	# topologicalSortUtil()
+	def topologicalSort(self):
+		# Mark all the vertices as not visited
+		visited = [False]*self.V
+		stack = []
+
+		# Call the recursive helper function to store Topological
+		# Sort starting from all vertices one by one
+		for i in range(self.V):
+			if visited[i] == False:
+				self.topologicalSortUtil(i, visited, stack)
+
+		# Print contents of the stack
+		print(stack[::-1]) # return list in reverse order
 ```
 ### **Graph Coloring**
 ```
@@ -639,6 +758,7 @@ This algorithm never needed to compare all the differences to one another, savin
 	reversed(list) 				# has return value, faster than arr[::-1]
 	a = sorted(list, key=None, reverse=False)
 	list.copy() 				# return shallow copy of the list, equivalent to a[:] 
+	# Shallow Copy stores the references of objects to the original memory address.   
 	lst[from_inclusive : to_exclusive : ±step_size]
 
 	del arr[0]
@@ -721,7 +841,7 @@ s1 >= s2
 ### **Dictionary**
 - keys has to be immutable
 ```
-d = {'qwE': 20, 'kv': 22}
+d = {'qwE': 20, 'vk': 22}
 
 # could use the del keyword to delete key:value pair
 del d['qwE']
@@ -740,7 +860,7 @@ d1.update(d2)
 
 # constructs dictionary from sequences of key-value pairs
 # could put list of tuples as argument
-dict([('qwe', 20), ('kv', 22)])
+dict([('qwe', 20), ('vk', 22)])
 
 # dict comprehension
 {x: x**2 for x in range(4)}
@@ -772,7 +892,7 @@ d.pop("test")
 - starts with ``from collections import xxx``
 
 #### deque (double-ended queue)
-- ``collections.dequeue([iterable[, maxlen]])`` returns a deque object initialized left-to-right (using `append()` with data from iterable). Empty if iterable not specified
+- ``collections.dequec([iterable[, maxlen]])`` returns a deque object initialized left-to-right (using `append()` with data from iterable). Empty if iterable not specified
 - supports thread-safe, memory efficient `append`s & `pop`s from either side, O(1) performance
 - whereas `list` is optimized for fast **fixed-length** operations, has O(n) costs for `pop(0)` and `insert(0, v)`, which change size & position of the underlyding data representation
 ```
@@ -963,9 +1083,11 @@ d = defaultdict(lambda: 1)
 	```
 
 #### itertools.product
-- ``product(*iterables[, r])`` return the cartesian product of input iterables
+- ``product(*iterables[, repeat])`` return the cartesian product of input iterables
 - `product(A, B)` is the same as `[(x, y) for x in A for y in B]`, but not ``for x, y in zip(A, B)``
 - `*iterables` could be a list of lists, need to add `*` prior to the variable name
+- To compute the product of an iterable with itself, specify the number of repetitions with the optional repeat keyword argument. 
+- For example, product(A, repeat=4) means the same as product(A, A, A, A).
 - 
 	```
 	arr1 = [1,2,3]
@@ -973,7 +1095,24 @@ d = defaultdict(lambda: 1)
 	product(arr1, arr2)
 	# [(1, 5), (1, 6), (1, 7), (2, 5), (2, 6), (2, 7), (3, 5), (3, 6), (3, 7)]
 	```
+- 
+	```
+	def product(lst, r=None):
+		if r:
+			lst = [lst for _ in range(r)]
+		if len(lst) == 1:
+			print(lst)
+			return [(e,) for e in lst[0]]
 
+		temp = lst[:-1]
+		prev = product(temp)
+		res = []
+		for p in prev:
+			for r in lst[-1]:
+				res.append(p + (r,))
+		return res
+
+	```
 
 #### itertools.groupby
 - ``groupby(iterable[, key])`` returns consecutive keys and groups from the iterable, key is a function that calculates keys for each elem in the iterable
@@ -995,9 +1134,9 @@ d = defaultdict(lambda: 1)
 	# 5 [5]
 	# 1 [1, 1, 1, 1]
 	# 4 [4]
-	<!-- lst = [1,1,2,2,2,3,3,1]
-	groupby(lst) -->
-	<!-- #[(1, 2), (2, 3), (3, 2), (1, 1)] -->
+	lst = [1,1,2,2,2,3,3,1]
+	groupby(lst)
+	#[(1, 2), (2, 3), (3, 2), (1, 1)]
 	```
 
 #### other methods
@@ -1013,9 +1152,21 @@ d = defaultdict(lambda: 1)
 		# [3, 4, 6, 6, 6, 9, 9, 9, 9, 9]
 		```
 - **chain** 
+	- Make an iterator that returns elements from the first iterable until it is exhausted, then proceeds to the next iterable, until all of the iterables are exhausted. 
+	- Used for treating consecutive sequences as a single sequence.
 	- ``itertools.chain(*iterables)``
 		- ``chain('ABC', 'DEF')`` --> A B C D E F
+		- 
+			```
+			def chain(*iterables):
+				# chain('ABC', 'DEF') --> A B C D E F
+				for it in iterables:
+					for element in it:
+						yield element
+			```
 	- ``chain.from_iterable(iterable)``
+		- Alternate constructor for chain(). 
+		- Gets chained inputs from a single iterable argument that is evaluated lazily.
 		-  ``chain.from_iterable(['ABC', 'DEF'])`` --> A B C D E F
 
 ### Generators / Iterators
@@ -1038,10 +1189,11 @@ d = defaultdict(lambda: 1)
 -  `import heap`
 - `heap[k] <= heap[2*k+1] and heap[k] <= heap[2*k+2]`
 - methods
+	- `import heapq`
+	- `heapify(x)` transform list x into a heap, **in-place**, O(n)
 	- `heapq.heappush(heap, item)`
 	- `heappop(heap)` pop and return the smallest item from the heap. Raise `IndexError` if heap empty
 	- `heap[0]` access the smallest element without popping it
-	- `heapify(x)` transform list x into a heap, **in-place**, O(n)
 	- `nlargest(n, iterable, key=None)` return a list with n largest elements from the iterable
 	- `nsmallest(n, iterable, key=None)` return smallest n elements
 	- `heapq.heappushpop(heap, 2)` push then pop
@@ -1057,6 +1209,7 @@ d = defaultdict(lambda: 1)
 	
 - Examples
 	```
+	import heapq
 	h = []
 	heappush(h, 5)
 	heappush(h, 4)
@@ -1230,6 +1383,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	```
 
 - bitwise operators
+	- a = int(a, 2) convert to from a binary sting '11' to int 3
 	- 
 		```
 		<int> = <int> & <int>                    # And
@@ -1261,6 +1415,56 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 
 	return l
 	```
+	- while loop板子有3个
+		- 当你需要找一个特定值left <= right, left = mid + 1, right = mid - 1;
+			- 
+			```
+			int l = 0, r = nums.length - 1;
+			while (l <= r) {
+		        int mid = l + (r-l) / 2;
+		        if (arr[mid] == target)  {
+		            return mid;
+		        } else if (arr[mid] > target) {
+		            r = mid - 1;
+		        } else {
+		            l = mid + 1;
+		        }
+			}
+			```
+		- 找下界（第一次出现）left + 1 < right, left = mid, right = mid;
+			- if this number not in list, return its upper index
+			- 
+			```
+			int l = 0, r = nums.length - 1;
+			while (l < r) {
+			    int mid = l + (r-l) / 2;
+			    if (nums[mid] >= target) {
+			        // 满足条件的时候，把右边界设成mid，这样右边不断向**近，直到第一次出现
+			        r = mid;
+			    } else {
+			        // 不满足的时候，移动左边
+			        l = mid + 1;
+			    }
+			}
+			```
+		- 找上界（最后一次出现）left < right, left = mid + 1, right = mid;
+			- if this number not in list, return its lower index
+			- 
+			```
+			int l = 0, r = nums.length - 1;
+			while (l < r) {
+			    // 注意！向右逼近的时候， mid 后面要+1，不然会死循环
+			    int mid = l + (r-l) / 2 + 1; 
+			    if (nums[mid] <= target) {
+			        // 满足条件的时候，把左边界设成mid，这样不断向右逼近，直到最后一次出现
+			        l = mid;
+			    } else {
+			        // 不满足的时候，移动右边
+			        r = mid - 1;
+			    }
+			}
+			```
+	- 
 - `div, mod = divmod(num, divisor)`
 - valid parenthesis: if encounter ')' and if stack and stack[-1] == '(', pop the last '('
 - `string.lower()` convert to lower case
@@ -1328,12 +1532,22 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	```
 - `dictionary.get(keyname, [value])` value is optional, returned if the specified key does not exist.
 - `bisect`
+	- bisect.bisect_left(a, x, lo=0, hi=len(a))
+		- Locate the insertion point for x in a to maintain sorted order. The parameters lo and hi may be used to specify a subset of the list which should be considered; 
+	- bisect.bisect(a, x, lo=0, hi=len(a))
+		- Similar to bisect_left(), but returns an insertion point which comes after (to the right of) any existing entries of x in a.
+		-The returned insertion point i partitions the array a into two halves so that all(val <= x for val in a[lo:i]) for the left side and all(val > x for val in a[i:hi]) for the right side.
 - `float('inf')`, `float('-inf')` positive and negative infinity
 - assign values at odd and even indices
 	```
 	res[::2] = [x for _ in range((m+1)//2)]
 	res[1::2] = [y for _ in range(m//2)]
 	```
+<!-- - maximal int
+	- sys.maxsize
+	- sys.minsize -->
+- maximal int
+	- math.inf
 
 Default value None
 todo:
