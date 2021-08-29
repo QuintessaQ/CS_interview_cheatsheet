@@ -1199,7 +1199,6 @@ d = defaultdict(lambda: 1)
 	- `heapq.heappushpop(heap, 2)` push then pop
 	- `heapq.heapreplace(li, 4)` pop then push
 
-
 - could define ``__lt__`` method to compare objects
 	```
 	def __lt__(self, other):
@@ -1334,8 +1333,8 @@ d = defaultdict(lambda: 1)
 - Insert and search costs O(key_length)
 - the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N), where N is number of keys in Trie
 - backtracking algorithm, find all paths from one node to another
-```
-def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+	```
+	def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         res = []
         n = len(graph)
         def backtrack(node, path):
@@ -1347,7 +1346,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
                     backtrack(nxt, path + [nxt])
         backtrack(0, [0])
         return res
-```
+	```
 
 
 ### **functools**
@@ -1381,9 +1380,17 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	from math import cos, acos, sin, asin, tan, atan, degrees, radians
 	from math import log, log10, log2
 	```
+	- print(float('Inf') - float('Inf')) # nan
 
 - bitwise operators
 	- a = int(a, 2) convert to from a binary sting '11' to int 3
+	- 
+		```
+		>>> bin(10)
+		'0b1010'
+		>>> 0b1010
+		10
+		```
 	- 
 		```
 		<int> = <int> & <int>                    # And
@@ -1543,9 +1550,7 @@ def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
 	res[::2] = [x for _ in range((m+1)//2)]
 	res[1::2] = [y for _ in range(m//2)]
 	```
-<!-- - maximal int
-	- sys.maxsize
-	- sys.minsize -->
+
 - maximal int
 	- math.inf
 
