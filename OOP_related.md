@@ -51,10 +51,54 @@
         - static methods
             - They can directly call other static methods only.
             - They can access static data directly.
+    - python class method & static method
+        - class method
+            - The @classmethod decorator is a built-in function decorator that is an expression that gets evaluated after your function is defined. The result of that evaluation shadows your function definition. 
+            - A class method receives the class as an implicit first argument, just like an instance method receives the instance 
+            - A class method is a method that is bound to the class and not the object of the class.
+            - They have the access to the state of the class as it takes a class parameter that points to the class and not the object instance.
+            - It can modify a class state that would apply across all the instances of the class. For example, it can modify a class variable that will be applicable to all the instances.
+        - static method
+            - A static method is also a method that is bound to the class and not the object of the class.
+            - A static method can’t access or modify the class state.
+            - It is present in a class because it makes sense for the method to be present in class.
+        - A class method takes cls as the first parameter while a static method needs no specific parameters.
+        - A class method can access or modify the class state while a static method can’t access or modify it.
+        - In general, static methods know nothing about the class state. They are utility-type methods that take some parameters and work upon those parameters. On the other hand class methods must have class as a parameter.
+        - We use @classmethod decorator in python to create a class method and we use @staticmethod decorator to create a static method in python.
+        - 
+            ```
+            from datetime import date
+            
+            class Person:
+                def __init__(self, name, age):
+                    self.name = name
+                    self.age = age
+                
+                # a class method to create a Person object by birth year.
+                @classmethod
+                def fromBirthYear(cls, name, year):
+                    return cls(name, date.today().year - year)
+                
+                # a static method to check if a Person is adult or not.
+                @staticmethod
+                def isAdult(age):
+                    return age > 18
+            
+            person1 = Person('mayank', 21)
+            person2 = Person.fromBirthYear('mayank', 1996)
+            
+            print (person1.age)
+            print (person2.age)
+            
+            # print the result
+            print (Person.isAdult(22))
+            ```
+
 
 - public vs. private
     - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class, but can use setters and getters
-    - python has non-public instance variale, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
+    - python has non-public instance variable, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
     - can use double underscore, ``self.__cupholder = 6``, will get error when accessing it with `my_car.__cupholder`. When Python sees an attribute with double underscores, it changes the attribute by prefixing the original name of the attribute with an underscore, followed by the class name. So we can do `my_car._Car__cupholders`.
 - access control
     - python can delete attributes, `del my_car.year`
@@ -164,7 +208,7 @@
     - python has a set of common dunder (double underscore) methods
         - ``__repr__()`` string represention of object, unambigous, ~hashCode()
         - ``__str__()`` readable, ~toString()
-         >>>  print(str(my_car)
+         >>>  print(str(my_car))
         -  ``__eq__(self, other)`` could be overriden for customized equality, otherwise `==` just compares addresses
         
 - operator overloading
@@ -233,8 +277,7 @@
     - It improves maintainability and flexibility and re-usability.
     - The fields can be made read-only (If we don’t define setter methods in the class) or write-only (If we don’t define the getter methods in the class).
     - User would not be knowing what is going on behind the scene.
-- **Polymorphism** is the capability of a method to do different things based on the object that it is acting upon. In other words, polymorphism allows people define one interface and have multiple
-implementations. There are two different polymorphisms: runtime polymorphism and compile time polymorphism
+- **Polymorphism** is the capability of a method to do different things based on the object that it is acting upon. In other words, polymorphism allows people define one interface and have multiple implementations. There are two different polymorphisms: runtime polymorphism and compile time polymorphism
 - Benefit of polymorphism:
     - The basic reason behind polymorphism is that we can implement different behaviors of the same object depending upon the reference type passed to an object.
     - jdbc, servlets, jsp have come through polymorphism, if not there we have to remember all dependent classes related to DB, Servers...to use in our java coding
@@ -335,8 +378,9 @@ implementations. There are two different polymorphisms: runtime polymorphism and
     - cannot contains constructor
     - slow
 - Abstract class:
-    - can provide complete default code and/or just the details that have to be overriden. - in case of abstract class, a class may only extend only one abstract class.
-    -  An abstract class cannot be used to create objects (to access it, it must be inherited from another class). 
+    - can provide complete default code and/or just the details that have to be overriden. 
+    - in case of abstract class, a class may only extend only one abstract class.
+    - An abstract class cannot be used to create objects (to access it, it must be inherited from another class). 
     - An abstract method can only be used in an abstract class, and it does not have a body. 
     - an abstract class can have non-abstract methods
     - an abstract class can have instance variables
