@@ -1011,7 +1011,7 @@ d = defaultdict(lambda: 1)
 		# ordered dictionary has exceeded our capacity, 
 		# If so we remove the first key (least recently used) 
 		def put(self, key: int, value: int) -> None: 
-			self.cache[key] = value 
+			self.cache[key] = value ack
 			self.cache.move_to_end(key) 
 			if len(self.cache) > self.capacity: 
 				self.cache.popitem(last = False) 
@@ -1057,6 +1057,7 @@ d = defaultdict(lambda: 1)
 	```
 #### itertools.permutations
 - ``permutations(iterable[, r])`` return successive r length permutations of elements in the iterable
+- returns \frac{n!}{r!} items
 -
 	```
 	permutations([1,2,3])
@@ -1289,6 +1290,14 @@ d = defaultdict(lambda: 1)
 		def __init__(self):
 			self.children = collections.defaultdict(TrieNode)
 			self.is_word = False
+			
+		def __repr__(self):
+			def recur(node, indent):
+				return "".join(indent + key + ("$" if child.is_word else "") 
+									+ recur(child, indent + "  ") 
+					for key, child in node.children.items())
+
+			return recur(self, "\n")
 
 	class WordDictionary:
 		def __init__(self):
@@ -1322,8 +1331,8 @@ d = defaultdict(lambda: 1)
 					self.res = True
 				return
 			if word[0] == '.':
-				for n in node.children.values():
-					self.dfs(n, word[1:])
+				for nxt in node.children.values():
+					self.dfs(nxt, word[1:])
 			else:
 				if word[0] not in node.children:
 					return
@@ -1440,6 +1449,7 @@ d = defaultdict(lambda: 1)
 			```
 		- 找下界（第一次出现）left + 1 < right, left = mid, right = mid;
 			- if this number not in list, return its upper index
+			- e.g. arr = [1,2,3,4,6], target = 5, return 4
 			- 
 			```
 			int l = 0, r = nums.length - 1;
@@ -1456,12 +1466,13 @@ d = defaultdict(lambda: 1)
 			```
 		- 找上界（最后一次出现）left < right, left = mid + 1, right = mid;
 			- if this number not in list, return its lower index
+			- e.g. arr = [1,2,3,4,6], target = 5, return 3
 			- 
 			```
 			int l = 0, r = nums.length - 1;
 			while (l < r) {
 			    // 注意！向右逼近的时候， mid 后面要+1，不然会死循环
-			    int mid = l + (r-l) / 2 + 1; 
+				int mid = (l + r)//2;
 			    if (nums[mid] <= target) {
 			        // 满足条件的时候，把左边界设成mid，这样不断向右逼近，直到最后一次出现
 			        l = mid;
@@ -1493,8 +1504,8 @@ d = defaultdict(lambda: 1)
 - `s = s.replace(" ", "")` remove whitespace in s
 - use stack
 - `idx ^= 1` flip the `idx` between 0 and 1
-- ``chr(int)`` convert int to char
-- ``ord(char)`` convert char to int
+- ``chr(int)`` convert int to char, 
+- ``ord(char)`` convert char to int, ord('a') = 97
 - ``str.isdigit()`` check if a string only contains numeric values
 - ``str.isalpha()`` returns True if all the characters are alphabet letters (a-z).
 - random number generation
@@ -1543,7 +1554,7 @@ d = defaultdict(lambda: 1)
 		- Locate the insertion point for x in a to maintain sorted order. The parameters lo and hi may be used to specify a subset of the list which should be considered; 
 	- bisect.bisect(a, x, lo=0, hi=len(a))
 		- Similar to bisect_left(), but returns an insertion point which comes after (to the right of) any existing entries of x in a.
-		-The returned insertion point i partitions the array a into two halves so that all(val <= x for val in a[lo:i]) for the left side and all(val > x for val in a[i:hi]) for the right side.
+		- The returned insertion point i partitions the array a into two halves so that all(val <= x for val in a[lo:i]) for the left side and all(val > x for val in a[i:hi]) for the right side.
 - `float('inf')`, `float('-inf')` positive and negative infinity
 - assign values at odd and even indices
 	```
