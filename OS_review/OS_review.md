@@ -428,7 +428,7 @@ at the end of the given list
                 - need resource only for a bit
     - allow preemption
         - multiplex
-        - ubdo/redo
+        - undo/redo
     - eliminate circular waits
         - request resources in in creasing order
         - to request for R_j, first release all resources of type R_i, i < j
@@ -478,7 +478,7 @@ at the end of the given list
         - pick victim
         - rollback
 - Banker's algorithm
-    - proces declares its worst-case needs
+    - process declares its worst-case needs
     - ask for what it really needs
     - algotithm decides when to grant requests
         - build graph assuming request granted
@@ -711,8 +711,12 @@ at the end of the given list
 
 ### Chapter 4 The Abstraction: The process
 - process: a running program
-- time sharing: allows users to run as many concurrent processes as they would like; the potential cost is performance, as each will run more slowly if the CPU(s) must be shared.
-- space sharing: a resource is divided (in space) among those who wish to use it. e.g. disk space, a block is assigned to a file, it is not likely to be assigned to another file until the user deletes it
+- time sharing: 
+    - allows users to run as many concurrent processes as they would like; 
+    - the potential cost is performance, as each will run more slowly if the CPU(s) must be shared.
+- space sharing
+    - a resource is divided (in space) among those who wish to use it. 
+    - e.g. disk space, a block is assigned to a file, it is not likely to be assigned to another file until the user deletes it
 - context switch: stop running one program and start running another on a given CPU
 - scheduling policy: given a number of possible programs to run on a CPU, which program should the OS run
 - process abstraction
@@ -725,12 +729,24 @@ at the end of the given list
         - frame pointer
     - I/O information
         - a list of files the process currently has open
+- frame pointer
+    - https://people.cs.rutgers.edu/~pxk/419/notes/frames.html
+    - Each function has local memory associated with it to hold incoming parameters, local variables, and (in some cases) temporary variables. 
+    - This region of memory is called a stack frame and is allocated on the process’ stack. 
+    - A frame pointer (the ebp register on intel x86 architectures, rbp on 64-bit architectures) contains the base address of the function’s frame. 
+    - The code to access local variables within a function is generated in terms of offsets to the frame pointer. 
+    - The stack pointer (the esp register on intel x86 architectures or rsp on 64-bit architectures) may change during the execution of a function as values are pushed or popped off the stack (such as pushing parameters in preparation to calling another function). 
+    - The frame pointer doesn’t change throughout the function.
+
+
 - program counter = instruction pointer = IP
 - process API
     - Create
         - An operating system must include some method to create new processes. 
     - Destroy
-        - As there is an interface for process creation, systems also provide an interface to destroy processes forcefully. Of course, many processes will run and just exit by themselves when complete; when they don’t, however, the user may wish to kill them, and thus an interface to halt a runaway process is quite useful.
+        - As there is an interface for process creation, systems also provide an interface to destroy processes forcefully. 
+        - Of course, many processes will run and just exit by themselves when complete; 
+        - when they don’t, however, the user may wish to kill them, and thus an interface to halt a runaway process is quite useful.
     - Wait
         - Sometimes it is useful to wait for a process to stop running; thus some kind of waiting interface is often provided.
     - Miscellaneous Control
@@ -738,7 +754,9 @@ at the end of the given list
     - Status    
         - There are usually interfaces to get some status information about a process as well, such as how long it has run for, or what state it is in.
 - C programs use the stack for local variables, function parameters, and return addresses
-- heap: used for explicitly requested dynamically-allocated data; programs request such space by calling malloc() and free it explicitly by calling free()
+- heap
+    - used for explicitly requested dynamically-allocated data
+    - programs request such space by calling malloc() and free it explicitly by calling free()
 - process states:
     - Running
         - In the running state, a process is running on a processor. This means it is executing instructions.
@@ -770,7 +788,7 @@ at the end of the given list
 - exec()
     - useful when you want to run a program that is different from the calling program
     - given the name of an executable (e.g., wc), and some arguments (e.g., p3.c)
-    - it loads code &s tatic data from that executable and overwrites its current code segment & current static data) with it
+    - it loads code & static data from that executable and overwrites its current code segment & current static data) with it
     - heap & stack & other memory re-initialized
     - transforms the currently running program (formerly p3) into a different running program (wc)
     - After the exec() in the child, it is almost as if p3.c never ran
@@ -822,7 +840,8 @@ at the end of the given list
 - **switch between processes**
 - cooperative approach: wait for sys call
     - OS trusts the processes that run for too long are assumed to periodically give up the CPU
-    - yield system call: transfer control to the OS so it can run other processes.
+    - yield system call
+        - transfer control to the OS so it can run other processes.
     - Applications also transfer control to the OS when they do something illegal.
         - e.g. if an application divides by zero. or tries to access memory that it shouldn’t be able to access, it will generate a trap to the OS
         - OS will then have control of the CPU again, and likely terminate the offending process
@@ -848,7 +867,7 @@ at the end of the given list
 
 ### Chap 7
 - Jain's Fairness Index
-    - fsairness metric
+    - fairness metric
 - turnaround time = completion time - arrival time
     - performance metric
 - response time = first run time - arrival time
@@ -1013,7 +1032,8 @@ at the end of the given list
 - each thread is very much like a separate process, except that they share the same address space and thus can access the same data.
 - Each thread has its own private set of registers it uses for computation
 - The context switch between threads is quite similar to the context switch between processes, as the register state of T1 must be saved and the register state of T2 restored before running T2
-- With processes, we saved state to a process control block (PCB)- now, we’ll need one or more thread control blocks (TCBs) to store the state of each thread of a process. 
+- With processes, we saved state to a process control block (PCB)
+- now, we’ll need one or more thread control blocks (TCBs) to store the state of each thread of a process. 
 - in the context switch of threads: the address space remains the same (i.e., there is no need to switch which page table we are using).
 - one stack per thread
 - race condition: the results depend on the timing execution of the code.
@@ -1022,10 +1042,11 @@ at the end of the given list
 - indeterminate: program consists of one or more race conditions; the output of the program varies from run to run, depending on which threads ran when.
 
 ### Chap 27
-- condition variables: useful when some kind of signaling must take place between threads, if one thread is waiting for another to do something before it can continue
-- pthread cond wait(): puts the calling thread to sleep, and thus waits for some other thread to signal it, usually when something in the program has changed that the now-sleeping thread might care about
+- condition variables
+    - useful when some kind of signaling must take place between threads, if one thread is waiting for another to do something before it can continue
+- pthread cond wait()   
+    - puts the calling thread to sleep, and thus waits for some other thread to signal it, usually when something in the program has changed that the now-sleeping thread might care about
 ```
-
 Pthread_mutex_lock(&lock); 
 while (initialized == 0)
     Pthread_cond_wait(&init, &lock);
@@ -1041,8 +1062,11 @@ Pthread_mutex_unlock(&lock);
 
 ### Chap 28
 - Test and set (atomic exchange)
-    - correctness problem: with timely interrupts, could produce a case where both threads set their flags to 1 and both threads are thus able to enter the critical section.
-    - performance problem: it endlessly checks the value of flag, a technique known as spin-waiting. Spin-waiting wastes time waiting for another thread to release a lock.
+    - correctness problem
+        - with timely interrupts, could produce a case where both threads set their flags to 1 and both threads are thus able to enter the critical section.
+    - performance problem
+        - it endlessly checks the value of flag, a technique known as spin-waiting. 
+        - Spin-waiting wastes time waiting for another thread to release a lock.
 - working spin lock
     - 
     ```
@@ -1061,9 +1085,11 @@ Pthread_mutex_unlock(&lock);
     ```
     - requires a preemptive scheduler (i.e., one that will interrupt a thread via a timer, in order to run a different thread, from time to time).
 - evaluating spin locks
-    - spin locks don’t pro- vide any fairness guarantees. Indeed, a thread spinning may spin forever, under contention. Spin locks are not fair and may lead to starvation.
+    - spin locks don’t provide any fairness guarantees. 
+    - Indeed, a thread spinning may spin forever, under contention. 
+    - Spin locks are not fair and may lead to starvation.
     - performance
-        - wasteful on single CPU, the thread holding the lock is pre-empted within a critical section. The scheduler might then run every other thread (imagine there are N − 1 others), each of which tries to ac- quire the lock.
+        - wasteful on single CPU, the thread holding the lock is pre-empted within a critical section. The scheduler might then run every other thread (imagine there are N − 1 others), each of which tries to acquire the lock.
         - works reasonably well on multi-CPU, Thread A on CPU 1 and Thread B on CPU 2, both contending for a lock. If Thread A (CPU 1) grabs the lock, and then Thread B tries to, B will spin (on CPU 2)
 - compare and swap
 ```
@@ -1079,7 +1105,8 @@ void lock(lock_t *lock) {
 - load-linked & store-conditional
     - store-conditional only succeeds (and updates the value stored at the address just load-linked from) if no intermittent store to the address has taken place.
 - fetch-and-add
-    - when a thread wishes to acquire a lock, it first does an atomic fetch-and-add on the ticket value; that value is now considered this thread’s “turn”
+    - when a thread wishes to acquire a lock, it first does an atomic fetch-and-add on the ticket value; 
+    - that value is now considered this thread’s “turn”
     - Unlock is accomplished simply by incrementing the turn such that the next waiting thread (if there is one) can now enter the critical section.
     - ensure progress for all threads
 - yield
@@ -1091,7 +1118,8 @@ void lock(lock_t *lock) {
                 yield(); // give up the CPU
     }
     ```
-- use queues: sleeping instead of spinning
+- use queue
+    - sleeping instead of spinning
     - park() puts a calling thread to sleep
     - unpark(threadID) wakes a thread
 - two-phase lock
@@ -1109,12 +1137,14 @@ void lock(lock_t *lock) {
 - producer-consumer (bound buffer) problem
     - Producers produce data items and wish to place them in a buffer
     - consumers grab data items out of the buffer consume them in some way
-    - mesa sementics    
-        - Signaling a thread only wakes them up; it is thus a hint that the state of the world has changed (in this case, that a value has been placed in the buffer), but there is no guarantee that when the woken thread runs, the state will still be as desired.
+    - mesa semantics    
+        - Signaling a thread only wakes them up; 
+        - it is thus a hint that the state of the world has changed (in this case, that a value has been placed in the buffer)
+        - but there is no guarantee that when the woken thread runs, the state will still be as desired.
     - hoare semantics
         - provides a stronger guarantee that the woken thread will run immediately upon being woken
     - use two cv
-        - producer threads wait on the condition empty, and signals fill
+        - producer threads wait on the condition empty, and signals full
         - figure 30.10
     - covering codition
         - covers all the cases where a thread needs to wake up (conservatively);
@@ -1126,7 +1156,8 @@ void lock(lock_t *lock) {
     - scheduler states: running, ready, sleeping
 - semaphore as cv
     - inital value set to 0
-    - The parent runs, decrements the semaphore (to -1), then waits (sleeping). When the child finally runs, it will call sem post(), increment the value of the semaphore to 0, and wake the parent
+    - The parent runs, decrements the semaphore (to -1), then waits (sleeping). 
+    - When the child finally runs, it will call sem post(), increment the value of the semaphore to 0, and wake the parent
 - producer/consumer 31.8
 - reader-writer lock figure 31.9
     - would be relatively easy for readers to starve writers.
@@ -1134,21 +1165,25 @@ void lock(lock_t *lock) {
     - need to break the dependency
 
 ### Chap 13
-- stack: function call chain, allocate local variables and pass parameters and return values to and from routines
-- heap: dynamically-allocated, user-managed memory
+- stack:
+    - function call chain, allocate local variables and pass parameters and return values to and from routines
+- heap
+    - dynamically-allocated, user-managed memory
 - goal of virtual memory
-    -  transparency
+    - transparency
         - OS should implement virtual memory in a way that is invisible to the running program
         - the program shouldn’t be aware of the fact that memory is virtualized
     - efficiency
-        - time: not making programs run much more slowly
-        - space: not using too much memory for structures needed to support virtualization
+        - time
+            - not making programs run much more slowly
+        - space
+            - not using too much memory for structures needed to support virtualization
     - protection
         - should not be able to anything outside its address space
 
 ### Chap 14
 - segmentation fault: forget to allocate memory
-- buffer overflow: not allocatung enough memory
+- buffer overflow: not allocating enough memory
 - uninitialized read: forget to initialize allocated memory
 - memory leak: forget to free memory
 - dangling pointer: free memory before you are done with it
@@ -1196,7 +1231,8 @@ void lock(lock_t *lock) {
     - first fit
         - finds the first block that is big enough and returns 
         - pollutes the beginning of the free list with a small objects
-        - address-based ordering: keep the list ordered by the address of the free space, coalescing becomes easier
+        - address-based ordering
+            - keep the list ordered by the address of the free space, coalescing becomes easier
     - next fit
         - keeps an extra pointer to the location within the list where one was looking last
         - spread the searches for free space throughout the list more uniformly
@@ -1206,7 +1242,8 @@ void lock(lock_t *lock) {
     - When a given cache is running low on free space, it requests some slabs of memory from a more general memory allocator
 - (binary) buddy allocation
     - recursively divides free space by two until a block that is big enough to accommodate the request is found 
-    - When returning the 8KB block to the free list, the allocator checks whether the “buddy” 8KB is free; if so, it coalesces the two blocks into a 16KB block.
+    - When returning the 8KB block to the free list, the allocator checks whether the “buddy” 8KB is free; 
+        - if so, it coalesces the two blocks into a 16KB block.
     - address of each buddy pair only differs by a single bit
     - suffer from internal fragmentation
 - lack of scaling
@@ -1377,7 +1414,7 @@ void lock(lock_t *lock) {
             - find itself only processing interrupts and never allowing a user-level process to run 
         - better occasionally use polling
     - optimization: coalescing
-        - multiple interrupts can be coalesced into a single in- terrupt delivery
+        - multiple interrupts can be coalesced into a single interrupt delivery
 - Efficient Data Movement 
     - when using programmed I/O (PIO) to transfer a large chunk of data to a device
     - CPU used on a trivial task
@@ -1411,7 +1448,7 @@ void lock(lock_t *lock) {
         - acceleration: disk arm gets moving
         - coasting: moving at full speed
         - deceleration: arm slows down
-        - settling: head carefully positioned over the correct track; settling time
+        - settling: head carefully positioned over the correct track;
     - transfer: data read/written
     - track skew
     - multi-zoned disk drives: disk is organized into multiple zones; zone is consecutive set of tracks on a surface.
@@ -1435,7 +1472,7 @@ void lock(lock_t *lock) {
         - sweep: a single pass across the disk
         - F-SCAN
             - freeze the queue when doing a sweep
-            - places re- quests that come in during the sweep into a queue to be serviced later
+            - places requests that come in during the sweep into a queue to be serviced later
             - avoids starvation of far-away requests
         - C-SCAN
             - sweeps outer -> inner, inner -> outer
@@ -1550,7 +1587,8 @@ void lock(lock_t *lock) {
     - can't create hard link to a directory, in case creating a cycle
     - can't hard link to files in other disk partitions, bc inode number unique within a file system
 - symbolic link / soft link
-    - third type of the file system beyond file and directory, - for files, d for directory, l for soft link 
+    - third type of the file system beyond file and directory, 
+    - for files, d for directory, l for soft link 
     - could have dangling reference: pointing to a pathname that no longer exists
 
 ### Chap 40: File System Implementation
@@ -1578,7 +1616,8 @@ void lock(lock_t *lock) {
 - read file from disk
     - open "/foo/bar"
     - read inode (#2) of the root directory
-    -  look inside of it to find pointers to data blocks, which contain the contents of the root directory; by reading 1(+) blocks directory data blocks, find entry for foo & inode number
+    - look inside of it to find pointers to data blocks, which contain the contents of the root directory; 
+    - by reading 1(+) blocks directory data blocks, find entry for foo & inode number
     - read the block containing inode for foo
     - read foo directory data, find entry for bar
     - read inode for bar
@@ -1597,7 +1636,7 @@ void lock(lock_t *lock) {
             - read inode bitmap, find a free inode
             - write to inode bitmap
             - write to the new inode, initialize it
-            - write to the data of the directory, link the high-level name of the fiel to its inode number
+            - write to the data of the directory, link the high-level name of the file to its inode number
             - read and write to the directory inode to update
             - if directory needs to grow, need additional I/O needed
                 - e.g. to data bitmap
@@ -1621,7 +1660,7 @@ void lock(lock_t *lock) {
             - balance dir across groups
     - files
         - allocate data blocks of a file in the same group as its inode
-        - allocate files in the ame directory in the cylinder group fo the directory they are in
+        - allocate files in the same directory in the cylinder group to the directory they are in
 - large-file exception
     - divide into chunks, spread them across groups
     - if chunk size large enough
@@ -1680,10 +1719,10 @@ void lock(lock_t *lock) {
     - Memory sizes were growing
     - large and growing gap between random sequential I/O performance
     - Existing file systems perform poorly on many common workloads
-        - e.g. large number of writes to create a new fuke
+        - e.g. large number of writes to create a new file
     - file systems were not RAID-aware
 - LFS log-structured file system
-    - uffers all updates in an in- memory segment
+    - buffers all updates in an in-memory segment
     - written to disk in one long sequential transfer if buffer full
     
 ## Harmony
