@@ -737,6 +737,120 @@ class Rectangle implements Shape
                     pal_gen.close()
                 pal_gen.send(10 ** (digits))
             ```
+- python metaclass
+    - https://realpython.com/python-metaclasses/
+    - 
+        ```
+        >>> class Foo:
+        ...     pass
+        ...
+        >>> x = Foo()
+
+        >>> type(x)
+        <class '__main__.Foo'>
+
+        >>> type(Foo)
+        <class 'type'>
+        >>> type(type)
+        <class 'type'>
+        ```
+        - type is a metaclass, of which classes are instances.
+        - x is an instance of class Foo.
+        - Foo is an instance of the type metaclass.
+        - type is also an instance of the type metaclass, so it is an instance of itself.
+    - Defining a Class Dynamically
+        - The built-in type() function, when passed one argument, returns the type of an object. 
+        - For new-style classes, that is generally the same as the object’s __class__ attribute
+        - You can also call type() with three arguments—type(<name>, <bases>, <dct>):
+            - <name> specifies the class name. This becomes the __name__ attribute of the class.
+            - <bases> specifies a tuple of the base classes from which the class inherits. This becomes the __bases__ attribute of the class.
+            - <dct> specifies a namespace dictionary containing definitions for the class body. This becomes the __dict__ attribute of the class.
+        - Calling type() in this manner creates a new instance of the type metaclass. 
+        - In other words, it dynamically creates a new class.
+        - 
+            ```
+            >>> Foo = type('Foo', (), {})
+            >>> x = Foo()
+            >>> x
+            <__main__.Foo object at 0x04CFAD50>
+            #equivalent to
+            >>> class Foo:
+            ...     pass
+            ```
+        - 
+            ```
+            >>> def f(obj):
+            ...     print('attr =', obj.attr)
+            ...
+            >>> Foo = type(
+            ...     'Foo',
+            ...     (),
+            ...     {
+            ...         'attr': 100,
+            ...         'attr_val': f
+            ...     }
+            ... )
+
+            >>> x = Foo()
+            >>> x.attr
+            100
+            >>> x.attr_val()
+            attr = 100
+            ```
+- python static emethod & class method
+    - class method
+
+            - The @classmethod decorator is a built-in function decorator that is an expression that gets evaluated after your function is defined. 
+            - A class method receives the class as an implicit first argument, just like an instance method receives the instance 
+        - 
+            ```
+            class C(object):
+                @classmethod
+                def fun(cls, arg1, arg2, ...):
+                ....
+            ```
+            - fun: function that needs to be converted into a class method
+            - returns: a class method for function.
+        - properties
+            - A class method is a method that is bound to the class and not the object of the class.
+            - They have the access to the state of the class as it takes a class parameter that points to the class and not the object instance.
+            - It can modify a class state that would apply across all the instances of the class. For example, it can modify a class variable that will be applicable to all the instances.
+        - 
+    - static method
+        - A static method is also a method that is bound to the class and not the object of the class.
+        - A static method can’t access or modify the class state.
+    - 
+        ```
+        # Python program to demonstrate
+        # use of class method and static method.
+        from datetime import date
+
+        class Person:
+            def __init__(self, name, age):
+                self.name = name
+                self.age = age
+            
+            # a class method to create a Person object by birth year.
+            @classmethod
+            def fromBirthYear(cls, name, year):
+                return cls(name, date.today().year - year)
+            
+            # a static method to check if a Person is adult or not.
+            @staticmethod
+            def isAdult(age):
+                return age > 18
+
+        person1 = Person('mayank', 21)
+        person2 = Person.fromBirthYear('mayank', 1996)
+
+        print (person1.age)
+        print (person2.age)
+
+        # print the result
+        print (Person.isAdult(22))
+
+
+        ```
 
 ### random links
 - https://realpython.com/oop-in-python-vs-java/
