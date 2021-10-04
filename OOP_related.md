@@ -94,8 +94,41 @@
             # print the result
             print (Person.isAdult(22))
             ```
+    - decorator
+        -  decorator is a function that takes another function and extends the behavior of the latter function without explicitly modifying it.
+        - https://realpython.com/primer-on-python-decorators/#simple-decorators
+        - decorators wrap a function, modifying its behavior.
+        - syntactic sugar
+            - @my_decorator is just an easier way of saying say_whee = my_decorator(say_whee). 
+            - 
+                ```
+                from datetime import datetime
+                def not_during_the_night(func):
+                    def wrapper():
+                        if 7 <= datetime.now().hour < 22:
+                            func()
+                        else:
+                            pass  # Hush, the neighbors are asleep
+                    return wrapper
 
+                def say_whee():
+                    print("Whee!")
 
+                say_whee = not_during_the_night(say_whee)
+                ```
+            - 
+                ```
+                def my_decorator(func):
+                    def wrapper():
+                        print("Something is happening before the function is called.")
+                        func()
+                        print("Something is happening after the function is called.")
+                    return wrapper
+
+                @my_decorator
+                def say_whee():
+                    print("Whee!")
+                ```
 - public vs. private
     - java attributes usually private or protected (limit access to classes in the same package, if subclass need direct access to them). Limit access from code outside the class, but can use setters and getters
     - python has non-public instance variable, beginning with single underscore, e.g. ``self._cupholder = 6``, but only a naming convention, can still access it directly, but will issue a warning in IDE
@@ -103,6 +136,7 @@
 - access control
     - python can delete attributes, `del my_car.year`
     - **Properties** allow functions to be declared in Python classes that are analogous to Java getter and setter methods. Names of the decorated functions are all the same --> they control access to the same variable
+    - Some commonly used decorators that are even built-ins in Python are @classmethod, @staticmethod, and @property. The @classmethod and @staticmethod decorators are used to define methods inside a class namespace that are not connected to a particular instance of that class. The @property decorator is used to customize getters and setters for class attributes. Expand the box below for an example using these decorators.
         ```
         class Car:
             def __init__(self, color, model, year):
@@ -210,6 +244,16 @@
         - ``__str__()`` readable, ~toString()
          >>>  print(str(my_car))
         -  ``__eq__(self, other)`` could be overriden for customized equality, otherwise `==` just compares addresses
+    - python hash(object)
+        - Only immutable objects can be hashed.
+            - Hashable 
+                – bool, int, long, float, string, unicode, tuple
+            - Non–Hashable 
+                – lists, set, dictionary, bytearray
+                - throws `TypeError`
+
+        - Numeric values which are equal will have same has value irrespective of their data types. 
+            - For example, 2 and 2.0 have same hash value.
         
 - operator overloading
     - Python’s dunder methods allow you to implement operator overloading, something that Java doesn’t offer at all.
@@ -510,11 +554,193 @@ class Rectangle implements Shape
 - Eventually, some objects will no longer be needed. The garbage collector finds these unused objects and deletes them to free up memory.
 - unreferenced objects are identified and marked as ready for garbage collection
 
-
 ### Miscellaneous 
 - `==` checks for object references and `equals()`checks for values
+- pass by reference or value
+    - python 
+        - pases by Object Reference
+        - Mutable objects:
+            - list, dict, set, byte array
+            -  call by reference
+            - when their values are changed inside the function, then it will also be reflected outside the function.
+        - Immutable objects:
+            - int, float, complex, string, tuple, frozen set [note: immutable version of set], bytes.
+            - call-by-value 
+            - you can not change the value of the immutable objects being passed to the function
+    - Java is always pass-by-value. 
+        - Unfortunately, when we deal with objects we are really dealing with object-handles called references which are passed-by-value as well. This terminology and semantics easily confuse many beginners.
+
+        - 
+        ```
+            public static void main(String[] args) {
+                Dog aDog = new Dog("Max");
+                Dog oldDog = aDog;
+
+                // we pass the object to foo
+                foo(aDog);
+                // aDog variable is still pointing to the "Max" dog when foo(...) returns
+                aDog.getName().equals("Max"); // true
+                aDog.getName().equals("Fifi"); // false
+                aDog == oldDog; // true
+            }
+
+            public static void foo(Dog d) {
+                d.getName().equals("Max"); // true
+                // change d inside of foo() to point to a new Dog instance "Fifi"
+                d = new Dog("Fifi");
+                d.getName().equals("Fifi"); // true
+            }
+        ```
+        - In the example above aDog.getName() will still return "Max". The value aDog within main is not changed in the function foo with the Dog "Fifi" as the object reference is passed by value. If it were passed by reference, then the aDog.getName() in main would return "Fifi" after the call to foo.
+        - 
+        ```
+            public static void main(String[] args) {
+                Dog aDog = new Dog("Max");
+                Dog oldDog = aDog;
+
+                foo(aDog);
+                // when foo(...) returns, the name of the dog has been changed to "Fifi"
+                aDog.getName().equals("Fifi"); // true
+                // but it is still the same dog:
+                aDog == oldDog; // true
+            }
+
+            public static void foo(Dog d) {
+                d.getName().equals("Max"); // true
+                // this changes the name of d to be "Fifi"
+                d.setName("Fifi");
+            }
+        ```
+- hash table
+    - disadvantages
+        - You cannot use a null value as a key.
+        - Collisions cannot be avoided when generating keys using hash functions. 
+        - Collisions occur when a key that is already in use is generated.
+        - If the hashing function has many collisions, this can lead to performance decrease.
+    - summary
+        - Hash tables are used to store data using a pair of keys and values.
+        - A hash function uses a mathematical algorithm to calculate the hash value.
+        - A collision occurs when the same hash value is generated for more than one value.
+        - Chaining solves collision by creating linked lists.
+        - Probing solves collision by finding empty slots in the hash table.
+        - Linear probing searches for the next free slot to store the value starting from the slot where the collision occurred.
+        - Quadratic probing uses polynomial expressions to find the next free slot when a collision occurs.
+        - Double hashing uses a secondary hash function algorithm to find the next free slot when a collision occurs.
+        - Hash tables have better performance when compared to other data structures.
+        - The average time complexity of hash tables is O (1)
+        - A dictionary data type in python is an example of a hash table.
+        - Hash tables support insert, search and delete operations.
+- python generator
+    - generator functions are a special kind of function that return a lazy iterator. 
+        - These are objects that you can loop over like a list. 
+        - However, unlike lists, lazy iterators do not store their contents in memory. 
+    - Using Generators
+        - Example 1: Reading Large Files
+            - 
+                ```
+                def csv_reader(file_name):
+                    for row in open(file_name, "r"):
+                        yield row
+                csv_gen = csv_reader("some_csv.txt")
+                row_count = 0
+
+                for row in csv_gen:
+                    row_count += 1
+
+                print(f"Row count is {row_count}")
+                ```
+            - otherwise, could have memory error or slow
+        - generator expression/comprehension
+            - use the generator without calling a function
+            - ``csv_gen = (row for row in open(file_name))``
+        - Using yield will result in a generator object.
+        - Using return will result in the first line of the file only.
+        - Instead of using a for loop, you can also call next() on the generator object directly. 
+            - This is especially useful for testing a generator in the console:
+            - 
+                ```
+                >>> gen = infinite_sequence()
+                >>> next(gen)
+                0
+                >>> next(gen)
+                1
+                >>> next(gen)
+                2
+                >>> next(gen)
+                3
+                ```
+    - Understanding Generators
+        -  yield indicates where a value is sent back to the caller, but unlike return, you don’t exit the function afterward.
+        - The state of the function is remembered. That way, when next() is called on a generator object (either explicitly or implicitly within a for loop), the previously yielded variable num is incremented, and then yielded again. 
+    - Building Generators With Generator Expressions
+        - 
+            ```
+                nums_squared_lc = [num**2 for num in range(5)] #list
+                sys.getsizeof(nums_squared_lc) #87624 bytes
+                nums_squared_gc = (num**2 for num in range(5)) #generator
+                sys.getsizeof(nums_squared_lc) #120
+            ```
+    - Understanding the Python Yield Statement
+        - When you call special methods on the generator, such as next(), the code within the function is executed up to yield.
+        - When the Python yield statement is hit, the program suspends function execution and returns the yielded value to the caller. 
+        - In contrast, return stops function execution completely.
+        - When a function is suspended, the state of that function is saved. 
+        - This includes any variable bindings local to the generator, the instruction pointer, the internal stack, and any exception handling. 
+    - Using Advanced Generator Methods
+        - How to Use `.send()`
+            - 
+                ```
+                def infinite_palindromes():
+                    num = 0
+                    while True:
+                    if is_palindrome(num):
+                        i = (yield num)
+                        if i is not None:
+                            num = i
+                    num += 1
+
+                pal_gen = infinite_palindromes()
+                for i in pal_gen:
+                    digits = len(str(i))
+                    pal_gen.send(10 ** (digits))
+            
+                ```
+            - The program only yields a value once a palindrome is found. 
+            - It uses len() to determine the number of digits in that palindrome. 
+            - Then, it sends 10 ** digits to the generator. 
+            - This brings execution back into the generator logic and assigns 10 ** digits to i. 
+            - Since i now has a value, the program updates num, increments, and checks for palindromes again.
+            - Once your code finds and yields another palindrome, you’ll iterate via the for loop. 
+            - This is the same as iterating with next(). 
+            - The generator also picks up at line 5 with i = (yield num). 
+            - However, now i is None, because you didn’t explicitly send a value.
+        - How to Use `.throw()`
+            - 
+                ```
+                pal_gen = infinite_palindromes()
+                for i in pal_gen:
+                    print(i)
+                    digits = len(str(i))
+                    if digits == 5:
+                        pal_gen.throw(ValueError("We don't like large palindromes"))
+                    pal_gen.send(10 ** (digits))
+                ```
+    - How to Use `.close()`
+        - `.close()` allows you to stop a generator. 
+        - 
+            ```
+            pal_gen = infinite_palindromes()
+            for i in pal_gen:
+                print(i)
+                digits = len(str(i))
+                if digits == 5:
+                    pal_gen.close()
+                pal_gen.send(10 ** (digits))
+            ```
 
 ### random links
 - https://realpython.com/oop-in-python-vs-java/
 - https://github.com/careercup/CtCI-6th-Edition/tree/master/Java/Ch%2015.%20Threads%20and%20Locks
 - https://blog.csdn.net/longyulu/article/details/9159589
+
+https://medium.com/@lokeshsharma596/is-python-call-by-value-or-call-by-reference-2dd7db74dbd0
